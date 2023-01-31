@@ -1,0 +1,20 @@
+{extends "../@layout.xml"}
+{block title}{_information}{/block}
+
+{block header}
+    {_information}
+{/block}
+
+{block body}
+<div class="contentWraplegend">{_information}</div>
+
+
+     <div class="container_gray">
+
+     <center style="background: white;border: #DEDEDE solid 1px;">
+        <span style="color: #707070;margin: 60px 0;display: block;">
+            {_profile_not_found_text}
+        </span>
+    </center>
+        </div>
+{/block}

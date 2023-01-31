@@ -1,0 +1,222 @@
+<div class="bluebar"></div>
+
+<html n:if="!isset($parentModule) || substr($parentModule, 0, 21) === 'libchandler:absolute.'">
+    
+    <head>
+        <title>
+            {ifset title}{include title} - {/ifset}OpenVK
+        </title>
+        <meta http-equiv="Content-Type" content="application/vnd.wap.xhtml+xml;charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="shortcut icon" href="/assets/packages/static/openvk/img/icon.ico" />
+        <meta name="application-name" content="OpenVK" />
+        <meta n:ifset="$csrfToken" name="csrf" value="{$csrfToken}" />
+
+        <link rel="stylesheet" href="/themepack/mobile_ovk/0.0.1.0/stylesheet/styles.css?v={time()}" />
+        <link rel="stylesheet" href="/themepack/mobile_ovk/0.0.1.0/resource/vendor/pure-grid.css" />
+        {ifset headIncludes}{include headIncludes}{/ifset}
+        {script "js/node_modules/jquery/dist/jquery.min.js"}
+        {script "js/node_modules/umbrellajs/umbrella.min.js"}
+        {script "js/node_modules/msgpack-lite/dist/msgpack.min.js"}
+        {script "js/al_polls.js"}
+        {script "js/al_api.js"}
+        <script defer src="/themepack/mobile_ovk/0.0.1.0/resource/menu.js"></script>
+        <script defer src="/themepack/mobile_ovk/0.0.1.0/resource/podrobnee.js"></script>
+    </head>
+
+
+    <body class="app_layer"> 
+    <div class="app">
+        <div class="navigation">
+            <div class="headername">
+                <div class="ovk_mobile_logo"></div>
+                <div class="head_now">{include title}</div>
+
+                {ifset $thisUser}
+
+                <a href="/im" class="ovk_mobile_mail_icon" onClick="event.stopPropagation();">{if $thisUser->getUnreadMessagesCount() > 0}<b>{$thisUser->getUnreadMessagesCount()}</b>{/if}</a>
+                     <div class="search_menu_box" style="" onClick="event.stopPropagation();"><form action="/search" method="get">
+                                    <input type="search" name="query" placeholder="Поиск" style="padding-left: 18px;" accesskey="f">
+                                </form></div>
+
+                                
+                                {else}
+<div class="search_menu_box"></div>
+                {/ifset}
+
+            </div>
+        </div>
+
+       
+
+        <div class="menuovk">
+            {ifset $thisUser}
+
+                       
+            <a href="{$thisUser->getURL()}" class="menuprlink">
+                <div class="menunameava">
+                 <div class="profile_menu_arrow"></div>
+                    <table class="pr_ovk_page">
+                        <tr>
+                            <td rowspan="2">
+                                <img class="ava" src="{$thisUser->getAvatarURL()}" />
+                            </td> <!-- Ава -->
+
+                            <td rowspan="2">
+                                <div class="name">{$thisUser->getFullName()}</div>
+                                <div class="status">{$thisUser->getStatus()}</div>
+                            </td> <!-- Имя -->
+                        </tr>
+                    </table>
+                </div>
+            </a>
+
+
+
+            <div class="content">
+                <ul class="menu">
+                    <li class="element prmenu">
+                        <a href="/friends{$thisUser->getId()}">
+                            <div class="mobile_icons" id="fr">Друзья 
+                                {if $thisUser->getFollowersCount() > 0}
+                            <span class="counter urgent">{$thisUser->getFollowersCount()}</span>
+                            {/if}</div>
+                        </a>
+                    </li>
+                    <li class="element prmenu">
+                        <a n:if="$thisUser->getLeftMenuItemStatus('photos')" href="/albums{$thisUser->getId()}"><div class="mobile_icons" id="ph">Фотографии </div></a>
+                    </li>
+                    <li class="element prmenu">
+                        <a n:if="$thisUser->getLeftMenuItemStatus('videos')" href="/videos{$thisUser->getId()}"><div class="mobile_icons" id="video">Видеозаписи </div></a>
+                    </li>
+                    <!-- li class="element prmenu">
+                        <a n:if="$thisUser->getLeftMenuItemStatus('audios')" href="/audios{$thisUser->getId()}"><div class="mobile_icons" id="music">Аудиозаписи </div></a>
+                    </li -->
+                    <li class="element prmenu">
+                        <a n:if="$thisUser->getLeftMenuItemStatus('messages')" href="/im">
+                            <div class="mobile_icons" id="mail">Сообщения 
+                                {if $thisUser->getUnreadMessagesCount() > 0}
+                            <span class="counter urgent">{$thisUser->getUnreadMessagesCount()}</span>
+                            {/if}</div>
+                        </a>
+                    </li>
+                    <li class="element prmenu">
+                        <a n:if="$thisUser->getLeftMenuItemStatus('news')" href="/feed?posts=100"><div class="mobile_icons" id="news">Новости </div></a>
+                    </li>
+                    <li class="element prmenu">
+                        <a href="/notifications">
+                            <div class="mobile_icons" id="feedback">Ответы 
+                                {if $thisUser->getNotificationsCount() > 0}
+                            <span class="counter urgent">{$thisUser->getNotificationsCount()}</span>
+                            {/if}</div>
+                        </a>
+                    </li>
+                    <li class="element prmenu">
+                        <a n:if="$thisUser->getLeftMenuItemStatus('groups')" href="/groups{$thisUser->getId()}"> <div class="mobile_icons" id="grp">Группы </div></a>
+                    </li>
+                    <li class="element prmenu">
+                        <a href="/search"> <div class="mobile_icons" id="search">Поиск </div></a>
+                    </li>
+                </ul>
+
+            <div class="space_menu"></div>
+
+                <ul class="menu">
+                    <li class="element prmenu gray">
+                        <a href="/settings"> <div class="mobile_icons" id="settings">Настройки </div></a>
+                    </li>
+                    <li class="element prmenu gray">
+                        <a href="/support"> <div class="mobile_icons" id="hlp">Помощь
+                        
+                         {if $ticketAnsweredCount > 0}
+                            <span class="counter urgent">{$ticketAnsweredCount}</span>
+                            {/if}
+
+                        </div></a>
+                    </li>
+                    <li class="element prmenu gray">
+                        <a href=""> <div class="mobile_icons" id="full">Полная версия</div></a>
+                    </li>
+                    <li class="element prmenu gray">
+                        <a href="/logout"> <div class="mobile_icons" id="exit">Выйти</div></a>
+                    </li>
+                </ul>
+
+            </div>
+
+
+            {else}
+            <div class="content">
+                <ul class="menu">
+                    <li class="element prmenu">
+                        <a href="/">Главная</a>
+                    </li>
+                    <li class="element prmenu">
+                        <a href="/login">Войти</a>
+                    </li>
+                    <li class="element prmenu">
+                        <a href="/reg">Регистрация</a>
+                    </li>
+                </ul>
+            </div>
+            {/ifset}
+        <div class="space_menu"></div>
+            <div id="page_footer">
+                {var dbVersion = \Chandler\Database\DatabaseConnection::i()->getConnection()->getPdo()->getAttribute(\PDO::ATTR_SERVER_VERSION)}
+                
+                <p>OpenVK <a href="/about:openvk2">{php echo OPENVK_VERSION}</a> | PHP: {phpversion()} | DB: {$dbVersion}</p>
+                <p n:ifcontent>
+                    {php echo OPENVK_ROOT_CONF["openvk"]["appearance"]["motd"]}
+                </p>
+
+                <div class="navigation_footer">
+                <a href="/about" class="link">об инстанции</a>
+                <a href="/blog" class="link">блог</a>
+                <a href="/support" class="link">помощь</a>
+                <a href="/dev" target="_blank" class="link">разработчикам</a>
+                <a href="/privacy" class="link">приватность</a>
+                <a href="/language" class="link">change language</a>
+            </div>
+            </div>
+
+        </div>
+
+        <div class="main">
+            <div n:if="isset($thisUser) && $userTainted" class="alert warn">
+                <b class="head">Подмена пользователя активна</b>
+                Вы вошли как
+                <b>{$thisUser->getCanonicalName()}</b>
+                . Пожалуйста, уважайте
+                право на тайну переписки других людей и не злоупотребляйте подменой пользователя.
+                Нажмите
+                <a href="/setSID/unset?hash={rawurlencode($csrfToken)}">здесь</a>
+                , чтобы выйти.
+            </div>
+            {ifset $flashMessage}
+            <div class="alert {$flashMessage->type}">
+                <b class="head">{$flashMessage->title}</b>
+                {$flashMessage->msg|noescape}
+            </div>
+            {/ifset}
+
+            {ifset titleHeader}
+            <div class="contentWraplegend">
+                <span>{include titleHeader}</span>
+            </div>
+            {/ifset}
+
+            {ifset titleHeaderphoto}
+            <div class="contentWraplegend photo">
+                <span>{include titleHeaderphoto}</span>
+            </div>
+            {/ifset}
+            
+            {include body}
+
+        </div></div>
+    </body>
+</html>{if isset($parentModule) && substr($parentModule, 0, 21) !== 'libchandler:absolute.'}<!-- INCLUDING TEMPLATE FROM PARENTMODULE: {$parentModule} -->
+
+    
+    {include body}
+{/if}

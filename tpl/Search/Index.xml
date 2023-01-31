@@ -1,0 +1,55 @@
+{extends "../@listView.xml"}
+
+{block title}
+    {if $type === "users"}
+        {tr("search_for_people")}
+    {else}
+        {tr("search_for_groups")}
+    {/if}
+{/block}
+
+{block header}
+
+{/block}
+
+
+
+{* BEGIN ELEMENTS DESCRIPTION *}
+
+
+
+{block tabs}
+    <div {if $type === "users"}id="activetabs"{/if} class="tab">
+        <a {if $type === "users"}id="act_tab_a"{/if} href="/search?type=users">
+            {_users}
+        </a>
+    </div>
+    <div {if $type === "groups"}id="activetabs"{/if} class="tab">
+        <a {if $type === "groups"}id="act_tab_a"{/if} href="/search?type=groups">
+            {_groups}
+        </a>
+    </div>
+
+    <div class="sr_padding">
+        <form class="header_search_inputbt">
+            <input name="type" type="hidden" value="{$type ?? 'users'}" />
+            <input name="query" class="sr_input" placeholder="Поиск" value="{$_GET['query'] ?? ''}" />
+            <button class="button cfa sr">{_search_button}</button>
+        </form>
+    </div>
+{/block}
+
+{block link|strip|stripHtml}
+    {$x->getURL()}
+{/block}
+
+{block preview}
+    <img src="{$x->getAvatarUrl()}" class="listView_img" alt="{_"photo"}" />
+{/block}
+
+{block name}
+    <text style="overflow: hidden;">&nbsp;{$x->getCanonicalName()}</text>
+{/block}
+
+{block description}
+{/block}

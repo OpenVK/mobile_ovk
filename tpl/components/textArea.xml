@@ -1,0 +1,72 @@
+{var textAreaId = $post === null ? rand(1,300) : $post->getId()}
+
+<div id="write" class="new_post_text" onfocusin="expand_wall_textarea({$textAreaId});">
+    <form action="{$route}" method="post" enctype="multipart/form-data" style="margin:0;margin-top: 4px;">
+        <textarea id="wall-post-input{$textAreaId}" placeholder="{_write}" name="text" style="width: 100%;resize: none;" class="small-textarea"></textarea>
+        <div>
+            <!-- padding to fix <br/> bug -->
+            <input type="file" class="postFileSel" id="postFilePic" name="_pic_attachment" accept="image/*" style="display:none;" />
+            <input type="hidden" name="type" value="1" />
+            <input type="hidden" name="hash" value="{$csrfToken}" />
+            <br/>
+            <input type="submit" value="{_'write'}" class="button new_post" />
+            <a href="javascript:void(document.querySelector('#post-buttons{$textAreaId} input[name=_pic_attachment]').click());">
+                       <div class="attach_menu_ph"></div>
+                    </a>
+        </div>
+
+
+    </form>
+</div>
+
+<script>
+    $(document).ready(() => {
+        u("#post-buttons{$textAreaId} .postFileSel").on("change", function() {
+            handleUpload.bind(this, {$textAreaId})();
+        });
+
+        setupWallPostInputHandlers({$textAreaId});
+    });
+</script>
+
+{if $graffiti}
+    {script "js/node_modules/react/dist/react-with-addons.min.js"}
+    {script "js/node_modules/react-dom/dist/react-dom.min.js"}
+    {script "js/vnd_literallycanvas.js"}
+    {css "js/node_modules/literallycanvas/lib/css/literallycanvas.css"}
+{/if}
+
+<!-- {var textAreaId = $post === null ? rand(1,300) : $post->getId()}
+
+<div class="contentWrap">
+    <div class="legend">
+        <span>Стена</span>
+    </div>
+                    
+    <div class="content dark">
+        <form>
+            <textarea placeholder="Что произошло нового?"></textarea>
+            <input type="submit" value="Написать" />
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(() => {
+        u("#post-buttons{$textAreaId} .postFileSel").on("change", function() {
+            handleUpload.bind(this, {$textAreaId})();
+        });
+
+        setupWallPostInputHandlers({$textAreaId});
+    });
+</script>
+
+{if $graffiti}
+    {script "js/node_modules/react/dist/react-with-addons.min.js"}
+    {script "js/node_modules/react-dom/dist/react-dom.min.js"}
+    {script "js/vnd_literallycanvas.js"}
+    {css "js/node_modules/literallycanvas/lib/css/literallycanvas.css"}
+{/if} -->
+
+
+

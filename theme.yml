@@ -1,0 +1,16 @@
+id: mobile_ovk
+version: "0.0.1.0"
+openvk_version: 0
+enabled: 1
+
+override_templates: true
+inherits_master: false
+
+metadata:
+    name:
+        _: "OpenVK Mobile"
+        en: "OpenVK Mobile"
+        ru: "OpenVK Mobile"
+    author: "Daniel Myslivets"
+    description: "Official mobile theme for OpenVK"
+    

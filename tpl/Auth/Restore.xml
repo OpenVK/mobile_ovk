@@ -1,0 +1,30 @@
+{extends "../@layout.xml"}
+
+{block title}Сброс пароля{/block}
+
+{block body}
+    <div class="container">
+        <div class="contentWrap">
+            <div class="legend">
+                Восстановление доступа
+            </div>
+            
+            <div class="content">
+                <p>
+                    Забыли пароль? Не волнуйтесь, введите ваши данные и мы отправим вам
+                    email с инструкциями по восстановлению аккаунта.
+                </p>
+                
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="formInput">
+                        <label>{_email}:</label>
+                        <input type="text" name="login" required="required" />
+                    </div>
+                    
+                    <input type="hidden" name="hash" value="{$csrfToken}" />
+                    <input type="submit" class="button big" value="Сбросить пароль" />
+                </form>
+            </div>
+        </div>
+    </div>
+{/block}

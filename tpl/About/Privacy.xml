@@ -1,0 +1,12 @@
+{extends "../@layout.xml"}
+{block title}{_privacy_title}{/block}
+
+{block header}
+    {_privacy_title}
+{/block}
+
+{block body}
+
+drughjsdklfghjkdf
+
+{/block}

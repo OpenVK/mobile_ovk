@@ -1,0 +1,41 @@
+{extends "../@layout.xml"}
+{block title}{_feed}{/block}
+
+{block body}
+    <div class="contentWraplegend" onclick="hidePanel(this);">
+        <span>{_feed}</span>
+        <span n:if="!isset($globalFeed)"><a href="/feed/all" class="float-right">{_all_news}</a></span>
+    </div>
+
+    <div class="content_subtitle">
+        {include "../components/textArea.xml", route => "/wall" . $thisUser->getId() . "/makePost"}
+    </div>
+
+    <div class="content_post">
+        {foreach $posts as $post}
+            <a name="postGarter={$post->getId()}"></a>
+
+            {include "../components/post.xml", post => $post, onWallOf => true, commentSection => true}
+        {/foreach}
+        {include "../components/paginator.xml", conf => $paginatorConf}
+        <br/>
+        {_posts_per_page}:
+        <select id="pageSelect">
+            <option value="1">1</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+            <option value="50">50</option>
+        </select>
+        <script>
+            u("#pageSelect").nodes[0].value = {$paginatorConf->perPage};
+
+            u("#pageSelect").on("change", function(e) {
+                let url = "?" + {http_build_query(array_merge($_GET, ['posts' => '__padding']))};
+                window.location.assign(url.replace("__padding", e.target.value));
+            });
+        </script>
+    </div>
+{/block}

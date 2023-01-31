@@ -1,0 +1,96 @@
+{extends "../@layout.xml"}
+
+{block title}{_registration}{/block}
+
+{block headIncludes}
+    {if !$referer}
+        <meta name="description" content="Зарегистрируйтесь в OpenVK прямо сейчас!" />
+    {else}
+        <meta property="og:title" content="{$referer->getFullName()} приглашает вас в OpenVK!" />
+        <meta property="og:image" content="{$referer->getAvatarUrl()}" />
+        
+        <meta name="description"
+              content="Присоединяйтесь к {$referer->getFullName()} и множеству других пользователей в OpenVK!" />
+    {/if}
+{/block}
+
+{block body}
+    <div class="text-panel_auth">
+        Присоединяйтесь к самому большому сообществу ретроградов
+        и находите себе множество друзей.
+    </div>
+    <div class="container">
+        <div class="contentWrap">
+            <div class="legend">
+                Регистрация
+            </div>
+            
+            <div class="content">
+                {if OPENVK_ROOT_CONF['openvk']['preferences']['registration']['enable'] || $referer}
+                    <p n:if="!is_null($referer)" align="center">
+                        <strong>{$referer->getFullName()}</strong> приглашает вас в OpenVK!
+                    </p>
+                    
+                    <form method="POST" enctype="multipart/form-data">
+                        <div class="formInput">
+                            <label>{_name}:</label>
+                            <input type="text" name="first_name" required="required" />
+                        </div>
+                        
+                        <div class="formInput">
+                            <label>{_surname}:</label>
+                            <input type="text" name="last_name" required="required" />
+                        </div>
+
+                        <div class="formInput">
+                            <label>{_birth_date}:</label>
+                            <input max={date('Y-m-d')} name="birthday" type="date" required="required"/>
+                        </div>
+                        
+                        {var femalePreferred = OPENVK_ROOT_CONF["openvk"]["preferences"]["femaleGenderPriority"]}
+                        <div class="formInput"><label>Кто Вы?</label></div>
+                        <div class="formInput">
+                            <input n:attr="checked => !$femalePreferred" type="radio" name="sex" value="male" />
+                            <label>Мужчина</label>
+                        </div>
+                        
+                        <div class="formInput">
+                            <input n:attr="checked => $femalePreferred" type="radio" name="sex" value="female" />
+                            <label>Женщина</label>
+                        </div>
+                        
+                        <div class="formInput">
+                            <label>{_email}:</label>
+                            <input type="email" name="email" required="required" />
+                        </div>
+                        
+                        <div class="formInput">
+                            <label>{_password}:</label>
+                            <input type="password" name="password" required="required" />
+                        </div>
+                        
+                        <div class="formInput">
+                            <label>CAPTCHA:</label><br/>
+                            {captcha_template()|noescape}
+                        </div>
+                        
+                        <input type="hidden" name="hash" value="{$csrfToken}" />
+                        <input type="submit" class="button big" value="{_registration}" />
+                    </form>
+                {else}
+                    <center>
+                        <img src="/assets/packages/static/openvk/img/oof.apng" alt="Регистрация закрыта." style="width: 50vw;" />
+                        <p>
+                            Регистрация отключена системным администратором. При возможности попросите приглашение у вашего знакомого, если он зарегистрирован на этом сайте.
+                            {if OPENVK_ROOT_CONF['openvk']['preferences']['registration']['reason']}
+                                <br/><br/><b>{php echo OPENVK_ROOT_CONF['openvk']['preferences']['registration']['reason']}</b>
+                            {/if}
+                        </p>
+                    </center>
+                {/if}
+                
+                <a href="/login">Мне не нужна регистрация, у меня уже есть аккаунт</a><br><br>
+            </div>
+        </div>
+    </div>
+{/block}

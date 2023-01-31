@@ -1,0 +1,26 @@
+{extends "../@layout.xml"}
+{block title}{_wall}{/block}
+
+{block body}
+    <div class="contentWraplegend" onclick="hidePanel(this);">
+        <span><a href="{$oObj->getURL()}">{$oObj->getCanonicalName()}</a> » {_wall}</span> 
+        <span class="float-right">{tr("wall", $count)}</span>
+    </div>
+
+    <div n:if="$canPost" class="content_subtitle">
+        {include "../components/textArea.xml", route => "/wall$owner/makePost"}
+    </div>
+
+    <div class="content_post">
+        {if sizeof($posts) > 0}
+            {foreach $posts as $post}
+                <a name="postGarter={$post->getId()}"></a>
+
+                {include "../components/post.xml", post => $post, commentSection => true}
+            {/foreach}
+            {include "../components/paginator.xml", conf => $paginatorConf}
+        {else}
+            {_no_posts_abstract}
+        {/if}
+    </div>
+{/block}

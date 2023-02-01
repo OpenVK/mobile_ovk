@@ -15,12 +15,7 @@
         <link rel="stylesheet" href="/themepack/mobile_ovk/0.0.1.0/stylesheet/styles.css?v={time()}" />
         <link rel="stylesheet" href="/themepack/mobile_ovk/0.0.1.0/resource/vendor/pure-grid.css" />
         {ifset headIncludes}{include headIncludes}{/ifset}
-        {script "js/node_modules/jquery/dist/jquery.min.js"}
-        {script "js/node_modules/umbrellajs/umbrella.min.js"}
-        {script "js/node_modules/msgpack-lite/dist/msgpack.min.js"}
-        {script "js/node_modules/ky/umd.js"}
-        {script "js/al_polls.js"}
-        {script "js/al_api.js"}
+        <script src="/themepack/mobile_ovk/0.0.1.0/resource/jquery-3.6.0.min.js"></script>
         <script defer src="/themepack/mobile_ovk/0.0.1.0/resource/menu.js"></script>
         <script defer src="/themepack/mobile_ovk/0.0.1.0/resource/podrobnee.js"></script>
     </head>
@@ -136,7 +131,7 @@
                         </div></a>
                     </li>
                     <li class="element prmenu gray">
-                        <a href=""> <div class="mobile_icons" id="full">Полная версия</div></a>
+                        <a href="/settings?act=interface"> <div class="mobile_icons" id="full">Полная версия</div></a>
                     </li>
                     <li class="element prmenu gray">
                         <a href="/logout"> <div class="mobile_icons" id="exit">Выйти</div></a>

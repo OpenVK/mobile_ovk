@@ -58,8 +58,8 @@
                                         class="post-like-button"
                                         data-liked="{(int) $liked}"
                                         data-likes="{$post->getLikesCount()}">
-                                        <div class="button bold like" id="{if $liked}liked{/if}">
-                                            <span class="likeCnt">Нравится {if $post->getLikesCount() > 0}{$post->getLikesCount()}{/if}</span>
+                                        <div class="button bold like post-like-button" id="{if $liked}liked{/if}">
+                                            Нравится <span class="likeCnt">{if $post->getLikesCount() > 0}{$post->getLikesCount()}{/if}</span>
                                         
                                         </div>
                                     </a>

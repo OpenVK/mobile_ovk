@@ -18,6 +18,7 @@
         {script "js/node_modules/jquery/dist/jquery.min.js"}
         {script "js/node_modules/umbrellajs/umbrella.min.js"}
         {script "js/node_modules/msgpack-lite/dist/msgpack.min.js"}
+        {script "js/node_modules/ky/umd.js"}
         {script "js/al_polls.js"}
         {script "js/al_api.js"}
         <script defer src="/themepack/mobile_ovk/0.0.1.0/resource/menu.js"></script>

@@ -754,25 +754,28 @@ img.rounded, .post > .author > .ava {
         border: 1px solid #dee5eb;
         margin-left: 288px;
     }
-
-    .navigation{
-        pointer-events: none !important;
-    }
     
     /* папапепе гемабоди) */
     
-    .app, h2{
-        min-width: 864px;
-        max-width: 45%;
-        border-right: none;
-        border-bottom: 0px solid #dee5eb;
-    }
-
-    .menuovk{
-        background: #fff;
-        width: 288px !important;
-       display: block !important;
-    }
+    .navigation {
+		pointer-events:none !important;
+		position: fixed;
+		width: 866px;
+	}
+	.app,
+	h2 {
+		min-width:864px;
+		max-width:45%;
+		border-right:none;
+		border-bottom:0px solid #dee5eb
+	}
+	.menuovk {
+		background:#fff;
+		width:288px !important;
+		display:block !important;
+		top: 48px;
+		position: absolute;
+	}
 
     .profile_menu_arrow{
        position: inherit;
@@ -1887,4 +1890,92 @@ input[type~="search"]{
 }
 .alert.fake>.head {
  color:#9a6d6d;
+}
+
+/* POLLS */
+
+.poll {
+    padding: 8px;
+    transition: .1s filter ease-in;
+    border: 1px solid #e3e3e3;
+	margin-bottom: 10px;
+}
+
+.poll-embed {
+    float: right;
+}
+
+.poll h4 {
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+}
+
+.poll-meta .nobold {
+    font-style: oblique;
+	font-size: 12px;
+	color: gray;
+}
+
+.poll-result-barspace {
+    display: flex;
+}
+
+.poll-result {
+    margin-bottom: 5px;
+}
+
+.poll-result a {
+    color: unset;
+}
+
+.poll-result-bar {
+    position: relative;
+    margin: 5px 0;
+    background-color: #f7f7f7;
+    height: 13pt;
+    flex: 14;
+}
+
+span.poll-result-count {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    color: #7d96af;
+}
+
+.poll-result-bar-sub {
+    height: 100%;
+    background-color: #d9e1ea;
+}
+
+.poll-result-pct {
+    flex: 2;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-left: 5px;
+}
+
+a.poll-retract-vote {
+    float: right;
+}
+
+label, .poll > input[type=checkbox]{
+	background-color: transparent;
+    border: none;
+    border-radius: 0;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    height: 14px;
+    width: 14px;
+    outline: none;
+    cursor: pointer;
+    vertical-align: middle;
+	margin-top: 0%;
+}
+
+.poll-option{
+	padding: 5px;
 }

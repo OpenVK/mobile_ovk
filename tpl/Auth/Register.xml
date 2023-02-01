@@ -73,6 +73,12 @@
                             <label>CAPTCHA:</label><br/>
                             {captcha_template()|noescape}
                         </div>
+
+                        <div>
+                        <input type="hidden" name="hash" value="ea24901b4d9477cf07f374e409813e32ac603e4014f209cf4f05dd78ac695a85#100c9f62">
+                        <input type="checkbox" required="true" name="confirmation"> Я согласен с <a href="/privacy">политикой конфиденциальности</a> и <a href="/about">правилами сайта</a>
+                        <br><br>
+                        </div>
                         
                         <input type="hidden" name="hash" value="{$csrfToken}" />
                         <input type="submit" class="button big" value="{_registration}" />

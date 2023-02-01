@@ -466,6 +466,15 @@
 
  </div>
 
+                     <div class="formInput">
+                <label>{_ui_settings_rating}:</label>
+                            <select name="rating" class="cocksexy">
+                                <option value="1" {if !$user->prefersNotToSeeRating()}selected{/if}>{_ui_settings_rating_show}</option>
+                                <option value="0" {if $user->prefersNotToSeeRating()}selected{/if}>{_ui_settings_rating_hide}</option>
+                            </select>
+ </div>
+
+
 
 <!--tr>
                         <td width="120" valign="top">

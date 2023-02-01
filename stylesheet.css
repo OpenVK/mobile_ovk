@@ -862,6 +862,9 @@ img.rounded, .post > .author > .ava {
 .menunameava .pr_ovk_page .status {
     color: #797979;
     font-size: 14px;
+	overflow: hidden;
+	max-width:200px;
+	text-overflow: ellipsis;
 }
 /* Подписывайтесь на мой YouTube: youtube.com/DanielM */
 

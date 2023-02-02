@@ -458,35 +458,49 @@
             <div class="formInput">
                 <label>{_ui_settings_nsfw_content}:</label>
 
- <select name="nsfw" class="cocksexy">
+                            <select name="nsfw" class="cocksexy">
                                 <option value="0" {if $user->getNsfwTolerance() === 0}selected{/if}>{_ui_settings_nsfw_content_dont_show}</option>
                                 <option value="1" {if $user->getNsfwTolerance() === 1}selected{/if}>{_ui_settings_nsfw_content_blur}</option>
                                 <option value="2" {if $user->getNsfwTolerance() === 2}selected{/if}>{_ui_settings_nsfw_content_show}</option>
                             </select>
 
- </div>
+            </div>
 
-                     <div class="formInput">
+            <div class="formInput">
                 <label>{_ui_settings_rating}:</label>
                             <select name="rating" class="cocksexy">
                                 <option value="1" {if !$user->prefersNotToSeeRating()}selected{/if}>{_ui_settings_rating_show}</option>
                                 <option value="0" {if $user->prefersNotToSeeRating()}selected{/if}>{_ui_settings_rating_hide}</option>
                             </select>
- </div>
+            </div>
 
-
-
-<!--tr>
-                        <td width="120" valign="top">
-                            <span class="nobold">{_ui_settings_view_of_posts}</span>
-                        </td>
-                        <td>
-                            <select name="microblog">
+            <div class="formInput">
+                <label>{_ui_settings_view_of_posts}:</label>
+                            <select name="microblog" class="cocksexy">
                                 <option value="0" {if !$user->hasMicroblogEnabled()}selected{/if}>{_ui_settings_view_of_posts_old}</option>
                                 <option value="1" {if $user->hasMicroblogEnabled()}selected{/if}>{_ui_settings_view_of_posts_microblog}</option>
                             </select>
-                        </td>
-                    </tr -->
+            </div>
+
+
+            <div class="formInput">
+                <label>{_avatars_style}:</label>
+                    <select name="style_avatar" class="cocksexy">
+                                <option value="0" {if $user->getStyleAvatar() == 0}selected{/if}>{_arbitrary_avatars} ({_default})</option>
+                                <option value="1" {if $user->getStyleAvatar() == 1}selected{/if}>{_cut}</option>
+                                <option value="2" {if $user->getStyleAvatar() == 2}selected{/if}>{_round_avatars}</option>
+                            </select>
+            </div>
+
+ 
+            <div class="formInput">
+                <label>{_ui_settings_main_page}:</label>
+                    <select name="main_page" class="cocksexy">
+                                <option value="0" {if !$user->getMainPage()}selected{/if}>{_my_page}</option>
+                                <option value="1" {if $user->getMainPage()}selected{/if}>{_my_feed}</option>
+                            </select>
+            </div>
+
 
 
             <input type="hidden" name="hash" value="{$csrfToken}" />

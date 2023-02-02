@@ -201,13 +201,13 @@
                                 <td><span class="text-gray">{_politViews}: </span></td>
                                 <td>{tr("politViews_" . $user->getPoliticalViews())}</td>
                             </tr>
-                            <!-- tr n:if="!is_null($user->getBirthday())">
+                            <tr n:if="!is_null($user->getBirthday())">
                                 <td><span class="text-gray">{_birth_date}:</span></td>
                                 <td>
                                     {$user->getBirthday()->format('%e %B %Y')},
                                     {tr("years", $user->getAge())}
                                 </td>
-                            </tr -->
+                            </tr>
 
                             <tr n:if="!is_null($user->getBirthday())">
                                 <td class="label"><span class="text-gray">{_birth_date}:</span></td>

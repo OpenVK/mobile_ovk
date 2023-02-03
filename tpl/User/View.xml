@@ -69,7 +69,7 @@
                     </div>
                     
                     <div id="profile_basicInfo__info" class="pure-u-3-4">
-                        <h2 class="no-margin text_profile_center">{$user->getFullName()}</h2>
+                        <h2 class="no-margin text_profile_center">{$user->getFullName()} <img n:if="$user->isVerified()" class="name-checkmark" src="/themepack/mobile_ovk/0.0.1.0/resource/verify_badge.png"></h2>
                         
                         {if !is_null($user->getStatus())}
                             <span class="span_status">{$user->getStatus()}</span>
@@ -124,6 +124,16 @@
             {/if}
                 
                 {ifset $thisUser}
+
+            <div n:if="isset($thisUser) && !$thisUser->prefersNotToSeeRating()" class="profile-hints">
+            {var $completeness = $user->getProfileCompletenessReport()}
+            
+                <div n:class="completeness-gauge, $completeness->total >= 100 ? completeness-gauge-gold">
+                    <div style="width: {$completeness->percent}%"></div>
+                    <span>{$completeness->total}%</span>
+            </div>
+
+
                     {if $user->getId() == $thisUser->getId()}
                         <a href="/edit" class="button primary big max">{_edit_page}</a>
                     {else}
@@ -201,13 +211,6 @@
                                 <td><span class="text-gray">{_politViews}: </span></td>
                                 <td>{tr("politViews_" . $user->getPoliticalViews())}</td>
                             </tr>
-                            <tr n:if="!is_null($user->getBirthday())">
-                                <td><span class="text-gray">{_birth_date}:</span></td>
-                                <td>
-                                    {$user->getBirthday()->format('%e %B %Y')},
-                                    {tr("years", $user->getAge())}
-                                </td>
-                            </tr>
 
                             <tr n:if="!is_null($user->getBirthday())">
                                 <td class="label"><span class="text-gray">{_birth_date}:</span></td>
@@ -255,6 +258,7 @@
                                     <td><span class="text-gray">{_address}: </span></td>
                                     <td>{$user->getPhysicalAddress()}</td>
                                 </tr>
+                                <br>
                             <!--/sse-->
                             
                             <tr n:if="!is_null($user->getInterests())">

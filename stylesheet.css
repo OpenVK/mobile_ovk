@@ -2012,3 +2012,7 @@ label, .poll > input[type=checkbox]{
 .completeness-gauge-gold>div {
     background-color: #e1d7a2;
 }
+
+.name-checkmark{
+  margin-left: 5px;
+}

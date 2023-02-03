@@ -1982,3 +1982,33 @@ label, .poll > input[type=checkbox]{
 .poll-option{
 	padding: 5px;
 }
+
+.completeness-gauge {
+    position: relative;
+    width: 100%;
+    height: 26px;
+    background-color: #e6e6e6;
+    border-top: 1px solid #bbb;
+}
+
+.completeness-gauge>div {
+    height: 100%;
+    background-color: #d4d4d4;
+}
+
+.completeness-gauge>span {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.completeness-gauge-gold {
+    background-color: #f6ebbb;
+    border-top: 1px solid #b9b597;
+}
+
+.completeness-gauge-gold>div {
+    background-color: #e1d7a2;
+}

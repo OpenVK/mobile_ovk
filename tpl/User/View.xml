@@ -173,7 +173,7 @@
                     <div class="alert inline">
                         Для того, чтобы связаться с <b>{$user->getFirstName()}</b>, <a href="/login"><b>войдите</b></a>.
                     </div>
-                {/ifset}
+                {/if}
 
          
            

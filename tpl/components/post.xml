@@ -3,7 +3,7 @@
                             <div class="author">
                                 <img class="ava" src="{$author->getAvatarURL()}">
                                 <div>
-                                    <a href="{$author->getURL()}"><b>{$author->getCanonicalName()}</b></a><br>
+                                    <a href="{$author->getURL()}"><b>{$author->getCanonicalName()}</b></a><img n:if="$author->isVerified()" class="name-checkmark" src="/themepack/mobile_ovk/0.0.1.0/resource/verify_badge.png"><br>
                                     <time class="text-gray">{$post->getPublicationTime()}</time>
                                 </div>
                             </div>

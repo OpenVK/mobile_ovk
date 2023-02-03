@@ -93,6 +93,7 @@
                     <div style="width: {$completeness->percent}%"></div>
                     <span>{$completeness->total}%</span>
             </div>
+            <br>
             
             {if isset($thisUser) && $user->getId() === $thisUser->getId() && sizeof($completeness->unfilled) > 0}
                 

@@ -89,6 +89,10 @@
 
                  {var $completeness = $user->getProfileCompletenessReport()}
             
+                <div n:class="completeness-gauge, $completeness->total >= 100 ? completeness-gauge-gold">
+                    <div style="width: {$completeness->percent}%"></div>
+                    <span>{$completeness->total}%</span>
+            </div>
             
             {if isset($thisUser) && $user->getId() === $thisUser->getId() && sizeof($completeness->unfilled) > 0}
                 
@@ -124,14 +128,6 @@
             {/if}
                 
                 {ifset $thisUser}
-
-            <div n:if="isset($thisUser) && !$thisUser->prefersNotToSeeRating()" class="profile-hints">
-            {var $completeness = $user->getProfileCompletenessReport()}
-            
-                <div n:class="completeness-gauge, $completeness->total >= 100 ? completeness-gauge-gold">
-                    <div style="width: {$completeness->percent}%"></div>
-                    <span>{$completeness->total}%</span>
-            </div>
 
 
                     {if $user->getId() == $thisUser->getId()}

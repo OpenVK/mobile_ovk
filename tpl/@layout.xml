@@ -134,7 +134,7 @@
                         <a href="/settings/reset_theme?hash={urlencode($csrfToken)}"><div class="mobile_icons" id="full">Полная версия</div></a>
                     </li>
                     <li class="element prmenu gray">
-                        <a href="/logout"> <div class="mobile_icons" id="exit">Выйти</div></a>
+                        <a href="/logout?hash={urlencode($csrfToken)}"> <div class="mobile_icons" id="exit">Выйти</div></a>
                     </li>
                 </ul>
 

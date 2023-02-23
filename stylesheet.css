@@ -2016,3 +2016,34 @@ label, .poll > input[type=checkbox]{
 .name-checkmark{
   margin-left: 5px;
 }
+
+/* IE 10+ styles only for necrobrowsers */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .navigation {
+        position: fixed;
+    }
+
+    .main {
+        margin-top: 45px;
+    }
+
+    .menuovk.active {
+        margin-top: 45px;
+    }
+}
+
+/* Legacy Edge styles */
+
+@supports (-ms-ime-align:auto) {
+    .navigation {
+        position: fixed;
+    }
+
+    .main {
+        margin-top: 45px;
+    }
+
+    .menuovk.active {
+        margin-top: 45px;
+    }
+}

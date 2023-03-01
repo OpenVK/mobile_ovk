@@ -1570,7 +1570,7 @@ input[type~="search"]{
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    margin: -20px;
+    margin-top: -20px;
     cursor: default;
 }
 
@@ -1684,6 +1684,7 @@ input[type~="search"]{
     height: 24px;
     float: right;
     display: block;
+    margin-top: -20px;
 }
 .ovk_mobile_mail_icon b {
     background:#ABADAE;

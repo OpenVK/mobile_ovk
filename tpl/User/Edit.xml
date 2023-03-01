@@ -43,119 +43,6 @@
         
         <h4>{_"main_information"}</h4>
         <form action="/edit?act=main" method="POST" enctype="multipart/form-data">
-            <!-- <table cellspacing="7" cellpadding="0" width="60%" border="0" align="center">
-                <tbody>
-                    <tr>
-                        <td width="120" valign="top">
-                            <span class="nobold">{_"name"}: </span>
-                        </td>
-                        <td>
-                            <input type="text" name="first_name" value="{$user->getFirstName()}" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="120" valign="top">
-                            <span class="nobold">{_"surname"}: </span>
-                        </td>
-                        <td>
-                            <input type="text" name="last_name" value="{$user->getLastName()}" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="120" valign="top">
-                            <span class="nobold">{_"nickname"}: </span>
-                        </td>
-                        <td>
-                            <input type="text" name="pseudo" value="{$user->getPseudo()}" />
-                        </td>
-                    </tr>
-                    {if OPENVK_ROOT_CONF['openvk']['credentials']['zadarma']['enable']}
-                    <tr>
-                        <td width="120" valign="top">
-                            <span class="nobold">{_"phone"}: </span>
-                        </td>
-                        <td>
-                            <input type="phone" name="phone" value="{$user->getPhone()}" />
-                        </td>
-                    </tr>
-                    {/if}
-                    <tr>
-                        <td width="120" valign="top">
-                            <span class="nobold">{_"status"}: </span>
-                        </td>
-                        <td>
-                            <input type="text" name="status" value="{$user->getStatus()}" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="120" valign="top">
-                            <span class="nobold">{_"relationship"}: </span>
-                        </td>
-                        <td>
-                            <select name="marialstatus">
-                                <option value="0" {if $user->getMaritalStatus() == 0}selected{/if}>{_"relationship_0"}</option>
-                                <option value="1" {if $user->getMaritalStatus() == 1}selected{/if}>{_"relationship_1"}</option>
-                                <option value="2" {if $user->getMaritalStatus() == 2}selected{/if}>{_"relationship_2"}</option>
-                                <option value="3" {if $user->getMaritalStatus() == 3}selected{/if}>{_"relationship_3"}</option>
-                                <option value="4" {if $user->getMaritalStatus() == 4}selected{/if}>{_"relationship_4"}</option>
-                                <option value="5" {if $user->getMaritalStatus() == 5}selected{/if}>{_"relationship_5"}</option>
-                                <option value="6" {if $user->getMaritalStatus() == 6}selected{/if}>{_"relationship_6"}</option>
-                                <option value="7" {if $user->getMaritalStatus() == 7}selected{/if}>{_"relationship_7"}</option>
-                                <option value="8" {if $user->getMaritalStatus() == 8}selected{/if}>{_"relationship_8"}</option>
-                                
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="120" valign="top">
-                            <span class="nobold">{_"politViews"}: </span>
-                        </td>
-                        <td>
-                            <select name="politViews">
-                                <option value="0" {if $user->getPoliticalViews() == 0}selected{/if}>{_"politViews_0"}</option>
-                                <option value="1" {if $user->getPoliticalViews() == 1}selected{/if}>{_"politViews_1"}</option>
-                                <option value="2" {if $user->getPoliticalViews() == 2}selected{/if}>{_"politViews_2"}</option>
-                                <option value="3" {if $user->getPoliticalViews() == 3}selected{/if}>{_"politViews_3"}</option>
-                                <option value="4" {if $user->getPoliticalViews() == 4}selected{/if}>{_"politViews_4"}</option>
-                                <option value="5" {if $user->getPoliticalViews() == 5}selected{/if}>{_"politViews_5"}</option>
-                                <option value="6" {if $user->getPoliticalViews() == 6}selected{/if}>{_"politViews_6"}</option>
-                                <option value="7" {if $user->getPoliticalViews() == 7}selected{/if}>{_"politViews_7"}</option>
-                                <option value="8" {if $user->getPoliticalViews() == 8}selected{/if}>{_"politViews_8"}</option>
-                                <option value="9" {if $user->getPoliticalViews() == 9}selected{/if}>{_"politViews_9"}</option>
-                                
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="120" valign="top">
-                            <span class="nobold">{_"gender"}: </span>
-                        </td>
-                        <td>
-                            <select name="gender">
-                                <option value="1" {if $user->isFemale() == true}selected{/if}>{_"female"}</option>
-                                <option value="0" {if $user->isFemale() == false}selected{/if}>{_"male"}</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="120" valign="top">
-                             <span class="nobold">{_"birth_date"}: </span>
-                        </td>
-                        <td>
-                         <input max={date('Y-m-d')} name="birthday" value={$user->getBirthday()->format('%Y-%m-%d')} type="date"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            
-                        </td>
-                        <td>
-                            <input type="hidden" name="hash" value="{$csrfToken}" />
-                            <input type="submit" value="{_'save'}" class="button" />
-                        </td>
-                    </tr>
-                </tbody>
-            </table> -->
             <div class="formInput">
                 <label>Имя:</label>
                 <input type="text" name="first_name" value="{$user->getFirstName()}">
@@ -211,7 +98,22 @@
             <div class="formInput">
                 <label>День рождения:</label>
                 <input max={date('Y-m-d')} name="birthday" class="cocksexy" value={$user->getBirthday()->format('%Y-%m-%d')} type="date"/>
+
             </div>
+            <div class="formInput">
+                            <select name="birthday_privacy" class="cocksexy">
+                    <option value="0" {if $user->getBirthdayPrivacy() == 0}selected{/if}>{_show_my_birthday}</option>
+                    <option value="1" {if $user->getBirthdayPrivacy() == 1}selected{/if}>{_show_only_month_and_day}</option>
+                </select>
+                </div>
+
+{if OPENVK_ROOT_CONF['openvk']['credentials']['zadarma']['enable']}
+                   <div class="formInput">
+                         <label>{_"phone"}:</label>
+                        <input type="phone" name="phone" value="{$user->getPhone()}" />
+                    </div>
+            {/if}
+
             <input type="hidden" name="hash" value="{$csrfToken}" />
             <input type="submit" value="{_'save'}" class="button cfa login" />
         </form>

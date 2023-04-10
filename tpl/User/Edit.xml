@@ -97,7 +97,7 @@
             </div>
             <div class="formInput">
                 <label>День рождения:</label>
-                <input max={date('Y-m-d')} name="birthday" class="cocksexy" value={$user->getBirthday()->format('%Y-%m-%d')} type="date"/>
+                <input max={date('Y-m-d')} name="birthday" class="cocksexy" value={!is_null($user->getBirthday()) ? $user->getBirthday()->format('%Y-%m-%d') : "01-01-1970"} type="date"/>
 
             </div>
             <div class="formInput">

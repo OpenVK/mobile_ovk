@@ -90,7 +90,7 @@
                     </li -->
                     <li class="element prmenu">
                         <a n:if="$thisUser->getLeftMenuItemStatus('messages')" href="/im">
-                            <div class="mobile_icons" id="mail">Сообщения 
+                            <div class="mobile_icons" id="mail">{_messages}
                                 {if $thisUser->getUnreadMessagesCount() > 0}
                             <span class="counter urgent">{$thisUser->getUnreadMessagesCount()}</span>
                             {/if}</div>
@@ -101,7 +101,7 @@
                     </li>
                     <li class="element prmenu">
                         <a href="/notifications">
-                            <div class="mobile_icons" id="feedback">Ответы 
+                            <div class="mobile_icons" id="feedback">{_feedback}
                                 {if $thisUser->getNotificationsCount() > 0}
                             <span class="counter urgent">{$thisUser->getNotificationsCount()}</span>
                             {/if}</div>
@@ -111,7 +111,7 @@
                         <a n:if="$thisUser->getLeftMenuItemStatus('groups')" href="/groups{$thisUser->getId()}"> <div class="mobile_icons" id="grp">Группы </div></a>
                     </li>
                     <li class="element prmenu">
-                        <a href="/search"> <div class="mobile_icons" id="search">Поиск </div></a>
+                        <a href="/search"> <div class="mobile_icons" id="search">{_search} </div></a>
                     </li>
                 </ul>
 
@@ -119,10 +119,10 @@
 
                 <ul class="menu">
                     <li class="element prmenu gray">
-                        <a href="/settings"> <div class="mobile_icons" id="settings">Настройки </div></a>
+                        <a href="/settings"> <div class="mobile_icons" id="settings">{_settings} </div></a>
                     </li>
                     <li class="element prmenu gray">
-                        <a href="/support"> <div class="mobile_icons" id="hlp">Помощь
+                        <a href="/support"> <div class="mobile_icons" id="hlp">{_help}
                         
                          {if $ticketAnsweredCount > 0}
                             <span class="counter urgent">{$ticketAnsweredCount}</span>
@@ -134,7 +134,7 @@
                         <a href="/settings/reset_theme?hash={urlencode($csrfToken)}"><div class="mobile_icons" id="full">Полная версия</div></a>
                     </li>
                     <li class="element prmenu gray">
-                        <a href="/logout?hash={urlencode($csrfToken)}"> <div class="mobile_icons" id="exit">Выйти</div></a>
+                        <a href="/logout?hash={urlencode($csrfToken)}"> <div class="mobile_icons" id="exit">{_exit}</div></a>
                     </li>
                 </ul>
 
@@ -148,10 +148,10 @@
                         <a href="/">Главная</a>
                     </li>
                     <li class="element prmenu">
-                        <a href="/login">Войти</a>
+                        <a href="/login">{_login}</a>
                     </li>
                     <li class="element prmenu">
-                        <a href="/reg">Регистрация</a>
+                        <a href="/reg">{_reg}</a>
                     </li>
                 </ul>
             </div>

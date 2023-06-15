@@ -73,24 +73,24 @@
                 <ul class="menu">
                     <li class="element prmenu">
                         <a href="/friends{$thisUser->getId()}">
-                            <div class="mobile_icons" id="fr">{_friends}
+                            <div class="mobile_icons" id="fr">{_mobile_friends}
                                 {if $thisUser->getFollowersCount() > 0}
                             <span class="counter urgent">{$thisUser->getFollowersCount()}</span>
                             {/if}</div>
                         </a>
                     </li>
                     <li class="element prmenu">
-                        <a n:if="$thisUser->getLeftMenuItemStatus('photos')" href="/albums{$thisUser->getId()}"><div class="mobile_icons" id="ph">Фотографии </div></a>
+                        <a n:if="$thisUser->getLeftMenuItemStatus('photos')" href="/albums{$thisUser->getId()}"><div class="mobile_icons" id="ph">{_mobile_photos} </div></a>
                     </li>
                     <li class="element prmenu">
-                        <a n:if="$thisUser->getLeftMenuItemStatus('videos')" href="/videos{$thisUser->getId()}"><div class="mobile_icons" id="video">Видеозаписи </div></a>
+                        <a n:if="$thisUser->getLeftMenuItemStatus('videos')" href="/videos{$thisUser->getId()}"><div class="mobile_icons" id="video">{_mobile_videos} </div></a>
                     </li>
                     <!-- li class="element prmenu">
                         <a n:if="$thisUser->getLeftMenuItemStatus('audios')" href="/audios{$thisUser->getId()}"><div class="mobile_icons" id="music">Аудиозаписи </div></a>
                     </li -->
                     <li class="element prmenu">
                         <a n:if="$thisUser->getLeftMenuItemStatus('messages')" href="/im">
-                            <div class="mobile_icons" id="mail">{_messages}
+                            <div class="mobile_icons" id="mail">{_mobile_messages}
                                 {if $thisUser->getUnreadMessagesCount() > 0}
                             <span class="counter urgent">{$thisUser->getUnreadMessagesCount()}</span>
                             {/if}</div>
@@ -101,7 +101,7 @@
                     </li>
                     <li class="element prmenu">
                         <a href="/notifications">
-                            <div class="mobile_icons" id="feedback">{_feedback}
+                            <div class="mobile_icons" id="feedback">{_mobile_feedback}
                                 {if $thisUser->getNotificationsCount() > 0}
                             <span class="counter urgent">{$thisUser->getNotificationsCount()}</span>
                             {/if}</div>
@@ -111,7 +111,7 @@
                         <a n:if="$thisUser->getLeftMenuItemStatus('groups')" href="/groups{$thisUser->getId()}"> <div class="mobile_icons" id="grp">Группы </div></a>
                     </li>
                     <li class="element prmenu">
-                        <a href="/search"> <div class="mobile_icons" id="search">{_search} </div></a>
+                        <a href="/search"> <div class="mobile_icons" id="search">{_mobile_search} </div></a>
                     </li>
                 </ul>
 
@@ -119,10 +119,10 @@
 
                 <ul class="menu">
                     <li class="element prmenu gray">
-                        <a href="/settings"> <div class="mobile_icons" id="settings">{_settings} </div></a>
+                        <a href="/settings"> <div class="mobile_icons" id="settings">{_mobile_settings} </div></a>
                     </li>
                     <li class="element prmenu gray">
-                        <a href="/support"> <div class="mobile_icons" id="hlp">{_support}
+                        <a href="/support"> <div class="mobile_icons" id="hlp">{_mobile_support}
                         
                          {if $ticketAnsweredCount > 0}
                             <span class="counter urgent">{$ticketAnsweredCount}</span>
@@ -131,7 +131,7 @@
                         </div></a>
                     </li>
                     <li class="element prmenu gray">
-                        <a href="/settings/reset_theme?hash={urlencode($csrfToken)}"><div class="mobile_icons" id="full">Полная версия</div></a>
+                        <a href="/settings/reset_theme?hash={urlencode($csrfToken)}"><div class="mobile_icons" id="full">{_mobile_desktop_version}</div></a>
                     </li>
                     <li class="element prmenu gray">
                         <a href="/logout?hash={urlencode($csrfToken)}"> <div class="mobile_icons" id="exit">{_exit}</div></a>

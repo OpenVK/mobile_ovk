@@ -97,7 +97,7 @@
                         </a>
                     </li>
                     <li class="element prmenu">
-                        <a n:if="$thisUser->getLeftMenuItemStatus('news')" href="/feed?posts=100"><div class="mobile_icons" id="news">{_mobile_news} </div></a>
+                        <a n:if="$thisUser->getLeftMenuItemStatus('news')" href="/feed?posts=100"><div class="mobile_icons" id="news">{_feed} </div></a>
                     </li>
                     <li class="element prmenu">
                         <a href="/notifications">
@@ -122,7 +122,7 @@
                         <a href="/settings"> <div class="mobile_icons" id="settings">{_mobile_settings} </div></a>
                     </li>
                     <li class="element prmenu gray">
-                        <a href="/support"> <div class="mobile_icons" id="hlp">{_mobile_support}
+                        <a href="/support"> <div class="mobile_icons" id="hlp">{_support}
                         
                          {if $ticketAnsweredCount > 0}
                             <span class="counter urgent">{$ticketAnsweredCount}</span>

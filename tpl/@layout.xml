@@ -166,11 +166,11 @@
                 </p>
 
                 <div class="navigation_footer">
-                <a href="/about" class="link">об инстанции</a>
-                <a href="/blog" class="link">блог</a>
-                <a href="/support" class="link">помощь</a>
-                <a href="/dev" target="_blank" class="link">разработчикам</a>
-                <a href="/privacy" class="link">приватность</a>
+                <a href="/about" class="link">{_footer_about_instance}</a>
+                <a href="/blog" class="link">{_footer_blog}</a>
+                <a href="/support" class="link">{_footer_support}</a>
+                <a href="/dev" target="_blank" class="link">{_footer_dev}</a>
+                <a href="/privacy" class="link">{_footer_privacy}</a>
                 <a href="/language" class="link">change language</a>
             </div>
             </div>

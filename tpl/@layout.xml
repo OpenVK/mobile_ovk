@@ -97,7 +97,7 @@
                         </a>
                     </li>
                     <li class="element prmenu">
-                        <a n:if="$thisUser->getLeftMenuItemStatus('news')" href="/feed?posts=100"><div class="mobile_icons" id="news">Новости </div></a>
+                        <a n:if="$thisUser->getLeftMenuItemStatus('news')" href="/feed?posts=100"><div class="mobile_icons" id="news">{_mobile_news} </div></a>
                     </li>
                     <li class="element prmenu">
                         <a href="/notifications">
@@ -108,7 +108,7 @@
                         </a>
                     </li>
                     <li class="element prmenu">
-                        <a n:if="$thisUser->getLeftMenuItemStatus('groups')" href="/groups{$thisUser->getId()}"> <div class="mobile_icons" id="grp">Группы </div></a>
+                        <a n:if="$thisUser->getLeftMenuItemStatus('groups')" href="/groups{$thisUser->getId()}"> <div class="mobile_icons" id="grp">{_mobile_groups} </div></a>
                     </li>
                     <li class="element prmenu">
                         <a href="/search"> <div class="mobile_icons" id="search">{_mobile_search} </div></a>

@@ -79,9 +79,9 @@
                         <br/>
 
                         {if $user->isOnline()}
-                            <span class="span_status">В сети</span>
+                            <span class="span_status">{_online}</span>
                         {else}
-                            <span class="span_status">Был в сети {$user->getOnline()}</span>
+                            <span class="span_status">{_was_online} {$user->getOnline()}</span>
                         {/if}
 
                     </div>
@@ -225,7 +225,7 @@
 
 
                             <div class="podrobnee">
-                                Показать подробнее
+                                {_mobile_user_info_show_more}
                             </div>
                             <div class="podrobnee_content">
                     <table class="ugc-table">
@@ -283,7 +283,7 @@
                                 <td>{$user->getFavoriteQuote()}</td>
                             </tr>
                             <tr n:if="!is_null($user->getDescription())">
-                                <td><span class="text-gray">О себе: </span></td>
+                                <td><span class="text-gray">{_information_about}: </span></td>
                                 <td>{$user->getDescription()}</td>
                             </tr>
                         </tbody>

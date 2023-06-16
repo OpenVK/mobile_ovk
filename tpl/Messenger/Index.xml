@@ -12,7 +12,7 @@
     <div class="mestabs">
     <div class="tabs">
         <div id="activetabs" class="tab">
-            <a id="act_tab_a" href="javascript:false">Все сообщения</a>
+            <a id="act_tab_a" href="javascript:false">{_all_messages}</a>
         </div>
     </div>
     

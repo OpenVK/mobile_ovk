@@ -18,7 +18,7 @@
     
     <div class="container_gray">
         <form action="/im/search" method="POST" style="margin: 0;">
-            <input class="inputmes" type="text" name="pattern" placeholder="Поиск сообщений" required />
+            <input class="inputmes" type="text" name="pattern" placeholder="{_search_messages}" required />
         </form>
     </div>
 

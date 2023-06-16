@@ -2,9 +2,9 @@
 
 {block title}
     {if $type === "users"}
-        {_search_people}
+        {_search_for_users}
     {else}
-        {_search_groups}
+        {_search_for_groups}
     {/if}
 {/block}
 

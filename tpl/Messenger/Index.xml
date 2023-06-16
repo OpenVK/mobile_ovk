@@ -1,10 +1,10 @@
 {extends "../@layout.xml"}
-{block title}{_my_messages}{/block}
+{block title}{_mobile_messages}{/block}
 
-{block header}{_my_messages}{/block}
+{block header}{_mobile_messages}{/block}
 
 {block titleHeader}
-    {_my_messages}
+    {_mobile_messages}
 {/block}
 
 {block body}

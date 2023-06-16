@@ -313,7 +313,7 @@
             
             <div class="contentWrap">
                 <div class="legend">
-                    <span>Меню</span>
+                    <span>{_mobile_menu}</span>
                 </div>
                 
                 <div class="content">

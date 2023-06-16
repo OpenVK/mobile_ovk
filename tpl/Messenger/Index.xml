@@ -47,7 +47,7 @@
     {else}
         <br/>
         <br/>
-        <center>Вам никто не писал. Пока что.</center>
+        <center>{_no_messages}</center>
     {/if}
 </div>
 {/block}

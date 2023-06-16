@@ -145,7 +145,7 @@
             <div class="content">
                 <ul class="menu">
                     <li class="element prmenu">
-                        <a href="/">Главная</a>
+                        <a href="/">{_home}</a>
                     </li>
                     <li class="element prmenu">
                         <a href="/login">{_log_in}</a>

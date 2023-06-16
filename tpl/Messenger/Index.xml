@@ -1,10 +1,10 @@
 {extends "../@layout.xml"}
-{block title}{_my_messages}{/block}
+{block title}{_mobile_messages}{/block}
 
-{block header}{_my_messages}{/block}
+{block header}{_mobile_messages}{/block}
 
 {block titleHeader}
-    {_my_messages}
+    {_mobile_messages}
 {/block}
 
 {block body}
@@ -12,13 +12,13 @@
     <div class="mestabs">
     <div class="tabs">
         <div id="activetabs" class="tab">
-            <a id="act_tab_a" href="javascript:false">Все сообщения</a>
+            <a id="act_tab_a" href="javascript:false">{_all_messages}</a>
         </div>
     </div>
     
     <div class="container_gray">
         <form action="/im/search" method="POST" style="margin: 0;">
-            <input class="inputmes" type="text" name="pattern" placeholder="Поиск сообщений" required />
+            <input class="inputmes" type="text" name="pattern" placeholder="{_search_messages}" required />
         </form>
     </div>
 
@@ -47,7 +47,7 @@
     {else}
         <br/>
         <br/>
-        <center>Вам никто не писал. Пока что.</center>
+        <center>{_no_messages}</center>
     {/if}
 </div>
 {/block}

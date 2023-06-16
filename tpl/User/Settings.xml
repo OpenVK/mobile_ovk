@@ -14,7 +14,7 @@
 {var isInterface  = $mode === 'interface'}
 
 <div class="contentWraplegend" onclick="hidePanel(this);">
-    <span>Настройки</span>
+    <span>{_mobile_settings}</span>
 </div>
 
 <div class="settings_body">

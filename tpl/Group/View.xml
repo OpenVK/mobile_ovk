@@ -134,7 +134,7 @@
                 <ul class="menu">
                             <li class="element">
                                 <a href="/club{$club->getId()}/followers">
-                                    Участники 
+                                    {_participants}
                                     <span class="counter">{$club->getFollowersCount()}</span>
                                 </a>
                             </li>

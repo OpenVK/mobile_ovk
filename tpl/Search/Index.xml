@@ -2,9 +2,9 @@
 
 {block title}
     {if $type === "users"}
-        {tr("search_for_people")}
+        {_search_for_users}
     {else}
-        {tr("search_for_groups")}
+        {_search_for_groups}
     {/if}
 {/block}
 
@@ -33,7 +33,7 @@
     <div class="sr_padding">
         <form class="header_search_inputbt">
             <input name="type" type="hidden" value="{$type ?? 'users'}" />
-            <input name="query" class="sr_input" placeholder="Поиск" value="{$_GET['query'] ?? ''}" />
+            <input name="query" class="sr_input" placeholder="{_header_search}" value="{$_GET['query'] ?? ''}" />
             <button class="button cfa sr">{_search_button}</button>
         </form>
     </div>

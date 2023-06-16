@@ -20,7 +20,7 @@
     /album{$x->getPrettyId()}
 {/block}
 {block titleHeaderphoto}
-    Фотографии
+    {_mobile_photos}
 {/block}
 
 {block preview}

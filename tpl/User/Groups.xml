@@ -5,8 +5,8 @@
 {block title}{_"groups"}{/block} 
 
 {block titleHeader}
-    Группы
-    <div style="float: right"><a href="/groups_create">Создать группу</a></div>
+    {_mobile_groups}
+    <div style="float: right"><a href="/groups_create">{_create_group}</a></div>
 {/block}
 
 {block header}
@@ -16,7 +16,7 @@
 
 {* BEGIN ELEMENTS DESCRIPTION *}
 <div class="contentWraplegend" onclick="hidePanel(this);">
-    <span>Группы</span>
+    <span>{_mobile_groups}</span>
     <span><a href="/groups_create" class="float-right">{_"create_group"}</a></span>
 </div>
 

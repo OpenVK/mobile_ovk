@@ -32,7 +32,7 @@
 
                 <a href="/im" class="ovk_mobile_mail_icon" onClick="event.stopPropagation();">{if $thisUser->getUnreadMessagesCount() > 0}<b>{$thisUser->getUnreadMessagesCount()}</b>{/if}</a>
                      <div class="search_menu_box" style="" onClick="event.stopPropagation();"><form action="/search" method="get">
-                                    <input type="search" name="query" placeholder="Поиск" style="padding-left: 18px;" accesskey="f">
+                                    <input type="search" name="query" placeholder="{_header_search}" style="padding-left: 18px;" accesskey="f">
                                 </form></div>
 
                                 
@@ -73,45 +73,45 @@
                 <ul class="menu">
                     <li class="element prmenu">
                         <a href="/friends{$thisUser->getId()}">
-                            <div class="mobile_icons" id="fr">Друзья 
+                            <div class="mobile_icons" id="fr">{_mobile_friends}
                                 {if $thisUser->getFollowersCount() > 0}
                             <span class="counter urgent">{$thisUser->getFollowersCount()}</span>
                             {/if}</div>
                         </a>
                     </li>
                     <li class="element prmenu">
-                        <a n:if="$thisUser->getLeftMenuItemStatus('photos')" href="/albums{$thisUser->getId()}"><div class="mobile_icons" id="ph">Фотографии </div></a>
+                        <a n:if="$thisUser->getLeftMenuItemStatus('photos')" href="/albums{$thisUser->getId()}"><div class="mobile_icons" id="ph">{_mobile_photos} </div></a>
                     </li>
                     <li class="element prmenu">
-                        <a n:if="$thisUser->getLeftMenuItemStatus('videos')" href="/videos{$thisUser->getId()}"><div class="mobile_icons" id="video">Видеозаписи </div></a>
+                        <a n:if="$thisUser->getLeftMenuItemStatus('videos')" href="/videos{$thisUser->getId()}"><div class="mobile_icons" id="video">{_mobile_videos} </div></a>
                     </li>
                     <!-- li class="element prmenu">
                         <a n:if="$thisUser->getLeftMenuItemStatus('audios')" href="/audios{$thisUser->getId()}"><div class="mobile_icons" id="music">Аудиозаписи </div></a>
                     </li -->
                     <li class="element prmenu">
                         <a n:if="$thisUser->getLeftMenuItemStatus('messages')" href="/im">
-                            <div class="mobile_icons" id="mail">Сообщения 
+                            <div class="mobile_icons" id="mail">{_mobile_messages}
                                 {if $thisUser->getUnreadMessagesCount() > 0}
                             <span class="counter urgent">{$thisUser->getUnreadMessagesCount()}</span>
                             {/if}</div>
                         </a>
                     </li>
                     <li class="element prmenu">
-                        <a n:if="$thisUser->getLeftMenuItemStatus('news')" href="/feed?posts=100"><div class="mobile_icons" id="news">Новости </div></a>
+                        <a n:if="$thisUser->getLeftMenuItemStatus('news')" href="/feed?posts=100"><div class="mobile_icons" id="news">{_feed} </div></a>
                     </li>
                     <li class="element prmenu">
                         <a href="/notifications">
-                            <div class="mobile_icons" id="feedback">Ответы 
+                            <div class="mobile_icons" id="feedback">{_feedback}
                                 {if $thisUser->getNotificationsCount() > 0}
                             <span class="counter urgent">{$thisUser->getNotificationsCount()}</span>
                             {/if}</div>
                         </a>
                     </li>
                     <li class="element prmenu">
-                        <a n:if="$thisUser->getLeftMenuItemStatus('groups')" href="/groups{$thisUser->getId()}"> <div class="mobile_icons" id="grp">Группы </div></a>
+                        <a n:if="$thisUser->getLeftMenuItemStatus('groups')" href="/groups{$thisUser->getId()}"> <div class="mobile_icons" id="grp">{_mobile_groups} </div></a>
                     </li>
                     <li class="element prmenu">
-                        <a href="/search"> <div class="mobile_icons" id="search">Поиск </div></a>
+                        <a href="/search"> <div class="mobile_icons" id="search">{_mobile_search} </div></a>
                     </li>
                 </ul>
 
@@ -119,10 +119,10 @@
 
                 <ul class="menu">
                     <li class="element prmenu gray">
-                        <a href="/settings"> <div class="mobile_icons" id="settings">Настройки </div></a>
+                        <a href="/settings"> <div class="mobile_icons" id="settings">{_mobile_settings} </div></a>
                     </li>
                     <li class="element prmenu gray">
-                        <a href="/support"> <div class="mobile_icons" id="hlp">Помощь
+                        <a href="/support"> <div class="mobile_icons" id="hlp">{_menu_support}
                         
                          {if $ticketAnsweredCount > 0}
                             <span class="counter urgent">{$ticketAnsweredCount}</span>
@@ -131,10 +131,10 @@
                         </div></a>
                     </li>
                     <li class="element prmenu gray">
-                        <a href="/settings/reset_theme?hash={urlencode($csrfToken)}"><div class="mobile_icons" id="full">Полная версия</div></a>
+                        <a href="/settings/reset_theme?hash={urlencode($csrfToken)}"><div class="mobile_icons" id="full">{_mobile_desktop_version}</div></a>
                     </li>
                     <li class="element prmenu gray">
-                        <a href="/logout?hash={urlencode($csrfToken)}"> <div class="mobile_icons" id="exit">Выйти</div></a>
+                        <a href="/logout?hash={urlencode($csrfToken)}"> <div class="mobile_icons" id="exit">{_mobile_log_out}</div></a>
                     </li>
                 </ul>
 
@@ -145,13 +145,13 @@
             <div class="content">
                 <ul class="menu">
                     <li class="element prmenu">
-                        <a href="/">Главная</a>
+                        <a href="/">{_home}</a>
                     </li>
                     <li class="element prmenu">
-                        <a href="/login">Войти</a>
+                        <a href="/login">{_log_in}</a>
                     </li>
                     <li class="element prmenu">
-                        <a href="/reg">Регистрация</a>
+                        <a href="/reg">{_registration}</a>
                     </li>
                 </ul>
             </div>
@@ -166,11 +166,11 @@
                 </p>
 
                 <div class="navigation_footer">
-                <a href="/about" class="link">об инстанции</a>
-                <a href="/blog" class="link">блог</a>
-                <a href="/support" class="link">помощь</a>
-                <a href="/dev" target="_blank" class="link">разработчикам</a>
-                <a href="/privacy" class="link">приватность</a>
+                <a href="/about" class="link">{_footer_about_instance}</a>
+                <a href="/blog" class="link">{_footer_blog}</a>
+                <a href="/support" class="link">{_footer_help}</a>
+                <a href="/dev" target="_blank" class="link">{_footer_developers}</a>
+                <a href="/privacy" class="link">{_footer_privacy}</a>
                 <a href="/language" class="link">change language</a>
             </div>
             </div>

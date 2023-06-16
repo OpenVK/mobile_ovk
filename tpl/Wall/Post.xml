@@ -15,7 +15,7 @@
 
 {block body}
 <div class="contentWraplegend" onclick="hidePanel(this);">
-    <span>Пост</span>
+    <span>{_"post"}</span>
 </div>
 <div class="content_post_comments">
     <div class="content_post_comment">

@@ -36,7 +36,7 @@
 {/block} -->
 
 {block titleHeader}
-    Друзья
+    {_mobile_friends}
 {/block}
 
 {block tabs}

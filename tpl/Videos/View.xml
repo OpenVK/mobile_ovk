@@ -1,6 +1,6 @@
 {extends "../@layout.xml"}
 
-{block title}Видеозапись{/block}
+{block title}{_video}{/block}
 
 {block header}
     <a href="{$user->getURL()}">{$user->getCanonicalName()}</a>

@@ -20,7 +20,7 @@
 {/block}
 
 {block titleHeader}
-    Фотография
+    {_mobile_photos}
 {/block}
 
 {block body}

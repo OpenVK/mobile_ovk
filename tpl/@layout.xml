@@ -32,7 +32,7 @@
 
                 <a href="/im" class="ovk_mobile_mail_icon" onClick="event.stopPropagation();">{if $thisUser->getUnreadMessagesCount() > 0}<b>{$thisUser->getUnreadMessagesCount()}</b>{/if}</a>
                      <div class="search_menu_box" style="" onClick="event.stopPropagation();"><form action="/search" method="get">
-                                    <input type="search" name="query" placeholder="{_search}" style="padding-left: 18px;" accesskey="f">
+                                    <input type="search" name="query" placeholder="{_header_search}" style="padding-left: 18px;" accesskey="f">
                                 </form></div>
 
                                 

@@ -225,7 +225,7 @@
 
 
                             <div class="podrobnee">
-                                {_mobile_user_info_show_more}
+                                {_mobile_user_info_show_details}
                             </div>
                             <div class="podrobnee_content">
                     <table class="ugc-table">

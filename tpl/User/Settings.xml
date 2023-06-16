@@ -229,7 +229,7 @@
             <input type="submit" value="{_'save'}" class="button cfa login" />
         </form>
         <form action="/logout">
-            <button class="button cfa logout">{_log_out}</button>
+            <button class="button cfa logout">{_mobile_log_out}</button>
         </form>
         
         <!-- dsrev: it's better if we hide it before the page deletion function appears tbh.

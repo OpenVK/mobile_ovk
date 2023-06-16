@@ -5,8 +5,8 @@
 {block title}{_"groups"}{/block} 
 
 {block titleHeader}
-    Группы
-    <div style="float: right"><a href="/groups_create">Создать группу</a></div>
+    {_mobile_groups}
+    <div style="float: right"><a href="/groups_create">{_create_group}</a></div>
 {/block}
 
 {block header}

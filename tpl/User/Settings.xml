@@ -85,15 +85,15 @@
                 </tbody>
             </table> -->
                 <div class="formInput">
-                    <label>Старый пароль:</label>
+                    <label>{_old_password}</label>
                     <input type="password" name="old_pass">
                 </div>
                 <div class="formInput">
-                    <label>Новый пароль:</label>
+                    <label>{_new_password}</label>
                     <input type="password" name="new_pass">
                 </div>
                 <div class="formInput">
-                    <label>Повторите пароль:</label>
+                    <label>{_repeat_password}</label>
                     <input type="password" name="repeat_pass">
                 </div>
                 <input type="hidden" name="hash" value="{$csrfToken}" />
@@ -121,7 +121,7 @@
                             function viewBackupCodes() {
                                 MessageBox("Просмотр резервных кодов", `
                                     <form id="back-codes-view-form" method="post" action="/settings/2fa">
-                                        <label for="password">Пароль</label>
+                                        <label for="password">{_password}</label>
                                         <input type="password" id="password" name="password" required />
                                         <input type="hidden" name="hash" value={$csrfToken} />
                                     </form>
@@ -135,7 +135,7 @@
                             function disableTwoFactorAuth() {
                                 MessageBox("Отключить 2FA", `
                                     <form id="two-factor-auth-disable-form" method="post" action="/settings/2fa/disable">
-                                        <label for="password">Пароль</label>
+                                        <label for="password">{_password}</label>
                                         <input type="password" id="password" name="password" required />
                                         <input type="hidden" name="hash" value={$csrfToken} />
                                     </form>
@@ -229,7 +229,7 @@
             <input type="submit" value="{_'save'}" class="button cfa login" />
         </form>
         <form action="/logout">
-            <button class="button cfa logout">Выйти</button>
+            <button class="button cfa logout">{_log_out}</button>
         </form>
         
         <!-- dsrev: it's better if we hide it before the page deletion function appears tbh.

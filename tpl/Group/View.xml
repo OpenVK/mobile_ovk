@@ -44,6 +44,7 @@
 {/block}
 
 {block body}
+    {if method_exists($club, "isDeleted") && $club->isDeleted()}
     <div id="profile_basicInfo" class="contentWrap">
         <div class="content">
             <div class="pure-g" style="padding-bottom: 12px;">
@@ -56,6 +57,52 @@
                 </div>
             </div>
             
+            {ifset $thisUser}
+                {if method_exists($club, "isDeleted") && $club->isDeleted() && $thisUser->getId() == $club->getOwner()->getId() && !$club->isBanned()}
+                    <form action="/club{$club->getId()}/restore" method="POST">
+                        <input type="hidden" name="hash" value="{$csrfToken}" />
+                        <input class="button primary big max" type="submit" id="profile_link" value="{_restore_group}" />
+                    </form>
+                {/if}
+
+                {if $club->getSubscriptionStatus($thisUser) == false}
+                {else}
+                    <form action="/setSub/club" method="post" class="form_gr">
+                    <input type="hidden" name="act" value="rem" />
+                    <input type="hidden" name="id"  value="{$club->getId()}" />
+                    <input type="hidden" name="hash" value="{$csrfToken}" />
+                    <input type="submit" class="button primary big max" value="{_"leave_community"}" />
+                    </form>
+                {/if}
+            {/ifset}
+
+            {if !$club->isBanned()}
+                <p style="text-align:center;font-size: 13px;">{_group_was_deleted}</p>
+            {else}
+                <p style="text-align:center;font-size: 13px;">{_group_was_blocked}</p>
+                <p style="text-align:center;font-size: 13px;">{_ban_reason_g}: {$club->getBanReason()}</p>
+            {/if}
+        </div>
+    </div>
+
+    {else}
+    
+    <div id="profile_basicInfo" class="contentWrap">
+        <div class="content">
+            <div class="pure-g" style="padding-bottom: 12px;">
+                <div id="profile_basicInfo__avatar">
+                        <img src="{$club->getAvatarUrl()}"/>
+                </div>
+                
+                <div id="profile_basicInfo__info" class="pure-u-3-4">
+                    <h2 class="no-margin text_profile_center groups_name">{$club->getName()}<img n:if="$club->isVerified()" class="name-checkmark" src="/themepack/mobile_ovk/0.0.1.0/resource/verify_badge.png"></h2>
+                </div>
+            </div>
+            
+            {if isset($thisUser) && $club->canBeModifiedBy($thisUser)}
+                <a href="/club{$club->getId()}/edit"><input type="submit" class="button primary big max" value="{_edit_group}" /></a>
+            {/if}
+
             {ifset $thisUser}
                 {if $club->getSubscriptionStatus($thisUser) == false}
                 <form action="/setSub/club" method="post" class="form_gr">
@@ -101,19 +148,19 @@
         </div> -->
         
         <div class="contentWrap">
-            <div class="legend">
+            <div class="legend" n:if="!is_null($club->getDescription()) || !is_null($club->getWebsite())">
                 <span>{_information}</span>
             </div>
             
-            <div class="content">
+            <div class="content" n:if="!is_null($club->getDescription()) || !is_null($club->getWebsite())">
                 <table class="ugc-table">
                     <tbody>
-                        <tr>
-                            <td><span class="text-gray">Описаниe: </span></td>
+                        <tr n:if="!is_null($club->getDescription())">
+                            <td><span class="text-gray">{_description}: </span></td>
                             <td>{$club->getDescription()}</td>
                         </tr>
-                        <tr>
-                            <td><span class="text-gray">Сайт: </span></td>
+                        <tr n:if="!is_null($club->getWebsite())">
+                            <td><span class="text-gray">{_website}: </span></td>
                             <td>
                                 <a href="{$club->getWebsite()}" rel="ugc" target="_blank">
                                     {$club->getWebsite()}
@@ -132,16 +179,22 @@
             
             <div class="content">
                 <ul class="menu">
-                            <li class="element">
-                                <a href="/club{$club->getId()}/followers">
-                                    {_participants}
-                                    <span class="counter">{$club->getFollowersCount()}</span>
-                                </a>
-                            </li>
+                    <li class="element">
+                        <a href="/club{$club->getId()}/followers">
+                            {_participants}
+                            <span class="counter">{$club->getFollowersCount()}</span>
+                        </a>
+                    </li>
+                    <li class="element">
+                        <a href="/board{$club->getId()}">
+                            {_topics}
+                        </a>
+                    </li>
                 </ul>
             </div>
                 {presenter "openvk!Wall->wallEmbedded", -$club->getId()}
         </div>
     </div>
-    
+    {/if}
+
 {/block}

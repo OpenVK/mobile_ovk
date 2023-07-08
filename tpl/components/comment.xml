@@ -52,7 +52,7 @@
         </div>
         <div class="comment_content">
                     <a href="{$author->getURL()}"><b>{$author->getCanonicalName()}</b></a><br>
-                    <time class="text-gray">{$post->getPublicationTime()}</time>
+                    <time class="text-gray">{$comment->getPublicationTime()}</time>
                     <div class="comment_body" id="{$comment->getId()}">
                         {$comment->getText()|noescape}
                         

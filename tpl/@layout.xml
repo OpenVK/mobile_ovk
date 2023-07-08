@@ -14,6 +14,9 @@
 
         <link rel="stylesheet" href="/themepack/mobile_ovk/0.0.1.0/stylesheet/styles.css?v={time()}" />
         <link rel="stylesheet" href="/themepack/mobile_ovk/0.0.1.0/resource/vendor/pure-grid.css" />
+        <script src="/language/{php echo getLanguage()}.js" crossorigin="anonymous"></script>
+        {script "js/l10n.js"}
+
         {ifset headIncludes}{include headIncludes}{/ifset}
         <script src="/themepack/mobile_ovk/0.0.1.0/resource/jquery-3.6.0.min.js"></script>
         <script defer src="/themepack/mobile_ovk/0.0.1.0/resource/menu.js"></script>
@@ -84,6 +87,9 @@
                     </li>
                     <li class="element prmenu">
                         <a n:if="$thisUser->getLeftMenuItemStatus('videos')" href="/videos{$thisUser->getId()}"><div class="mobile_icons" id="video">{_mobile_videos} </div></a>
+                    </li>
+                    <li class="element prmenu">
+                        <a n:if="$thisUser->getLeftMenuItemStatus('notes')" href="/notes{$thisUser->getId()}"><div class="mobile_icons" id="notfg">{_mobile_notes} </div></a>
                     </li>
                     <!-- li class="element prmenu">
                         <a n:if="$thisUser->getLeftMenuItemStatus('audios')" href="/audios{$thisUser->getId()}"><div class="mobile_icons" id="music">Аудиозаписи </div></a>

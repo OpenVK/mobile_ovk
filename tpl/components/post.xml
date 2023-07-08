@@ -1,73 +1,70 @@
 {var author = $post->getOwner()}
-                        <div n:class="post, $post->isExplicit() ? nsfw">
-                            <div class="author">
-                                <img class="ava" src="{$author->getAvatarURL()}">
-                                <div>
-                                    <a href="{$author->getURL()}"><b>{$author->getCanonicalName()}</b></a><img n:if="$author->isVerified()" class="name-checkmark" src="/themepack/mobile_ovk/0.0.1.0/resource/verify_badge.png"><br>
-                                    <time class="text-gray">{$post->getPublicationTime()}</time>
-                                </div>
-                            </div>
-                            
-                            <div class="body">
-                                <p>{$post->getText()|noescape}</p>
-                            </div>
-                            
-                            <div class="attachments">
-                                <div n:ifcontent class="attachments_b">
-                                    <div class="attachment" n:foreach="$post->getChildren() as $attachment" data-localized-nsfw-text="{_nsfw_warning}">
-                                        {include "attachment.xml", attachment => $attachment}
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="actions">
-                                <!-- <a class="button bold commentbtn" href="">54</a> -->
-<!--                                 <a class="button bold like" href="">1321</a> -->
+<div n:class="post, $post->isExplicit() ? nsfw">
+    <div class="author">
+        <img class="ava" src="{$author->getAvatarURL()}">
+        <div>
+            <a href="{$author->getURL()}"><b>{$author->getCanonicalName()}</b></a><img n:if="$author->isVerified()" class="name-checkmark" src="/themepack/mobile_ovk/0.0.1.0/resource/verify_badge.png"><br>
+            <time class="text-gray">{$post->getPublicationTime()}</time>
+        </div>
+    </div>
 
-                        <div class="actions_left">
+    <div class="body">
+        <p>{$post->getText()|noescape}</p>
+    </div>
+                            
+    <div class="attachments">
+        <div n:ifcontent class="attachments_b">
+            <div class="attachment" n:foreach="$post->getChildren() as $attachment" data-localized-nsfw-text="{_nsfw_warning}">
+                {include "attachment.xml", attachment => $attachment}
+            </div>
+        </div>
+    </div>
+                            
+    <div class="actions">
+        <!-- <a class="button bold commentbtn" href="">54</a> -->
+        <!--  <a class="button bold like" href="">1321</a> -->
 
-                        {if !($forceNoCommentsLink ?? false)}
-                            <a href="/wall{$post->getPrettyId()}#comments" class="button bold commentbtn">
-                            {if $post->getCommentsCount() > 0}
-                                {$post->getCommentsCount()}
-                            {else}
-                                0
-                            {/if}
+        <div class="actions_left">
+
+            {if !($forceNoCommentsLink ?? false)}
+                <a href="/wall{$post->getPrettyId()}#comments" class="button bold commentbtn">
+                    {if $post->getCommentsCount() > 0}
+                        {$post->getCommentsCount()}
+                    {else}
+                        0
+                    {/if}
+                </a>
+            {/if}
+
+            {if true}
+                <a class="button bold sharebtn" href="javascript:mobileRepost('{$post->getPrettyId()}')">
+                    {$post->getRepostCount()}
+                </a>
+
+                <div id="post{$post->getPrettyId()}_actions">
+
+                </div> 
+            {/if}
+
+            </div>
+
+            {if (isset($thisUser))}
+                <div class="actions_right">
+
+                    {if !($forceNoLike ?? false)}
+                        {var liked = $post->hasLikeFrom($thisUser)}
+                        <a href="/wall{$post->getPrettyId()}/like?hash={rawurlencode($csrfToken)}"
+                            class="post-like-button"
+                            data-liked="{(int) $liked}"
+                            data-likes="{$post->getLikesCount()}">
+                            <div class="button bold like post-like-button" id="{if $liked}liked{/if}">
+                                {_mobile_like} <span class="likeCnt">{if $post->getLikesCount() > 0}{$post->getLikesCount()}{/if}</span>
+                            
+                            </div>
                         </a>
-                        {/if}
+                    {/if}
 
-                        {if !($forceNoShareLink ?? false)}
-                        <a class="button bold sharebtn" href="javascript:repostPost('{$post->getPrettyId()}', '{rawurlencode($csrfToken)}')">
-                            {if $post->getRepostCount() > 0}
-                                {$post->getRepostCount()}
-                            {else}
-                                0
-                            {/if}
-                        </a>
-                        {/if}
-
-                        </div>
-
-
-                    {if (isset($thisUser))}
-                        <div class="actions_right">
-
-                                {if !($forceNoLike ?? false)}
-                                        {var liked = $post->hasLikeFrom($thisUser)}
-                                        <a href="/wall{$post->getPrettyId()}/like?hash={rawurlencode($csrfToken)}"
-                                        class="post-like-button"
-                                        data-liked="{(int) $liked}"
-                                        data-likes="{$post->getLikesCount()}">
-                                        <div class="button bold like post-like-button" id="{if $liked}liked{/if}">
-                                            {_mobile_like} <span class="likeCnt">{if $post->getLikesCount() > 0}{$post->getLikesCount()}{/if}</span>
-                                        
-                                        </div>
-                                    </a>
-                                {/if}
-
-                        </div>
-                        {/if}
-
-
-                            </div>
-                        </div>
+                </div>
+            {/if}
+    </div>
+</div>

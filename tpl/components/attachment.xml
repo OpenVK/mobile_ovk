@@ -10,7 +10,17 @@
         </a>
     {/if}
 {elseif $attachment instanceof \openvk\Web\Models\Entities\Video}
-    <video class="media" src="{$attachment->getURL()}" controls="controls"></video>
+    {if $attachment->getType() === 0}
+        <video class="media" src="{$attachment->getURL()}" controls="controls"></video>
+    {else}
+        {* Не будем загружать страницу плеером ютуба *}
+        <a href="{$attachment->getVideoDriver()->getURL()}" target="_blank">
+            <div class="youtube_video_block">
+                <img class="youtube_button" src="/themepack/mobile_ovk/0.0.1.0/resource/youtube_video.png">
+                <img src="{$attachment->getVideoDriver()->getThumbnailURL()}" style="width: 100%;">
+            </div>
+        </a>
+    {/if}
 {elseif $attachment instanceof \openvk\Web\Models\Entities\Post}
     {php $GLOBALS["_nesAttGloCou"] = (isset($GLOBALS["_nesAttGloCou"]) ? $GLOBALS["_nesAttGloCou"] : 0) + 1}
     {if $GLOBALS["_nesAttGloCou"] > 2}
@@ -18,6 +28,13 @@
     {else}
         {include "post.xml", post => $attachment, compact => true}
     {/if}
+{elseif $attachment instanceof \openvk\Web\Models\Entities\Note}
+    <a href="/note{$attachment->getPrettyId()}">
+        <div class="note_attachment">
+            <img class="note_icon" src="/themepack/mobile_ovk/0.0.1.0/resource/note.png">
+            <span class="note_name">{_note} "{$attachment->getName()}"</span>
+        </div>
+    </a>
 {elseif $attachment instanceof \openvk\Web\Models\Entities\Poll}
     {presenter "openvk!Poll->view", $attachment->getId()}
 {else}

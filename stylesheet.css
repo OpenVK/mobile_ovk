@@ -50,7 +50,7 @@ input, button { -webkit-appearance: button;}
     background-color: #f7f7f7;
     margin: 0 auto;
     font-family: tahoma, verdana, arial, sans-serif;
-	max-width: 580px;
+    max-width: 580px;
 }
 
 .app_layer{
@@ -137,7 +137,7 @@ input, button { -webkit-appearance: button;}
     margin: 0.5em -12px;
 }
 
-.button, .fileInput, input[type=submit], input[type=reset] {
+.button, .fileInput, input[type=submit], input[type=button], input[type=reset] {
     display: inline-block;
     border: none;
     border-radius: 3px;
@@ -357,15 +357,15 @@ input, button { -webkit-appearance: button;}
     outline: none;
     cursor: pointer;
     vertical-align: middle;
-	margin-top: 0%;
+    margin-top: 0%;
 }
 
 .formInput > input[type=checkbox]{
-	background-image: url("data:image/gif;base64,R0lGODlhDwA4ALMAAP//////AP8A//8AAAD//wD/AAAA/wAAADtZd8XKzuHh4crKysHBwba2tv///wAAACH5BAEAAA4ALAAAAAAPADgAAASzcMlJqVsg653X5SDgYeE2luaHdup6rmKLvq5c0rMdjlUvXb6eDoRAkFBF4yqZOBKLi2aJSUNomE1VEoCNkRLJYiLB+oLF5LJmjBinnOO0BncDBi2NvH6/dzQUgIGCgA1+g4cKhX+IgoqMjYaPhJGSjpKJlI+WlZmMm5qdiIp8pHl+paShh0WLj0mtiEywg0kMCbOBTAyUCLlolkkKWJiLZ8PEgGxogZtsY5CwcYOfnqeofREAOw==");
+    background-image: url("data:image/gif;base64,R0lGODlhDwA4ALMAAP//////AP8A//8AAAD//wD/AAAA/wAAADtZd8XKzuHh4crKysHBwba2tv///wAAACH5BAEAAA4ALAAAAAAPADgAAASzcMlJqVsg653X5SDgYeE2luaHdup6rmKLvq5c0rMdjlUvXb6eDoRAkFBF4yqZOBKLi2aJSUNomE1VEoCNkRLJYiLB+oLF5LJmjBinnOO0BncDBi2NvH6/dzQUgIGCgA1+g4cKhX+IgoqMjYaPhJGSjpKJlI+WlZmMm5qdiIp8pHl+paShh0WLj0mtiEywg0kMCbOBTAyUCLlolkkKWJiLZ8PEgGxogZtsY5CwcYOfnqeofREAOw==");
 }
 
 .formInput > input[type=radio]{
-	background-image: url("/themepack/mobile_ovk/0.0.1.0/resource/radio.png");
+    background-image: url("/themepack/mobile_ovk/0.0.1.0/resource/radio.png");
 }
 
 .formInput > input[type=checkbox]:hover, .formInput > input[type=radio]:hover {
@@ -443,6 +443,12 @@ input, button { -webkit-appearance: button;}
     color: #9a6d6d;
 }
 
+.alert.yellow {
+    border-color:#D4BC4C;
+    background-color:#F9F6E7;
+}
+
+
 .alert.inline {
     background-color: #fff;
     text-align: center;
@@ -451,8 +457,8 @@ input, button { -webkit-appearance: button;}
 .tabs {
     margin-top: 11px;
     padding-bottom: 11px;
-	overflow-x: scroll;
-	white-space: nowrap;
+    overflow-x: scroll;
+    white-space: nowrap;
 }
 
 .tabs > .selector > .tab-select {
@@ -758,24 +764,24 @@ img.rounded, .post > .author > .ava {
     /* папапепе гемабоди) */
     
     .navigation {
-		pointer-events:none !important;
-		position: fixed;
-		width: 866px;
-	}
-	.app,
-	h2 {
-		min-width:864px;
-		max-width:45%;
-		border-right:none;
-		border-bottom:0px solid #dee5eb
-	}
-	.menuovk {
-		background:#fff;
-		width:288px !important;
-		display:block !important;
-		top: 48px;
-		position: absolute;
-	}
+        pointer-events:none !important;
+        position: fixed;
+        width: 866px;
+    }
+    .app,
+    h2 {
+        min-width:864px;
+        max-width:45%;
+        border-right:none;
+        border-bottom:0px solid #dee5eb
+    }
+    .menuovk {
+        background:#fff;
+        width:288px !important;
+        display:block !important;
+        top: 48px;
+        position: absolute;
+    }
 
     .profile_menu_arrow{
        position: inherit;
@@ -792,7 +798,7 @@ img.rounded, .post > .author > .ava {
     z-index:1337;
     right: 0;
     top: 0;
-	pointer-events: all !important;
+    pointer-events: all !important;
     }
     
     .head_now{
@@ -862,9 +868,9 @@ img.rounded, .post > .author > .ava {
 .menunameava .pr_ovk_page .status {
     color: #797979;
     font-size: 14px;
-	overflow: hidden;
-	max-width:200px;
-	text-overflow: ellipsis;
+    overflow: hidden;
+    max-width:200px;
+    text-overflow: ellipsis;
 }
 /* Подписывайтесь на мой YouTube: youtube.com/DanielM */
 
@@ -1047,7 +1053,7 @@ img.rounded, .post > .author > .ava {
 .content_post {
     padding: 12px;
     padding-top: 2px;
-	background: #fff;
+    background: #fff;
 }
 .post {
     margin-top: 10px;
@@ -1119,19 +1125,19 @@ img.rounded, .post > .author > .ava {
     margin-top: 19px;
     font-weight: bold;
     margin-left: 5px;
-	text-overflow:ellipsis;
-	white-space:nowrap;
-	overflow:hidden;
-	max-width: 55%;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow:hidden;
+    max-width: 55%;
 }
 
 .video_desc{
-	text-overflow:ellipsis;
-	white-space:nowrap;
-	overflow:hidden;
-	max-width: 55%;
-	display: block;
-	max-height: 75px;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow:hidden;
+    max-width: 55%;
+    display: block;
+    max-height: 75px;
 }
 
 .profile_link_form {
@@ -1506,6 +1512,10 @@ h4 {
     background-position: 0px -332px;
 }
 
+#notfg{
+    background-position: 0px -392px;
+}
+
 .element.prmenu.gray a {
     font-size: 16px;
     font-weight: normal;
@@ -1735,7 +1745,7 @@ input[type~="search"]{
     background: #fff;
 }
 
-.attach_menu_ph{
+.attach_menu_ph {
     text-align:left;
     background-color: transparent;
     display: block;
@@ -1750,6 +1760,19 @@ input[type~="search"]{
     padding: 0px;
 }
 
+.attach_menu_video {
+    background-color: transparent;
+    display: block;
+    float: right;
+    position: inherit;
+    background-image: url('/themepack/mobile_ovk/0.0.1.0/resource/ovk_attach.png');
+    width: 32px;
+    height: 32px;
+    background-position: -350px 50%;
+    background-repeat: no-repeat;
+    margin: -12px 0px 0px 0px;
+    padding: 0px;
+}
 
 .avatar-list-item {
     padding: 4px 0;
@@ -1864,7 +1887,7 @@ input[type~="search"]{
     font-weight: bold;
     border: 1px solid #d7cf9e;
     border-bottom: 0;
-	font-size: 14px;
+    font-size: 14px;
 }
 
 #faqcontent {
@@ -1872,19 +1895,19 @@ input[type~="search"]{
     margin: 0 5px 10px;
     padding: 5px 5px 5px 10px;
     border: 1px solid #ddd;
-	font-size: 12px;
+    font-size: 12px;
 }
 
 .s_text{
-	font-size: 14px;
-	margin: 3px;
+    font-size: 14px;
+    margin: 3px;
 }
 
 .s_post-author{
-	font-size: 14px;
+    font-size: 14px;
 }
 .knowledgeBaseArticle{
-	padding: 5px;
+    padding: 5px;
 }
 
 .alert.fake {
@@ -1902,7 +1925,7 @@ input[type~="search"]{
     padding: 8px;
     transition: .1s filter ease-in;
     border: 1px solid #e3e3e3;
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .poll-embed {
@@ -1916,8 +1939,8 @@ input[type~="search"]{
 
 .poll-meta .nobold {
     font-style: oblique;
-	font-size: 12px;
-	color: gray;
+    font-size: 12px;
+    color: gray;
 }
 
 .poll-result-barspace {
@@ -1967,7 +1990,7 @@ a.poll-retract-vote {
 }
 
 label, .poll > input[type=checkbox]{
-	background-color: transparent;
+    background-color: transparent;
     border: none;
     border-radius: 0;
     -moz-appearance: none;
@@ -1977,11 +2000,11 @@ label, .poll > input[type=checkbox]{
     outline: none;
     cursor: pointer;
     vertical-align: middle;
-	margin-top: 0%;
+    margin-top: 0%;
 }
 
 .poll-option{
-	padding: 5px;
+    padding: 5px;
 }
 
 .completeness-gauge {
@@ -2018,6 +2041,19 @@ label, .poll > input[type=checkbox]{
   margin-left: 5px;
 }
 
+.youtube_video_block {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.youtube_button {
+    z-index: 555;
+    position: absolute;
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+}
+
 /* IE 10+ styles only for necrobrowsers */
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
     .navigation {
@@ -2047,4 +2083,43 @@ label, .poll > input[type=checkbox]{
     .menuovk.active {
         margin-top: 45px;
     }
+}
+
+.note_attachment {
+    background-color: #E6E6E6;
+    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: flex;
+}
+
+.note_icon {
+    max-width: 30px;
+    margin-left: 10px;
+}
+
+.note_name {
+    margin-left: 5px;
+    color: #636466;
+    font-family: tahoma, verdana, arial, sans-serif;
+}
+
+.note_attachment:hover {
+    background-color: #ecebeb;
+}
+
+.note_attachment:active {
+    background-color: #cecece;
+}
+
+.mobile_repost {
+    background:#E6E6E6;
+    color: #636466;
+    font-size: 18px;
+    width: 300px;
+    padding: 5px;
+}
+
+.note_title a {
+    font-size: 20px;
 }

@@ -48,11 +48,72 @@
 {block body}
     {if !$user->isBanned()}
     
-    {if !$user->getPrivacyPermission('page.read', $thisUser ?? NULL)}
-        <div class="alert err">
-            <b>{_forbidden}</b><br/>
-            {_forbidden_comment}
+    {if method_exists($user, "canBeViewedBy") && !$user->canBeViewedBy($thisUser ?? NULL)}
+        <div n:if="!is_null($alert = $user->getAlert())" class="alert fake">{strpos($alert, "@") === 0 ? tr(substr($alert, 1)) : $alert}</div>
+            <div id="profile_basicInfo" class="contentWrap">
+                <div class="content">
+                    <div class="pure-g" style="padding-bottom: 12px;">
+                        <div id="profile_basicInfo__avatar">
+                            <img src="{$user->getAvatarUrl()}"
+                                 alt="{$user->getCanonicalName()}" />
+                        </div>
+
+                    <div id="profile_basicInfo__info" class="pure-u-3-4">
+                        <h2 class="no-margin text_profile_center">{$user->getFullName()} <img n:if="$user->isVerified()" class="name-checkmark" src="/themepack/mobile_ovk/0.0.1.0/resource/verify_badge.png"></h2>
+                        
+                        {if !is_null($user->getStatus())}
+                            <span class="span_status">{$user->getStatus()}</span>
+                        {/if}
+                        <br/>
+
+                        {if $user->isOnline()}
+                            <span class="span_status">{_online}</span>
+                        {else}
+                            <span class="span_status">{_was_online} {$user->getOnline()}</span>
+                        {/if}
+
+                    </div>
+                </div>
+            </div>
+            {ifset $thisUser}
+                {var subStatus = $user->getSubscriptionStatus($thisUser)}
+                {if $subStatus === 0}
+                    <form action="/setSub/user" method="post" class="form_gr" id="addToFriends">
+                        <input type="hidden" name="act" value="add" />
+                        <input type="hidden" name="id"  value="{$user->getId()}" />
+                        <input type="hidden" name="hash" value="{$csrfToken}" />
+                        <input type="submit" style="margin-left: 5px;width: 98%;" class="button primary big max" value="{_friends_add}" />
+                    </form>
+                {elseif $subStatus === 1}
+                    <form action="/setSub/user" method="post" class="form_gr" id="addToFriends">
+                        <input type="hidden" name="act" value="add" />
+                        <input type="hidden" name="id"  value="{$user->getId()}" />
+                        <input type="hidden" name="hash" value="{$csrfToken}" />
+                        <input type="submit" style="margin-left: 5px;width: 98%;" class="button primary big max" value="{_friends_accept}" />
+                    </form>
+                {elseif $subStatus === 2}
+                    <form action="/setSub/user" method="post" class="form_gr" id="addToFriends">
+                        <input type="hidden" name="act" value="rem" />
+                        <input type="hidden" name="id"  value="{$user->getId()}" />
+                        <input type="hidden" name="hash" value="{$csrfToken}" />
+                        <input type="submit" style="margin-left: 5px;width: 98%;" class="button primary big max" value="{_friends_reject}" />
+                    </form>
+                {/if}
+            {/ifset}
+            <div class="alert yellow">
+                {var $m = $user->isFemale() ? "f" : "m"}
+                <b>{tr("limited_access_to_page_$m", $user->getFirstName())}</b><br/>
+
+                {if isset($thisUser)}
+                    {if $subStatus != 2}
+                        {_you_can_add}
+                        <a href="javascript:addToFriends.submit()">{tr("add_to_friends_$m")}</a>
+                    {/if}
+                {/if}
+            </div>
         </div>
+    </div>
+    
     {else}
 
     <div n:if="!is_null($alert = $user->getAlert())" class="alert fake">{strpos($alert, "@") === 0 ? tr(substr($alert, 1)) : $alert}</div>

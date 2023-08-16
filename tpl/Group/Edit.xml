@@ -71,39 +71,6 @@
                         <br /><input type="radio" name="administrators_list_display" value="2" n:attr="checked => $club->getAdministratorsListDisplay() == 2" /> {_group_dont_display_administrators_list}<br><br />
                     </div>
 
-                    <div n:if="method_exists($club, 'isDeleted') && $club->getOwner()->getId() == $thisUser->getId()">
-                        <script>
-                            function showGroupDeleteDialog()
-                            {
-                                let id = {$club->getId()}
-                                let hash = document.querySelector("meta[name=csrf]").getAttribute("value");
-
-                                if(document.getElementById("deldiag").innerHTML == "") {
-                                    let body = `
-                                        <form action="/club` + id + `/delete" id="grpDeactivation" method="POST" style="background:#e3e3e3;padding: 10px;">` +
-                                            tr("trying_delete_group") + `
-                                            <input type="password" id="password" name="password" required />
-                                            <input type="hidden" name="hash" value="` + hash + `" />
-                                            <input type="submit" value="`+ tr("ok") +`">
-                                        </form>
-                                    `
-
-                                    document.getElementById("deldiag").insertAdjacentHTML("afterbegin", body)
-                                } else {
-                                    document.getElementById("deldiag").innerHTML = ""
-                                }
-                            }
-                        </script>
-                        <td width="120" valign="top">
-                            
-                        </td>
-                        <td>
-                            <span><a href="javascript:showGroupDeleteDialog()">{_delete_group}</a></span>
-
-                            <div id="deldiag"></div>
-                        </td>
-                    </div>
-
                     <tr>
                         <td>
                             

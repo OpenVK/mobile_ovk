@@ -99,31 +99,23 @@
             {elseif $type == "posts"}
                 <div n:foreach="$data as $dat" class="content">
                     {if $dat->getTargetWall() < 0 && $dat->getWallOwner()->isHideFromGlobalFeedEnabled()}
-                        {_dont_need_to_see_post}
+                        brbrevht
                     {else}
                         {include "../components/post.xml", post => $dat, commentSection => true, onWallOf => true}
                     {/if}
                 </div>
             {elseif $type == "comments"}
                 <div n:foreach="$data as $dat" class="content">
-                    {if $dat->getTarget()->isDeleted()}
-                        {_dont_need_to_see_comment}
-                    {else}
-                        {include "../components/comment.xml", comment => $dat, linkW => true}
-                    {/if}
+                    {include "../components/comment.xml", comment => $dat, linkW => true}
                 </div>
             {elseif $type == "videos"}
                 {foreach $data as $dat}
                     <div class="content">
-                        {if $dat->getOwner()->isDeleted()}
-                            {_dont_need_to_see_video}
-                        {else}
-                            {include "../components/video.xml", video => $dat}
-                        {/if}
+                        {include "../components/video.xml", video => $dat}
                     </div>
                 {/foreach}
             {elseif $type == "audios"}
-                хуй
+                privet
             {/if}
             {include "../components/paginator.xml", conf => (object) [
                 "page"     => $page,

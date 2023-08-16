@@ -22,36 +22,10 @@
 {* BEGIN ELEMENTS DESCRIPTION *}
 
 {block body}
-    <style>
-        #userContent img {
-            max-width: 245pt;
-            max-height: 200pt;
-        }
-
-        #userContent blockquote {
-            background-color: #f3f3f3;
-            border-bottom: 5px solid #969696;
-            padding: 1;
-        }
-
-        #userContent cite {
-            margin-top: 1em;
-            display: block;
-        }
-
-        #userContent cite::before {
-            content: "— ";
-        }
-
-        #userContent .underline {
-            text-decoration: underline;
-        }
-    </style>
 
     <div class="container_gray" style="background: white; border-top: none;">
         <div style="padding-bottom: 0px; padding-top: 0;" class="summaryBar">
             <div class="summary" style="padding-bottom:5px">
-                    {tr("notes_list", $count)}
                     <span n:if="isset($thisUser) && $thisUser->getId() == $owner->getId()" style="float:right;">
                         <a href="/notes/create">
                             <input type="button" value="{_create_note}">
@@ -59,33 +33,21 @@
                         </a>
                     </span>
             </div>
-            <hr />
         </div>
         {var $data = is_array($iterator) ? $iterator : iterator_to_array($iterator)}
         {if sizeof($data) > 0}
 
         <div n:foreach="$data as $dat" style="margin-left:10px;" onclick="location.href = '/note'+{$dat->getPrettyId()}">
-            <article class="note_body" id="userContent" style="width: 540px; display: inline-block; margin-bottom: 35px;">
+            <article class="note_body list_w_link" id="userContent" style="width: 540px; display: inline-block; margin-bottom: 35px;">
                 <div class="note_header">
                     <div class="note_title">
                         <div class="note_title">
                             <a href="/note{$dat->getPrettyId()}">{$dat->getName()}</a>
                         </div>
                     </div>
-                    <div class="byline">
-                        {$dat->getPublicationTime()}
-                        <span n:if="$dat->getEditTime() > $dat->getPublicationTime()">({_edited} {$dat->getEditTime()})</span>
-                    </div>
                 </div>
                 <div style="margin-left: 6px;">
                     {$dat->getText(750)|noescape}
-                </div>
-                <div class="note_footer" style="margin: 10px 0 0;">
-                    <div class="comments_count">
-                        <a href="/note{$dat->getPrettyId()}">
-                            <input type="button" value="{_comments}">
-                        </a>
-                    </div>
                 </div>
             </article>    
         </div>      

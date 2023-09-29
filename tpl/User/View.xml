@@ -48,13 +48,6 @@
 {block body}
     {if !$user->isBanned()}
     
-    {if !$user->getPrivacyPermission('page.read', $thisUser ?? NULL)}
-        <div class="alert err">
-            <b>{_forbidden}</b><br/>
-            {_forbidden_comment}
-        </div>
-    {else}
-
     <div n:if="!is_null($alert = $user->getAlert())" class="alert fake">{strpos($alert, "@") === 0 ? tr(substr($alert, 1)) : $alert}</div>
 
 
@@ -394,8 +387,6 @@
                     {presenter "openvk!Wall->wallEmbedded", $user->getId()}
             </div>
         </div>
-    {/if}
-    
     {else} {* isBanned() *}
         {include "banned.xml"}
     {/if}

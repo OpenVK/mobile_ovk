@@ -1,0 +1,87 @@
+{extends "../@layout.xml"}
+{block title}{_edit_group}{/block}
+
+{block titleHeader}
+    <a href="{$club->getURL()}">{$club->getName()}</a> » {_edit_group}
+{/block}
+
+{block body}
+    <div class="tabs">
+        <div id="activetabs" class="tab">
+            <a id="act_tab_a" href="javascript:void(0)">
+                {_main}
+            </a>
+        </div>
+        <div class="tab">
+            <a href="/club{$club->getId()}/backdrop">
+                {_backdrop_short}
+            </a>
+        </div>
+        <div class="tab">
+            <a href="/club{$club->getId()}/followers">
+                {_followers}
+            </a>
+        </div>
+    </div>
+    
+    <div class="container_gray">
+        <h4>{_main_information}</h4>
+        <form method="POST" enctype="multipart/form-data">
+            <style>
+                input[type=text] {
+                    width: 100%;
+                }
+            </style>
+                    <div class="formInput">
+                        <span class="nobold">{_name}: </span>
+                        <input type="text" name="name" value="{$club->getName()}" />
+                    </div>
+                    <div class="formInput">
+                        <span class="nobold">{_description}: </span>
+                        <textarea type="text" name="about" style="resize:vertical;">{$club->getDescription()}</textarea>
+                    </div>
+                    <div class="formInput">
+                        <span class="nobold">{_page_address}: </span>
+                        <input type="text" name="shortcode" value="{$club->getShortcode()}" />
+                    </div>
+                    <div class="formInput">
+                        <span class="nobold">{_website}: </span>
+                        <input type="text" name="website" value="{$club->getWebsite()}" />
+                    </div>
+                    <div class="formInput">
+                        <span class="nobold">{_avatar}: </span>
+                        <input type="file" id="ava" value="{_browse}" name="ava" onchange="filename.innerHTML=ava.files[0].name" />
+                        <div id="filename" style="margin-top: 10px;"></div>
+                    </div>
+                    <div class="formInput">
+                        <span class="nobold">{_wall}: </span><br />
+                        <br /><input type="checkbox" name="wall" value="1" n:attr="checked => $club->canPost()" /> {_group_allow_post_for_everyone}<br>
+                        <br /><input type="checkbox" name="hide_from_global_feed" value="1" n:attr="checked => $club->isHideFromGlobalFeedEnabled()" /> {_group_hide_from_global_feed}<br />
+                    </div>
+                    <div class="formInput">
+                        <span class="nobold">{_discussions}: </span><br />
+                        <br /><input type="checkbox" name="everyone_can_create_topics" value="1" n:attr="checked => $club->isEveryoneCanCreateTopics()" /> {_everyone_can_create_topics}<br>
+                        <br /><input type="checkbox" name="display_topics_above_wall" value="1" n:attr="checked => $club->isDisplayTopicsAboveWallEnabled()" /> {_display_list_of_topics_above_wall}<br />
+                    </div>
+                    <div class="formInput">
+                        <span class="nobold">{_group_administrators_list}: </span><br />
+                        {var $areAllAdminsHidden = $club->getManagersCount(true) == 0}
+                        <br /><input type="radio" name="administrators_list_display" value="0" n:attr="checked => $club->getAdministratorsListDisplay() == 0, disabled => $areAllAdminsHidden" /> {_group_display_only_creator}<br>
+                        <br /><input type="radio" name="administrators_list_display" value="1" n:attr="checked => $club->getAdministratorsListDisplay() == 1, disabled => $areAllAdminsHidden" /> {_group_display_all_administrators}<br>
+                        <br /><input type="radio" name="administrators_list_display" value="2" n:attr="checked => $club->getAdministratorsListDisplay() == 2" /> {_group_dont_display_administrators_list}<br><br />
+                    </div>
+
+                    <tr>
+                        <td>
+                            
+                        </td>
+                        <td>
+                            <input type="hidden" name="hash" value="{$csrfToken}" />
+                            <input type="submit" value="{_save}" class="button" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+{/block}

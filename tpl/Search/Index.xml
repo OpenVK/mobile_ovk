@@ -1,4 +1,4 @@
-{extends "../@listView.xml"}
+{extends "../@layout.xml"}
 
 {block title}
     {if $type === "users"}
@@ -8,8 +8,8 @@
     {/if}
 {/block}
 
-{block header}
-
+{block titleHeader}
+    {_header_search}
 {/block}
 
 
@@ -19,23 +19,118 @@
 
 
 {block tabs}
-    <div {if $type === "users"}id="activetabs"{/if} class="tab">
-        <a {if $type === "users"}id="act_tab_a"{/if} href="/search?type=users">
-            {_users}
-        </a>
-    </div>
-    <div {if $type === "groups"}id="activetabs"{/if} class="tab">
-        <a {if $type === "groups"}id="act_tab_a"{/if} href="/search?type=groups">
-            {_groups}
-        </a>
+    <div style="padding:10px">
+        <div {if $type === "users"}id="activetabs"{/if} class="tab">
+            <a {if $type === "users"}id="act_tab_a"{/if} href="/search?type=users">
+                {_users}
+            </a>
+        </div>
+        <div {if $type === "groups"}id="activetabs"{/if} class="tab">
+            <a {if $type === "groups"}id="act_tab_a"{/if} href="/search?type=groups">
+                {_groups}
+            </a>
+        </div>
+        <div {if $type === "posts"}id="activetabs"{/if} class="tab">
+            <a {if $type === "posts"}id="act_tab_a"{/if} href="/search?type=posts">
+                {_s_posts}
+            </a>
+        </div>
+        <div {if $type === "comments"}id="activetabs"{/if} class="tab">
+            <a {if $type === "comments"}id="act_tab_a"{/if} href="/search?type=comments">
+                {_s_comments}
+            </a>
+        </div>
+        <div {if $type === "videos"}id="activetabs"{/if} class="tab">
+            <a {if $type === "videos"}id="act_tab_a"{/if} href="/search?type=videos">
+                {_s_videos}
+            </a>
+        </div>
     </div>
 
-    <div class="sr_padding">
+    <div class="sr_padding" style="margin-left:10px">
         <form class="header_search_inputbt">
             <input name="type" type="hidden" value="{$type ?? 'users'}" />
             <input name="query" class="sr_input" placeholder="{_header_search}" value="{$_GET['query'] ?? ''}" />
             <button class="button cfa sr">{_search_button}</button>
         </form>
+    </div>
+{/block}
+
+{block body}
+    {include tabs}
+    <p style="margin-left: 15px; margin-top: 0;">
+        <b>{tr("results", $count)}</b>
+    </p>
+    <div>
+
+    {var $data = is_array($iterator) ? $iterator : iterator_to_array($iterator)}
+    <div class="container_gray borderup">
+        {if sizeof($data) > 0}
+            {if $type == "users" || $type == "groups" || $type == "apps"}
+                <div class="content" n:foreach="$data as $dat">
+                    <table>
+                    <tbody>
+                        <tr>
+                            <td valign="top">
+                                <a href="{include link, x => $dat}">
+                                {include preview, x => $dat}
+                                </a>
+                            </td>
+                            <td valign="top" style="width: 100%">
+                                {ifset infotable}
+                                    {include infotable, x => $dat}
+                                {else}
+                                    <a href="{include link, x => $dat}">
+                                    <b>
+                                        {include name, x => $dat}
+                                    </b>
+                                    </a>
+                                    <br/>
+                                    {include description, x => $dat}
+                                    {/ifset}
+                            </td>
+                            <td n:ifset="actions" valign="top" class="action_links" style="width: 150px;">
+                                {include actions, x => $dat}
+                            </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            {elseif $type == "posts"}
+                <div n:foreach="$data as $dat" class="content">
+                    {if $dat->getTargetWall() < 0 && $dat->getWallOwner()->isHideFromGlobalFeedEnabled()}
+                        brbrevht
+                    {else}
+                        {include "../components/post.xml", post => $dat, commentSection => true, onWallOf => true}
+                    {/if}
+                </div>
+            {elseif $type == "comments"}
+                <div n:foreach="$data as $dat" class="content">
+                    {include "../components/comment.xml", comment => $dat, linkW => true}
+                </div>
+            {elseif $type == "videos"}
+                {foreach $data as $dat}
+                    <div class="content">
+                        {include "../components/video.xml", video => $dat}
+                    </div>
+                {/foreach}
+            {elseif $type == "audios"}
+                privet
+            {/if}
+            {include "../components/paginator.xml", conf => (object) [
+                "page"     => $page,
+                "count"    => $count,
+                "amount"   => sizeof($data),
+                "perPage"  => $perPage ?? OPENVK_DEFAULT_PER_PAGE,
+                "atBottom" => false,
+            ]}
+        {else}
+            {ifset customErrorMessage}
+                {include customErrorMessage}
+            {else}
+                {include "../components/nothing.xml"}
+            {/ifset}
+        {/if}
     </div>
 {/block}
 

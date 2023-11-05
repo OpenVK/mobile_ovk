@@ -45,6 +45,11 @@
                 {_s_videos}
             </a>
         </div>
+        <div {if $type === "audios"}id="activetabs"{/if} class="tab">
+            <a {if $type === "audios"}id="act_tab_a"{/if} href="/search?type=audios">
+                {_s_audios}
+            </a>
+        </div>
     </div>
 
     <div class="sr_padding" style="margin-left:10px">
@@ -52,6 +57,16 @@
             <input name="type" type="hidden" value="{$type ?? 'users'}" />
             <input name="query" class="sr_input" placeholder="{_header_search}" value="{$_GET['query'] ?? ''}" />
             <button class="button cfa sr">{_search_button}</button>
+
+            {if $type === "audios"}
+                <label>
+                    <input type="checkbox" name="with_lyrics" n:attr="checked => $_GET['with_lyrics'] == 'on'">{_s_with_lyrics}
+                </label>
+                <br>
+                <label>
+                    <input type="checkbox" name="only_performers" n:attr="checked => $_GET['only_performers'] == 'on'">{_s_only_performers}
+                </label>
+            {/if}
         </form>
     </div>
 {/block}
@@ -99,7 +114,7 @@
             {elseif $type == "posts"}
                 <div n:foreach="$data as $dat" class="content">
                     {if $dat->getTargetWall() < 0 && $dat->getWallOwner()->isHideFromGlobalFeedEnabled()}
-                        brbrevht
+                        dffdfd
                     {else}
                         {include "../components/post.xml", post => $dat, commentSection => true, onWallOf => true}
                     {/if}
@@ -115,7 +130,9 @@
                     </div>
                 {/foreach}
             {elseif $type == "audios"}
-                privet
+                {foreach $data as $dat}
+                    {include "../Audio/player.xml", audio => $dat}
+                {/foreach}
             {/if}
             {include "../components/paginator.xml", conf => (object) [
                 "page"     => $page,

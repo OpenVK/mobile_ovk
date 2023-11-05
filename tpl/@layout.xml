@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="/themepack/mobile_ovk/0.0.1.0/resource/vendor/pure-grid.css" />
         <script src="/language/{php echo getLanguage()}.js" crossorigin="anonymous"></script>
         {script "js/l10n.js"}
+        {script "js/node_modules/dashjs/dist/dash.all.min.js"}
 
         {ifset headIncludes}{include headIncludes}{/ifset}
         <script src="/themepack/mobile_ovk/0.0.1.0/resource/jquery-3.6.0.min.js"></script>
@@ -86,14 +87,14 @@
                         <a n:if="$thisUser->getLeftMenuItemStatus('photos')" href="/albums{$thisUser->getId()}"><div class="mobile_icons" id="ph">{_mobile_photos} </div></a>
                     </li>
                     <li class="element prmenu">
+                        <a n:if="$thisUser->getLeftMenuItemStatus('audios')" href="/audios{$thisUser->getId()}"><div class="mobile_icons" id="audeeo">{_mobile_audios} </div></a>
+                    </li>
+                    <li class="element prmenu">
                         <a n:if="$thisUser->getLeftMenuItemStatus('videos')" href="/videos{$thisUser->getId()}"><div class="mobile_icons" id="video">{_mobile_videos} </div></a>
                     </li>
                     <li class="element prmenu">
                         <a n:if="$thisUser->getLeftMenuItemStatus('notes')" href="/notes{$thisUser->getId()}"><div class="mobile_icons" id="notfg">{_mobile_notes} </div></a>
                     </li>
-                    <!-- li class="element prmenu">
-                        <a n:if="$thisUser->getLeftMenuItemStatus('audios')" href="/audios{$thisUser->getId()}"><div class="mobile_icons" id="music">Аудиозаписи </div></a>
-                    </li -->
                     <li class="element prmenu">
                         <a n:if="$thisUser->getLeftMenuItemStatus('messages')" href="/im">
                             <div class="mobile_icons" id="mail">{_mobile_messages}
@@ -216,6 +217,7 @@
             {include body}
 
         </div></div>
+        <script defer src="/themepack/mobile_ovk/0.0.1.0/resource/mobile_audios.js?rnd={rand(0, 99999)}"></script>
     </body>
 </html>{if isset($parentModule) && substr($parentModule, 0, 21) !== 'libchandler:absolute.'}<!-- INCLUDING TEMPLATE FROM PARENTMODULE: {$parentModule} -->
 

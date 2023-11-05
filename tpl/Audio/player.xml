@@ -1,0 +1,39 @@
+{php $id = $audio->getId() . rand(0, 1000)}
+{php $isWithdrawn = $audio->isWithdrawn()}
+{php $editable = isset($thisUser) && $audio->canBeModifiedBy($thisUser)}
+<div class="litePlayer" data-id="{$id}" data-realid="{$audio->getId()}" data-name="{$audio->getName()}" data-length="{$audio->getLength()}" data-keys="{json_encode($audio->getKeys())}" data-url="{$audio->getURL()}">
+    <audio class="audio" />
+
+    <div class="audioEntry">
+        <div class="playButton"></div>
+
+        <div class="audioInfo noOverflow">
+            <div class="noOverflow" style="height:20px;max-width: 446px;">
+                <a class="performer" href="/search?type=audios&only_performers=on&query={urlencode($audio->getPerformer())}">{$audio->getPerformer()}</a>
+                —
+                <span class="name {if !empty($audio->getLyrics())}hasLyrics{/if}">{$audio->getTitle()}</span>
+            </div>
+        </div>
+
+        <div class="length">
+            <span class="lengthText">{$audio->getFormattedLength()}</span>
+        </div>
+    </div>
+
+    <div class="tracks clearFix">
+        <div class="lengthTrack">
+            <div class="selectableTrack">
+                <div class="usedPart"></div>
+            </div>
+        </div>
+        <div class="volumeTrack">
+            <div class="selectableTrack">
+                <div class="usedPart"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lyrics" n:if="!empty($audio->getLyrics())">
+        {nl2br($audio->getLyrics())|noescape}
+    </div>
+</div>

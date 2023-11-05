@@ -147,6 +147,12 @@
                             {_topics}
                         </a>
                     </li>
+                    <li class="element">
+                        <a href="/audios-{$club->getId()}">
+                            {_audios}
+                            <span class="counter">{$audiosCount}</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
                 {presenter "openvk!Wall->wallEmbedded", -$club->getId()}

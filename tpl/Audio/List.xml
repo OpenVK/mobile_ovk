@@ -1,0 +1,107 @@
+{extends "../@layout.xml"}
+
+{block title}
+    {if $mode == 'list'}
+        {_audios}
+    {elseif $mode == 'new'}
+        {_audio_new}
+    {elseif $mode == 'popular'}
+        {_audio_popular}
+    {else}
+        {_playlists}
+    {/if}
+{/block}
+
+{block header}
+    <div n:if="$mode == 'list'">
+        <div n:if="$isMy">{_my_audios_small}</div>
+        <div n:if="!$isMy">
+            <a href="{$owner->getURL()}">{$owner->getCanonicalName()}</a>
+            »
+            {_audios}
+        </div>
+    </div>
+
+    <div n:if="$mode == 'new'">
+        {_audios}
+        »
+        {_audio_new}
+    </div>
+
+    <div n:if="$mode == 'popular'">
+        {_audios}
+        »
+        {_audio_popular}
+    </div>
+
+    <div n:if="$mode == 'playlists'">
+        {_audios}
+        »
+        {if $isMy}{_my_playlists}{else}{_playlists}{/if}
+    </div>
+{/block}
+
+{block body}
+    <div class="coolTabs clearFix">
+        <div n:attr="id => $mode === 'list' && $isMy ? activetabs : ''" class="tab">
+            <a n:attr="id => $mode === 'list' && $isMy ? 'act_tab_a' : ''" href="/audios{$thisUser->getId()}">
+                {_my}
+            </a>
+        </div>
+        <div n:attr="id => $mode === 'new' ? activetabs : ''" class="tab">
+            <a n:attr="id => $mode === 'new' ? 'act_tab_a' : ''" href="/audios/new">
+                {_audio_new}
+            </a>
+        </div>
+        <div n:attr="id => $mode === 'popular' ? activetabs : ''" class="tab">
+            <a n:attr="id => $mode === 'popular' ? 'act_tab_a' : ''" href="/audios/popular">
+                {_audio_popular}
+            </a>
+        </div>
+        <div n:attr="id => $mode === 'playlists' ? activetabs : ''" class="tab">
+            <a n:attr="id => $mode === 'playlists' ? 'act_tab_a' : ''" href="/playlists{$thisUser->getId()}">
+                {_playlists}
+            </a>
+        </div>
+        <div class="tab">
+            <a href="/player/upload">
+                {_upload_audio}
+            </a>
+        </div>
+
+        <form class="searchPanel" action="/search" method="GET" n:if="$mode != 'playlists' && $isMy">
+            <input type="text" name="query" placeholder="{_enter_a_name_or_artist}">
+            <input type="hidden" name="type" value="audios">
+
+            <input type="submit" class="button cfa sr" value="{_header_search}">
+        </form>
+    </div>
+
+    <div class="audiosDiv">
+        <div n:if="$mode != 'playlists'">
+            {if $audiosCount > 0}
+                <div n:if="$audiosCount > 0" class="infContainer">
+                    <div class="infObj" n:foreach="$audios as $audio">
+                        {include "player.xml", audio => $audio, club => $club}
+                    </div>
+                </div>
+
+                <div n:if="$mode != 'new' && $mode != 'popular'" style="padding-bottom: 16px;float: right;">
+                    {include "../components/paginator.xml", conf => (object) [
+                        "page"     => $page,
+                        "count"    => $audiosCount,
+                        "amount"   => sizeof($audios),
+                        "perPage"  => $perPage ?? OPENVK_DEFAULT_PER_PAGE,
+                        "atBottom" => true,
+                    ]}
+                </div>
+            {else}
+                {include "../components/error.xml", description => $ownerId > 0 ? ($ownerId == $thisUser->getId() ? tr("no_audios_thisuser") : tr("no_audios_user")) : tr("no_audios_club")}
+            {/if}
+        </div>
+
+        <div n:if="$mode == 'playlists'">
+
+        </div>
+    </div>
+{/block}

@@ -2326,8 +2326,8 @@ select {
 }
 
 .playlistCover img {
-    width: 134px;
-    height: 134px;
+    width: 19vh;
+    height: 19vh;
 }
 
 .playlistInfo h4 {
@@ -2346,3 +2346,15 @@ select {
     padding: 0px 5px;
 }
 
+.playlistBlock {
+    padding: 14px;
+}
+
+.playlistInfo {
+    margin-top: -9px;
+}
+
+.lagged *, .lagged {
+    pointer-events: none;
+    opacity: 50%;
+}

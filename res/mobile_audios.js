@@ -45,7 +45,7 @@ function initPlayer(id, keys, url, length) {
         }
     };
 
-    player.querySelector(".tracks").style.display = "block"
+    player.querySelector(".tracks").style.display = "flex"
 
     const dashPlayer = dashjs.MediaPlayer().create();
     dashPlayer.initialize(audio, url, false);
@@ -159,4 +159,40 @@ function initPlayer(id, keys, url, length) {
 
     audio.volume = 0.5
     audio.dispatchEvent(new Event("volumechange"));
+
+    navigator.mediaSession.setActionHandler('play', () => { audio.play() });
+    navigator.mediaSession.setActionHandler('pause', () => { audio.pause() });
+    navigator.mediaSession.setActionHandler("seekto", (details) => {
+        audio.currentTime = details.seekTime;
+    });
+
+    navigator.mediaSession.metadata = new MediaMetadata({
+        title: player.querySelector(".audioInfo .name").innerHTML,
+        artist: player.querySelector(".audioInfo .performer").innerHTML,
+        artwork: [{ src: "/assets/packages/static/openvk/img/song.jpg" }],
+    });
 }
+
+$(document).on("click", "#bookmarkPlaylist, #unbookmarkPlaylist", (e) => {
+    let target = e.currentTarget
+    let id = target.id
+
+    $.ajax({
+        type: "POST",
+        url: `/playlist${e.currentTarget.dataset.id}/action?act=${id == "unbookmarkPlaylist" ? "unbookmark" : "bookmark"}`,
+        data: {
+            hash: u("meta[name=csrf]").attr("value"),
+        },
+        beforeSend: () => {
+            e.currentTarget.classList.add("lagged")
+        },
+        success: (response) => {
+            if(response.success) {
+                e.currentTarget.setAttribute("id", id == "unbookmarkPlaylist" ? "bookmarkPlaylist" : "unbookmarkPlaylist")
+                e.currentTarget.querySelector("input").setAttribute("value", id == "unbookmarkPlaylist" ? tr("bookmark") : tr("unbookmark"))
+                e.currentTarget.classList.remove("lagged")
+            } else
+                fastError(response.flash.message)
+        }
+    })
+})

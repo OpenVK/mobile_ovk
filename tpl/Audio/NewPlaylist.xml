@@ -30,7 +30,7 @@
         }
     </style>
 
-    <div style="display:flex;">
+    <div style="display:flex;padding: 14px;">
         <div class="playlistCover" onclick="document.querySelector(`#newPlaylistForm input[name='cover']`).click()">
             <a>
                 <img src="/assets/packages/static/openvk/img/song.jpg">

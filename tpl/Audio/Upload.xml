@@ -4,23 +4,36 @@
     {_upload_audio}
 {/block}
 
-{block header}
-    {if !is_null($group)}
-        <a href="{$group->getURL()}">{$group->getCanonicalName()}</a>
-        »
-        <a href="/audios-{$group->getId()}">{_audios}</a>
-    {else}
-        <a href="{$thisUser->getURL()}">{$thisUser->getCanonicalName()}</a>
-        »
-        <a href="/audios{$thisUser->getId()}">{_audios}</a>
-    {/if}
-
-    »
-    {_upload_audio}
-{/block}
-
 {block body}
-    <div class="container_gray" style="border: 0;margin-top: -10px;">
+    <div class="coolTabs clearFix">
+        <div class="tab">
+            <a n:attr="id => $mode === 'list' && $isMy ? 'act_tab_a' : ''" href="/audios{$thisUser->getId()}">
+                {_my}
+            </a>
+        </div>
+        <div class="tab">
+            <a n:attr="id => $mode === 'new' ? 'act_tab_a' : ''" href="/audios/new">
+                {_audio_new}
+            </a>
+        </div>
+        <div class="tab">
+            <a n:attr="id => $mode === 'popular' ? 'act_tab_a' : ''" href="/audios/popular">
+                {_audio_popular}
+            </a>
+        </div>
+        <div class="tab">
+            <a href="/playlists{$thisUser->getId()}">
+                {_playlists}
+            </a>
+        </div>
+        <div class="tab" id="activetabs">
+            <a id="act_tab_a" href="/player/upload">
+                {_upload_audio}
+            </a>
+        </div>
+    </div>
+
+    <div style="border: 0;margin-top: -10px;">
         <div id="upload_container">
             <div id="firstStep">
                 <h4>{_select_audio}</h4><br/>
@@ -41,9 +54,7 @@
                         <input id="audio_input" type="file" name="blob" accept="audio/*" style="display:none" />
                         <input value="{_upload_button}" class="button" type="button" onclick="document.querySelector('#audio_input').click()">
                     </form>
-                </div><br/>
-            
-                <span>{_you_can_also_add_audio_using} <b><a href="/search?type=audios">{_search_audio_inst}</a></b>.<span>
+                </div>
             </div>
 
             <div id="lastStep" style="display:none;">

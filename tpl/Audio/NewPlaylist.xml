@@ -18,7 +18,7 @@
     {_new_playlist}
 {/block}
 
-{block content}
+{block body}
     <style>
         textarea[name='description'] {
             padding: 4px;
@@ -44,24 +44,6 @@
             <div class="moreInfo" style="margin-top: 11px;">
                 <textarea placeholder="{_description}" name="description" maxlength="2048" />
             </div>
-        </div>
-    </div>
-
-    <div style="margin-top: 19px;">
-        <input id="playlist_query" type="text" style="height: 26px;" placeholder="{_header_search}">
-        <div class="playlistAudiosContainer" style="display:table;clear:both;width:100%;margin-top: 10px;">
-            <div id="newPlaylistAudios" n:foreach="$audios as $audio">
-                <div style="width: 78%;float: left;">
-                    {include "player.xml", audio => $audio, hideButtons => true}
-                </div>
-                <div class="attachAudio addToPlaylist" data-id="{$audio->getId()}" style="width: 22%;">
-                    <span>{_add_to_playlist}</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="showMoreAudiosPlaylist" data-page="2" {if !is_null($_GET["gid"])}data-club="{abs($_GET['gid'])}"{/if} n:if="$pagesCount > 1">
-            {_show_more_audios}
         </div>
     </div>
 
@@ -104,6 +86,4 @@
 
         document.querySelector("#newPlaylistForm input[name='cover']").value = ""
     </script>
-
-    {script "js/al_playlists.js"}
 {/block}

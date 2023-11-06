@@ -18,10 +18,6 @@
             <a>
                 <img src="{$playlist->getCoverURL('normal')}">
             </a>
-
-            <div class="profile_links" style="width: 139px;">
-                <a class="profile_link" style="width: 98%;" id="_deletePlaylist" data-id="{$playlist->getId()}">{_delete_playlist}</a>
-            </div>
         </div>
 
         <div style="padding-left: 13px;width:75%">
@@ -35,29 +31,10 @@
         </div>
     </div>
 
-    <div style="margin-top: 19px;">
-        <input id="playlist_query" type="text" style="height: 26px;" placeholder="{_header_search}">
-        <div class="playlistAudiosContainer" style="display:table;clear:both;width:100%;margin-top: 10px;">
-            <div id="newPlaylistAudios" n:foreach="$audios as $audio">
-                <div style="width: 78%;float: left;">
-                    {include "player.xml", audio => $audio, hideButtons => true}
-                </div>
-                <div class="attachAudio addToPlaylist" data-id="{$audio->getId()}" style="width: 22%;">
-                    <span>{_remove_from_playlist}</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="showMoreAudiosPlaylist" data-page="2" data-playlist="{$playlist->getId()}" n:if="$pagesCount > 1">
-            {_show_more_audios}
-        </div>
-    </div>
-
     <form method="post" id="editPlaylistForm" data-id="{$playlist->getId()}" enctype="multipart/form-data">
         <input type="hidden" name="title" maxlength="128" />
         <input type="hidden" name="hash" value="{$csrfToken}" />
         <textarea style="display:none;" name="description" maxlength="2048" />
-        <input type="hidden" name="audios">
         <input type="file" style="display:none;" name="new_cover" accept=".jpg,.png">
 
         <div style="float:right;margin-top: 8px;">
@@ -66,14 +43,12 @@
     </form>
 
     <script>
-        document.querySelector("input[name='audios']").value = {$audiosIds}
-
-        u("#editPlaylistForm").on("submit", (e) => {
+        document.querySelector("#editPlaylistForm").addEventListener("submit", (e) => {
             document.querySelector("#editPlaylistForm input[name='title']").value = document.querySelector(".playlistInfo input[name='title']").value
             document.querySelector("#editPlaylistForm textarea[name='description']").value = document.querySelector(".playlistBlock textarea[name='description']").value
         })
 
-        u("#editPlaylistForm input[name='new_cover']").on("change", (e) => {
+        document.querySelector("#editPlaylistForm input[name='new_cover']").addEventListener("change", (e) => {
             if(!e.currentTarget.files[0].type.startsWith("image/")) {
                 fastError(tr("not_a_photo"))
                 return
@@ -84,12 +59,10 @@
             document.querySelector(".playlistCover img").src = image
         })
 
-        u(".playlistCover img").on("click", (e) => {
+        document.querySelector(".playlistCover img").addEventListener("click", (e) => {
             document.querySelector("input[name='new_cover']").click()
         })
 
         document.querySelector("#editPlaylistForm input[name='new_cover']").value = ""
     </script>
-
-    {script "js/al_playlists.js"}
 {/block}

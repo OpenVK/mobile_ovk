@@ -2,54 +2,46 @@
 
 {block title}{_playlist}{/block}
 
-{block header}
-    <a href="{$owner->getURL()}">{$owner->getCanonicalName()}</a>
-    »
-    <a href="/audios{$ownerId}">{_audios}</a>
-    »
-    {_playlist}
-{/block}
-
 {block body}
-    {include "bigplayer.xml"}
-
     {php $count = $playlist->size()}
-    
-    <input type="hidden" name="bigplayer_context" data-type="playlist_context" data-entity="{$playlist->getId()}" data-page="{$page}">
+
     <div class="playlistBlock">
         <div class="playlistCover" style="float: left;">
-            <a href="{$playlist->getCoverURL()}" target="_blank">
-                <img src="{$playlist->getCoverURL('normal')}" alt="{_playlist_cover}">
-            </a>
-
-            <div class="profile_links" style="width: 139px;">
-                <a class="profile_link" style="width: 98%;" href="/playlist{$playlist->getPrettyId()}/edit" n:if="$playlist->canBeModifiedBy($thisUser)">{_edit_playlist}</a>
-                <a class="profile_link" style="width: 98%;" id="bookmarkPlaylist" data-id="{$playlist->getId()}" n:if="!$isBookmarked">{_bookmark}</a>
-                <a class="profile_link" style="width: 98%;" id="unbookmarkPlaylist" data-id="{$playlist->getId()}" n:if="$isBookmarked">{_unbookmark}</a>
-            </div>
+            <img src="{$playlist->getCoverURL('normal')}" alt="{_playlist_cover}">
         </div>
 
         <div style="float: left;padding-left: 13px;width:75%">
             <div class="playlistInfo">
-                <h4 style="border-bottom:unset;">{$playlist->getName()}</h4>
-
+                <h4 style="border-bottom:unset;margin-bottom: 0px;">{$playlist->getName()}</h4>
+                <a style="font-size: 17px;" href="{$playlist->getOwner()->getURL()}">{$playlist->getOwner()->getCanonicalName()}</a>
                 <div class="moreInfo">
                     {$playlist->getMetaDescription()|noescape}
 
                     <div style="margin-top: 11px;">
                         <span>{nl2br($playlist->getDescriptionHTML())|noescape}</span>
                     </div>
-                    <hr style="color: #f7f7f7;">
+
+                    <a href="/playlist{$playlist->getPrettyId()}/edit" n:if="$playlist->canBeModifiedBy($thisUser)">
+                        <input type="button" class="button cfa sr" value="{_edit_playlist}">
+                    </a>
+                    <a id="bookmarkPlaylist" data-id="{$playlist->getId()}" n:if="!$isBookmarked">
+                        <input type="button" class="button cfa sr" value="{_bookmark}">
+                    </a>
+                    <a id="unbookmarkPlaylist" data-id="{$playlist->getId()}" n:if="$isBookmarked">
+                        <input type="button" class="button cfa sr" value="{_unbookmark}">
+                    </a>
                 </div>
             </div>
-            <div class="audiosContainer infContainer" style="margin-top: 14px;">
-                {if $count < 1}
-                    {_empty_playlist}
-                {else}  
-                    <div class="infObj" n:foreach="$audios as $audio">
-                        {include "player.xml", audio => $audio}
-                    </div>
+        </div>
+        <div class="audiosContainer infContainer" style="margin-top: 14px;">
+            {if $count < 1}
+                {_empty_playlist}
+            {else}  
+                <div class="infObj" n:foreach="$audios as $audio">
+                    {include "player.xml", audio => $audio}
+                </div>
 
+                <div style="padding-bottom: 16px;float: right;">
                     {include "../components/paginator.xml", conf => (object) [
                         "page"     => $page,
                         "count"    => $count,
@@ -57,8 +49,8 @@
                         "perPage"  => $perPage ?? OPENVK_DEFAULT_PER_PAGE,
                         "atBottom" => true,
                     ]}
-                {/if}
-            </div>
+                </div>
+            {/if}
         </div>
     </div>
 {/block}

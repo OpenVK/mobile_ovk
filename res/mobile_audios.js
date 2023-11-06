@@ -1,4 +1,3 @@
-// Что ж, мне придётся писать это без jquery.
 function fmtTime(time) {
     const mins = String(Math.floor(time / 60)).padStart(2, '0');
     const secs = String(Math.floor(time % 60)).padStart(2, '0');
@@ -12,7 +11,7 @@ function addEvent(selector, eventType, func) {
     })
 }
 
-addEvent(".litePlayer", "click", (event) => {
+$(document).on("click", ".litePlayer", (event) => {
     var player = event.target.closest(".litePlayer")
     if(player.classList.contains("inited")) return
 
@@ -25,7 +24,7 @@ addEvent(".litePlayer", "click", (event) => {
         event.target.click()
 })
 
-addEvent(".litePlayer .hasLyrics", "click", (event) => {
+$(document).on("click", ".litePlayer .hasLyrics", (event) => {
     var player = event.target.closest(".litePlayer")
     var lyrics = player.querySelector(".lyrics")
 

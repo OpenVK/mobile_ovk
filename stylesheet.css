@@ -2324,3 +2324,25 @@ select {
 #upload_container {
     padding: 19px;
 }
+
+.playlistCover img {
+    width: 134px;
+    height: 134px;
+}
+
+.playlistInfo h4 {
+    font-size: 23px;
+}
+
+.playlistInfo .moreInfo {
+    margin-top: 10px;
+}
+
+.audiosContainer {
+    margin-top: 14px;
+    clear: both;
+    display: table;
+    width: 100%;
+    padding: 0px 5px;
+}
+

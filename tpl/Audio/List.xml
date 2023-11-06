@@ -101,7 +101,44 @@
         </div>
 
         <div n:if="$mode == 'playlists'">
+            <a href="/audios/newPlaylist">
+                <input type="button" class="button cfa sr" value="{_new_playlist}">
+            </a>
 
+            {if $playlistsCount > 0}
+                <a href="{$playlist->getURL()}" n:foreach="$playlists as $playlist"><div class="content list_w_link" id="userContent">
+                    <table><tbody>
+                        <tr>
+                            <td valign="top">
+                                <a href="{$playlist->getURL()}">
+                                    <img src="{$playlist->getCoverURL()}" style="width: 107px;height: 107px;">
+                                </a>
+                            </td>
+                            <td valign="top" style="width: 100%">
+                                <a href="{$playlist->getURL()}">
+                                    <b style="font-size: 17px;">
+                                        {$playlist->getName()}
+                                    </b>
+                                </a>
+                                <br/>
+                                {$playlist->getOwner()->getCanonicalName()}
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </div></a>
+
+                <div style="padding-bottom: 16px;float: right;">
+                    {include "../components/paginator.xml", conf => (object) [
+                        "page"     => $page,
+                        "count"    => $playlistsCount,
+                        "amount"   => sizeof($playlists),
+                        "perPage"  => $perPage ?? OPENVK_DEFAULT_PER_PAGE,
+                        "atBottom" => true,
+                    ]}
+                </div>
+            {else}
+                {include "../components/error.xml", description => $ownerId > 0 ? ($ownerId == $thisUser->getId() ? tr("no_playlists_thisuser") : tr("no_playlists_user")) : tr("no_playlists_club")}
+            {/if}
         </div>
     </div>
 {/block}

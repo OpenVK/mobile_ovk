@@ -35,6 +35,8 @@
             <span class="note_name">{_note} "{$attachment->getName()}"</span>
         </div>
     </a>
+{elseif $attachment instanceof \openvk\Web\Models\Entities\Audio}
+    {include "../Audio/player.xml", audio => $attachment}
 {elseif $attachment instanceof \openvk\Web\Models\Entities\Poll}
     {presenter "openvk!Poll->view", $attachment->getId()}
 {else}

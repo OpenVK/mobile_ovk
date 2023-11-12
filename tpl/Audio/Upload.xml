@@ -1,0 +1,218 @@
+{extends "../@layout.xml"}
+
+{block title}
+    {_upload_audio}
+{/block}
+
+{block body}
+    <div class="coolTabs clearFix">
+        <div class="tab">
+            <a n:attr="id => $mode === 'list' && $isMy ? 'act_tab_a' : ''" href="/audios{$thisUser->getId()}">
+                {_my}
+            </a>
+        </div>
+        <div class="tab">
+            <a n:attr="id => $mode === 'new' ? 'act_tab_a' : ''" href="/audios/new">
+                {_audio_new}
+            </a>
+        </div>
+        <div class="tab">
+            <a n:attr="id => $mode === 'popular' ? 'act_tab_a' : ''" href="/audios/popular">
+                {_audio_popular}
+            </a>
+        </div>
+        <div class="tab">
+            <a href="/playlists{$thisUser->getId()}">
+                {_playlists}
+            </a>
+        </div>
+        <div class="tab" id="activetabs">
+            <a id="act_tab_a" href="/player/upload">
+                {_upload_audio}
+            </a>
+        </div>
+    </div>
+
+    <div style="border: 0;margin-top: -10px;">
+        <div id="upload_container">
+            <div id="firstStep">
+                <h4>{_select_audio}</h4><br/>
+                <b><a href="javascript:void(0)">{_limits}</a></b>
+                <ul>
+                    <li>{tr("audio_requirements", 1, 30, 25)}</li>
+                    <li>{tr("audio_requirements_2")}</li>
+                </ul>
+                <div id="audio_upload">
+                    <form enctype="multipart/form-data" method="POST" style="text-align: center;">
+                        <input type="hidden" name="name" />
+                        <input type="hidden" name="performer" />
+                        <input type="hidden" name="lyrics" />
+                        <input type="hidden" name="genre" />
+                        <input type="hidden" name="explicit" />
+                        
+                        <input type="hidden" name="hash" value="{$csrfToken}" />
+                        <input id="audio_input" type="file" name="blob" accept="audio/*" style="display:none" />
+                        <input value="{_upload_button}" class="button" type="button" onclick="document.querySelector('#audio_input').click()">
+                    </form>
+                </div>
+            </div>
+
+            <div id="lastStep" style="display:none;">
+                <table cellspacing="7" cellpadding="10" border="0" align="center">
+                    <tbody>
+                        <tr>
+                            <td width="120" valign="top"><span class="nobold">{_audio_name}:</span></td>
+                            <td><input type="text" name="name" autocomplete="off" /></td>
+                        </tr>
+                        <tr>
+                            <td width="120" valign="top"><span class="nobold">{_performer}:</span></td>
+                            <td><input name="performer" type="text" autocomplete="off" /></td>
+                        </tr>
+                        <tr>
+                            <td width="120" valign="top"><span class="nobold">{_genre}:</span></td>
+                            <td>
+                                <select name="genre">
+                                    <option n:foreach='\openvk\Web\Models\Entities\Audio::genres as $genre' n:attr="selected: $genre == 'Other'" value="{$genre}">
+                                        {$genre}
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="120" valign="top"><span class="nobold">{_lyrics}:</span></td>
+                            <td><textarea name="lyrics" style="resize: vertical;max-height: 300px;"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td width="120" valign="top"></td>
+                            <td>
+                                <label><input type="checkbox" name="explicit">{_audios_explicit}</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="120" valign="top"></td>
+                            <td>
+                                <input class="button" type="button" id="uploadMuziko" value="{_upload_button}">
+                                <input class="button" type="button" id="backToUpload" value="{_select_another_file}">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+        import * as id3 from "/assets/packages/static/openvk/js/node_modules/id3js/lib/id3.js";
+        
+        document.querySelector("#audio_input").addEventListener("change", async function(e) {
+            let files = e.currentTarget.files
+            if(files.length <= 0)
+                return;
+            
+            document.querySelector("#firstStep").style.display = "none"
+            document.querySelector("#lastStep").style.display = "block"
+            
+            let tags = await id3.fromFile(files[0]);
+            if(tags != null) {
+                console.log("ID" + tags.kind + " detected, setting values...");
+                
+                if(tags.title != null)
+                    document.querySelector("#lastStep input[name=name]").value = tags.title;
+                else
+                    document.querySelector("#lastStep input[name=name]").value = files[0].name
+                
+                if(tags.artist != null)
+                    document.querySelector("#lastStep input[name=performer]").value = tags.artist;
+                else
+                    document.querySelector("#lastStep input[name=performer]").value = tr("track_unknown");
+                
+                if(tags.genre != null) {
+                    if(document.querySelector("#lastStep select[name=genre] > option[value='" + tags.genre + "']") != null) {
+                        document.querySelector("#lastStep select[name=genre]").value = tags.genre;
+                    } else {
+                        console.warn("Unknown genre: " + tags.genre);
+                        document.querySelector("#lastStep select[name=genre]").value = "Other"
+                    }
+                }
+            } else {
+                document.querySelector("#lastStep input[name=name]").value = files[0].name
+                document.querySelector("#lastStep select[name=genre]").value = "Other"
+                document.querySelector("#lastStep input[name=performer]").value = tr("track_unknown");
+            }
+        });
+
+        document.querySelector("#backToUpload").addEventListener("click", (e) => {
+            document.querySelector("#firstStep").style.display = "block"
+            document.querySelector("#lastStep").style.display = "none"
+
+            document.querySelector("#lastStep input[name=name]").value = ""
+            document.querySelector("#lastStep input[name=performer]").value = ""
+            document.querySelector("#lastStep select[name=genre]").value = ""
+            document.querySelector("#lastStep textarea[name=lyrics]").value = ""
+            document.querySelector("#audio_input").value = ""
+        })
+
+        document.querySelector("#uploadMuziko").addEventListener("click", (e) => {
+            var name_   = document.querySelector("#audio_upload input[name=name]");
+            var perf_   = document.querySelector("#audio_upload input[name=performer]");
+            var genre_  = document.querySelector("#audio_upload input[name=genre]");
+            var lyrics_ = document.querySelector("#audio_upload input[name=lyrics]");
+            var explicit_ = document.querySelector("#audio_upload input[name=explicit]");
+
+            name_.value = document.querySelector("#lastStep input[name=name]").value
+            perf_.value = document.querySelector("#lastStep input[name=performer]").value
+            genre_.value = document.querySelector("#lastStep select[name=genre]").value
+            lyrics_.value = document.querySelector("#lastStep textarea[name=lyrics]").value
+            explicit_.value = document.querySelector("#lastStep input[name=explicit]").checked ? "on" : "off"
+
+            $("#audio_upload > form").trigger("submit");
+        })
+
+        document.addEventListener("dragover drop", (e) => {
+            e.preventDefault()
+
+            return false;
+        })
+
+        document.querySelector(".container_gray").addEventListener("drop", (e) => {
+            e.originalEvent.dataTransfer.dropEffect = 'move';
+            e.preventDefault()
+
+            let file = e.originalEvent.dataTransfer.files[0]
+
+            if(!file.type.startsWith('audio/')) {
+                MessageBox(tr("error"), tr("only_audios_accepted", escapeHtml(file.name)), [tr("ok")], [() => Function.noop])
+                return;
+            }
+
+            document.getElementById("audio_input").files = e.originalEvent.dataTransfer.files
+            u("#audio_input").trigger("change")
+        })
+        
+        document.querySelector("#audio_upload form").addEventListener("submit", (e) => {
+            e.preventDefault()
+
+            let fd = new FormData(e.currentTarget)
+            fd.append("ajax", 1)
+
+            let xhr = new XMLHttpRequest
+            xhr.open("POST", location.href)
+            xhr.onloadstart = () => {
+                document.querySelector("#lastStep").classList.add("lagged")
+                document.querySelector("#upload_container").classList.add("uploading")
+            }
+
+            xhr.onload = () => {
+                document.querySelector("#lastStep").classList.remove("lagged")
+                document.querySelector("#upload_container").classList.remove("uploading")
+                if(response.success) {
+                    window.location.assign(response.redirect_link)
+                } else {
+                    alert(response.flash.message)
+                }
+            }
+
+            xhr.send(fd)
+        })
+    </script>
+{/block}

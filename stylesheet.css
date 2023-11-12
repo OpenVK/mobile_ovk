@@ -1,3 +1,40 @@
+input[type=checkbox],
+input[type=radio] {
+    background-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    height: 14px;
+    width: 14px;
+    outline: none;
+    cursor: pointer;
+    vertical-align: middle;
+    margin: 4px 3px 3px;
+}
+
+input[type=checkbox] {
+    background-image: url("data:image/gif;base64,R0lGODlhDwA4ALMAAP//////AP8A//8AAAD//wD/AAAA/wAAADtZd8XKzuHh4crKysHBwba2tv///wAAACH5BAEAAA4ALAAAAAAPADgAAASzcMlJqVsg653X5SDgYeE2luaHdup6rmKLvq5c0rMdjlUvXb6eDoRAkFBF4yqZOBKLi2aJSUNomE1VEoCNkRLJYiLB+oLF5LJmjBinnOO0BncDBi2NvH6/dzQUgIGCgA1+g4cKhX+IgoqMjYaPhJGSjpKJlI+WlZmMm5qdiIp8pHl+paShh0WLj0mtiEywg0kMCbOBTAyUCLlolkkKWJiLZ8PEgGxogZtsY5CwcYOfnqeofREAOw==");
+    width: 15px;
+}
+
+input[type=radio] {
+    background-image: url("../img/radio.png");
+}
+
+input[type=checkbox]:hover,
+input[type=radio]:hover {
+    background-position: 0 -28px;
+}
+
+input[type=checkbox]:checked,
+input[type=radio]:checked {
+    background-position: 0 -14px;
+}
+
+input[type=checkbox]:checked:hover,
+input[type=radio]:checked:hover {
+    background-position: 0 -42px;
+}
 
 * {
     box-sizing: border-box;
@@ -1468,6 +1505,11 @@ h4 {
     background-position: 0px -113px;
 }
 
+#audeeo{
+    background-position: 0px -198px;
+    height: 20px;
+}
+
 #mail{
     background-position: 0px -3px;
 }
@@ -2122,4 +2164,197 @@ label, .poll > input[type=checkbox]{
 
 .note_title a {
     font-size: 20px;
+}
+
+.coolTabs {
+    background-color: rgb(247, 247, 247);
+    border-bottom: 1px solid rgb(223, 230, 235);
+    height: 43px;
+    padding-top: 11px;
+    padding-left: 9px;
+    width: 100%;
+}
+
+.searchPanel {
+    margin-top: 12px;
+    width: 100%;
+}
+
+.searchPanel input[type='text'] {
+    width: 87%;
+    height: 25px;
+    outline: none;
+    border-radius: 3px;
+    border: 1px solid gray;
+}
+
+input[type='text'] {
+    outline: none;
+    border-radius: 3px;
+    border: 1px solid gray;
+    width: 100%;
+    height: 26px;
+}
+
+select {
+    width: 100%;
+    background: white;
+    border: 1px solid gray;
+    padding: 3px 5px;
+}
+
+.searchPanel input[type='text'] {
+    width: 100%;
+    height: 25px;
+}
+
+/* Audios */
+
+.audiosDiv {
+    padding: 0px 8px;
+}
+
+.litePlayer {
+    clear: both;
+    display: table;
+    width: 100%;
+    height: 47px;
+}
+
+.audioEntry {
+    clear: both;
+    display: table;
+    width: 100%;
+    margin-top: 5px;
+    display: grid;
+    grid-template-columns: 30px 1fr 38px;
+    gap: 18px 0px;
+}
+
+.litePlayer .playButton {
+    background-image: url("/themepack/mobile_ovk/0.0.1.0/resource/mobile_audios.png");
+    width: 28px;
+    height: 31px;
+    background-size: 236px;
+    float: left;
+    cursor: pointer;
+    background-repeat: no-repeat;
+}
+
+.litePlayer .playButton.paused {
+    background-position-x: -28px;
+}
+
+.litePlayer .audioInfo {
+    float: left;
+    margin-left: 6px;
+    margin-top: 4px;
+    width: 86%;
+}
+
+.litePlayer .lyrics {
+    display: none;
+}
+
+.litePlayer .audioInfo .performer {
+    color: #464545;
+    font-weight: bold;
+}
+
+.litePlayer .audioInfo .hasLyrics {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.litePlayer .audioEntry .length {
+    float: left;
+    margin-top: 5px;
+}
+
+.litePlayer .audioEntry .length .lengthText {
+    font-size: 0.92em;
+}
+
+.clearFix {
+    clear: both;
+    display: table;
+}
+
+.noOverflow {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.litePlayer .tracks {
+    margin-top: 10px;
+    padding-bottom: 7px;
+    width: 100%;
+    display: none;
+}
+
+.selectableTrack {
+    background: #DDD;
+    height: 5px;
+    border-radius: 2px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.litePlayer .tracks .lengthTrack {
+    float: left;
+    width: 84%;
+}
+
+.litePlayer .tracks .volumeTrack {
+    width: 14%;
+    float: left;
+    margin-left: 9px;
+}
+
+.usedPart {
+    width: 0%;
+    user-select: none;
+    background: #7b7b7b;
+    height: 5px;
+    display: inline-block;
+    border-radius: 2px;
+}
+
+#upload_container {
+    padding: 19px;
+}
+
+.playlistCover img {
+    width: 19vh;
+    height: 19vh;
+}
+
+.playlistInfo h4 {
+    font-size: 23px;
+}
+
+.playlistInfo .moreInfo {
+    margin-top: 10px;
+}
+
+.audiosContainer {
+    margin-top: 14px;
+    clear: both;
+    display: table;
+    width: 100%;
+    padding: 0px 5px;
+}
+
+.playlistBlock {
+    padding: 14px;
+}
+
+.playlistInfo {
+    margin-top: -9px;
+}
+
+.lagged *, .lagged {
+    pointer-events: none;
+    opacity: 50%;
 }

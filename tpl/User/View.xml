@@ -370,6 +370,12 @@
                                 <span class="counter">{$videosCount}</span>
                             </a>
                         </li>
+                        <li n:if="$audiosCount > 0 && $user->getPrivacyPermission('audios.read', $thisUser ?? NULL)" class="element">
+                            <a href="/audios{$user->getId()}">
+                                {_audios}
+                                <span class="counter">{$audiosCount}</span>
+                            </a>
+                        </li>
                         <li n:if="$notesCount > 0 && $user->getPrivacyPermission('notes.read', $thisUser ?? NULL)" class="element">
                             <a href="/notes{$user->getId()}">
                                 {_notes}

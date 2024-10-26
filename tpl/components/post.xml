@@ -37,7 +37,7 @@
             {/if}
 
             {if true}
-                <a class="button bold sharebtn" href="javascript:mobileRepost('{$post->getPrettyId()}')">
+                <a class="button bold sharebtn">
                     {$post->getRepostCount()}
                 </a>
 
@@ -54,7 +54,7 @@
                     {if !($forceNoLike ?? false)}
                         {var liked = $post->hasLikeFrom($thisUser)}
                         <a href="/wall{$post->getPrettyId()}/like?hash={rawurlencode($csrfToken)}"
-                            class="post-like-button"
+                            class="post-like-button post-like-button-natural"
                             data-liked="{(int) $liked}"
                             data-likes="{$post->getLikesCount()}">
                             <div class="button bold like post-like-button" id="{if $liked}liked{/if}">

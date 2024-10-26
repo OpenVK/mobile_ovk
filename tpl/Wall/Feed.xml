@@ -2,10 +2,23 @@
 {block title}{_feed}{/block}
 
 {block body}
-    <div class="contentWraplegend" onclick="hidePanel(this);">
-        <span>{_feed}</span>
-        <span n:if="!isset($globalFeed)"><a href="/feed/all" class="float-right">{_all_news}</a></span>
-    </div>
+    {if $paginatorConf->page < 2}
+        {if !isset($globalFeed)}
+            <div class="contentWraplegend">
+                <span>{_feed}</span>
+            </div>
+            <a href='/feed/all' class='feedTransition'>
+                {_all_news}
+            </a>
+        {else}
+            <div class="contentWraplegend">
+                <span>{_all_news}</span>
+            </div>
+            <a href='/feed' class='feedTransition'>
+                {_feed}
+            </a>
+        {/if}
+    {/if}
 
     <div class="content_subtitle">
         {include "../components/textArea.xml", route => "/wall" . $thisUser->getId() . "/makePost"}

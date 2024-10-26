@@ -1,4 +1,4 @@
-{var $space = 2}
+{var $space = $conf->space ?? 2}
 {var $pageCount = ceil($conf->count / $conf->perPage)}
 
 <div n:if="!($conf->page === 1 && $conf->count <= $conf->perPage)" n:class="paginators, $conf->atBottom ? paginator-at-bottom">

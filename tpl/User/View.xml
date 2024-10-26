@@ -164,11 +164,6 @@
                         Для того, чтобы связаться с <b>{$user->getFirstName()}</b>, <a href="/login"><b>войдите</b></a>.
                     </div>
                 {/ifset}
-
-         
-           
-        
-
             </div>
         </div>
 
@@ -182,7 +177,7 @@
                     <table class="ugc-table">
                         <tbody>
                             <tr>
-                                <td><span class="text-gray">{_gender}: </span></td>
+                                <td><span class="text-gray">{_pronouns}: </span></td>
                                 <td>{$user->isFemale() ? tr("female") : tr("male")}</td>
                             </tr>
                             <tr>
@@ -217,10 +212,10 @@
                     </table>
 
 
-                            <div class="podrobnee">
+                            <div class="show_more_info_profile_link podrobnee">
                                 {_mobile_user_info_show_details}
                             </div>
-                            <div class="podrobnee_content">
+                            <div class="show_more_info_profile_content podrobnee_content">
                     <table class="ugc-table">
                         <tbody>
                             <!--sse-->

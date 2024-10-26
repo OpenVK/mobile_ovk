@@ -11,7 +11,7 @@
     Изменить видеозапись
 {/block}
 
-{block content}
+{block body}
 <div class="container_gray">
     <h4>Изменить видеозапись</h4>
     <form method="post" enctype="multipart/form-data">

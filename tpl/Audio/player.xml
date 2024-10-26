@@ -1,7 +1,9 @@
 {php $id = $audio->getId() . rand(0, 1000)}
 {php $isWithdrawn = $audio->isWithdrawn()}
+{php $isAvailable = $audio->isAvailable()}
+{php $hasAudio = isset($thisUser) && $audio->isInLibraryOf($thisUser)}
 {php $editable = isset($thisUser) && $audio->canBeModifiedBy($thisUser)}
-<div class="litePlayer" data-id="{$id}" data-realid="{$audio->getId()}" data-name="{$audio->getName()}" data-length="{$audio->getLength()}" data-keys="{json_encode($audio->getKeys())}" data-url="{$audio->getURL()}">
+<div n:class="litePlayer, $isWithdrawn ? withdrawn, !$isAvailable ? processing" data-id="{$id}" data-realid="{$audio->getId()}" data-name="{$audio->getName()}" data-length="{$audio->getLength()}" data-keys="{json_encode($audio->getKeys())}" data-url="{$audio->getURL()}">
     <audio class="audio" />
 
     <div class="audioEntry">
@@ -9,12 +11,22 @@
 
         <div class="audioInfo noOverflow">
             <div class="noOverflow" style="height:20px;max-width: 446px;">
-                <a class="performer" href="/search?type=audios&only_performers=on&query={urlencode($audio->getPerformer())}">{$audio->getPerformer()}</a>
+                <a class="performer" href="/search?section=audios&only_performers=on&q={urlencode($audio->getPerformer())}">{$audio->getPerformer()}</a>
                 —
                 <span class="name {if !empty($audio->getLyrics())}hasLyrics{/if}">{$audio->getTitle()}</span>
+                <svg n:if="$audio->isExplicit()" class="explicitMark" xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 11 11" width="11">
+                    <path d="m1 2.506v5.988a1.5 1.5 0 0 0 1.491 1.506h6.019c.827 0 1.49-.674 1.49-1.506v-5.988a1.5 1.5 0 0 0 -1.491-1.506h-6.019c-.827 0-1.49.674-1.49 1.506zm4 2.494v-1h2v-1h-3v5h3v-1h-2v-1h2v-1zm-5-2.494a2.496 2.496 0 0 1 2.491-2.506h6.019a2.5 2.5 0 0 1 2.49 2.506v5.988a2.496 2.496 0 0 1 -2.491 2.506h-6.019a2.5 2.5 0 0 1 -2.49-2.506z" />
+                </svg>
             </div>
         </div>
 
+        <div class='audioButtons'>
+            {if !$hasAudio}
+                <div class="add-icon mobileAudiosSpritesheet" data-id="{$audio->getId()}" n:if="isset($thisUser) && !$isWithdrawn" ></div>
+            {else}
+                <div class="del-icon mobileAudiosSpritesheet" data-id="{$audio->getId()}" n:if="isset($thisUser)" ></div>
+            {/if}
+        </div>
         <div class="length">
             <span class="lengthText">{$audio->getFormattedLength()}</span>
         </div>

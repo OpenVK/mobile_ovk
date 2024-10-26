@@ -45,14 +45,14 @@ function initPlayer(id, keys, url, length) {
         }
     };
 
-    player.querySelector(".tracks").style.display = "flex"
-
     const dashPlayer = dashjs.MediaPlayer().create();
     dashPlayer.initialize(audio, url, false);
     dashPlayer.setProtectionData(protData);
 
     playButton.addEventListener("click", (event) => {
         if(audio.paused) {
+            u('.tracks').attr('style', 'display:none;')
+            player.querySelector(".tracks").style.display = "flex"
             document.querySelectorAll('audio').forEach(el => el.pause());
             audio.play()
         } else {
@@ -84,7 +84,7 @@ function initPlayer(id, keys, url, length) {
             nextPlayer = player.nextElementSibling
         }
 
-        if(!nextPlayer) return
+        if(!nextPlayer || nextPlayer.classList.contains('withdrawn')) return
 
         initPlayer(nextPlayer.dataset.id, 
         JSON.parse(nextPlayer.dataset.keys), 
@@ -122,7 +122,7 @@ function initPlayer(id, keys, url, length) {
                 player.querySelector(".lengthTrack .usedPart").style.width = `${ ps}%`;
         })
     } catch(e) {
-        console.log("Что-то ёбнулось")
+        console.log("Что-то сломалось.")
     }
 
     // тяжело без jquery
@@ -193,6 +193,38 @@ $(document).on("click", "#bookmarkPlaylist, #unbookmarkPlaylist", (e) => {
                 e.currentTarget.classList.remove("lagged")
             } else
                 fastError(response.flash.message)
+        }
+    })
+})
+
+u(document).on('click', '.litePlayer .add-icon, .litePlayer .del-icon', (e) => {
+    const target = u(e.target)
+    const act = target.hasClass('add-icon') ? 'add' : 'remove'
+    const id  = Number(target.attr('data-id'))
+    $.ajax({
+        type: 'POST',
+        url: `/audio${id}/action?act=${act}`,
+        data: {
+            hash: u("meta[name=csrf]").attr("value"),
+        },
+        beforeSend: () => {
+            target.addClass('lagged')
+        },
+        success: (response) => {
+            target.removeClass('lagged')
+            if(response.success) {
+                if(act == 'add') {
+                    target.addClass('del-icon')
+                    target.removeClass('add-icon')
+                } else {
+                    target.removeClass('del-icon')
+                    target.addClass('add-icon')
+                }
+                
+                return
+            }
+                
+            console.error(response)
         }
     })
 })

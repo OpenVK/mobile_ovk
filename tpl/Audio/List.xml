@@ -49,17 +49,17 @@
             </a>
         </div>
         <div n:attr="id => $mode === 'new' ? activetabs : ''" class="tab">
-            <a n:attr="id => $mode === 'new' ? 'act_tab_a' : ''" href="/audios/new">
+            <a n:attr="id => $mode === 'new' ? 'act_tab_a' : ''" href="/search?section=audios">
                 {_audio_new}
             </a>
         </div>
         <div n:attr="id => $mode === 'popular' ? activetabs : ''" class="tab">
-            <a n:attr="id => $mode === 'popular' ? 'act_tab_a' : ''" href="/audios/popular">
+            <a n:attr="id => $mode === 'popular' ? 'act_tab_a' : ''" href="/search?section=audios&order=listens">
                 {_audio_popular}
             </a>
         </div>
         <div n:attr="id => $mode === 'playlists' ? activetabs : ''" class="tab">
-            <a n:attr="id => $mode === 'playlists' ? 'act_tab_a' : ''" href="/playlists{$thisUser->getId()}">
+            <a n:attr="id => $mode === 'playlists' ? 'act_tab_a' : ''" href="/playlists{$owner->getRealId()}">
                 {_playlists}
             </a>
         </div>
@@ -70,8 +70,8 @@
         </div>
 
         <form class="searchPanel" action="/search" method="GET" n:if="$mode != 'playlists' && $isMy">
-            <input type="text" name="query" placeholder="{_enter_a_name_or_artist}">
-            <input type="hidden" name="type" value="audios">
+            <input type="text" name="q" placeholder="{_enter_a_name_or_artist}">
+            <input type="hidden" name="section" value="audios">
 
             <input type="submit" class="button cfa sr" value="{_header_search}">
         </form>
@@ -106,26 +106,9 @@
             </a>
 
             {if $playlistsCount > 0}
-                <a href="{$playlist->getURL()}" n:foreach="$playlists as $playlist"><div class="content list_w_link" id="userContent">
-                    <table><tbody>
-                        <tr>
-                            <td valign="top">
-                                <a href="{$playlist->getURL()}">
-                                    <img src="{$playlist->getCoverURL()}" style="width: 107px;height: 107px;">
-                                </a>
-                            </td>
-                            <td valign="top" style="width: 100%">
-                                <a href="{$playlist->getURL()}">
-                                    <b style="font-size: 17px;">
-                                        {$playlist->getName()}
-                                    </b>
-                                </a>
-                                <br/>
-                                {$playlist->getOwner()->getCanonicalName()}
-                            </td>
-                        </tr>
-                    </tbody></table>
-                </div></a>
+                {foreach $playlists as $playlist}
+                    {include "../Audio/playlistListView.xml", playlist => $playlist}
+                {/foreach}
 
                 <div style="padding-bottom: 16px;float: right;">
                     {include "../components/paginator.xml", conf => (object) [

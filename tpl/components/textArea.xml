@@ -14,12 +14,12 @@
             <input type="hidden" name="hash" value="{$csrfToken}" />
             <br/>
             <input type="submit" value="{_'write'}" class="button new_post" />
-            <a href="javascript:void(document.querySelector('#post-buttons{$textAreaId} input[name=_pic_attachment]').click());">
+            <!--<a href="javascript:void(document.querySelector('#post-buttons{$textAreaId} input[name=_pic_attachment]').click());">
                 <div class="attach_menu_ph"></div>
             </a>
             <a n:if="!OPENVK_ROOT_CONF['openvk']['preferences']['videos']['disableUploading']" href="javascript:void(document.querySelector('#post-buttons{$textAreaId} input[name=_vid_attachment]').click());">
                 <div class="attach_menu_video"></div>
-            </a>
+            </a>-->
         </div>
 
 

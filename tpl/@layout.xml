@@ -22,7 +22,7 @@
 
         {ifset headIncludes}{include headIncludes}{/ifset}
         <script defer src="/themepack/mobile_ovk/0.0.1.0/resource/menu.js"></script>
-        <script defer src="/themepack/mobile_ovk/0.0.1.0/resource/podrobnee.js"></script>
+        <script src="/themepack/mobile_ovk/0.0.1.0/resource/mobile.js?v=1"></script>
     </head>
 
 
@@ -34,15 +34,15 @@
                 <div class="head_now">{include title}</div>
 
                 {ifset $thisUser}
-
-                <a href="/im" class="ovk_mobile_mail_icon" onClick="event.stopPropagation();">{if $thisUser->getUnreadMessagesCount() > 0}<b>{$thisUser->getUnreadMessagesCount()}</b>{/if}</a>
-                     <div class="search_menu_box" style="" onClick="event.stopPropagation();"><form action="/search" method="get">
-                                    <input type="search" name="query" placeholder="{_header_search}" style="padding-left: 18px;" accesskey="f">
-                                </form></div>
-
-                                
-                                {else}
-<div class="search_menu_box"></div>
+                    <a href="/im" class="ovk_mobile_mail_icon" onClick="event.stopPropagation();">{if $thisUser->getUnreadMessagesCount() > 0}<b>{$thisUser->getUnreadMessagesCount()}</b>{/if}</a>
+                    
+                    <div class="search_menu_box" style="" onClick="event.stopPropagation();">
+                        <form action="/search" method="get">
+                            <input type="search" name="q" placeholder="{_header_search}" style="padding-left: 18px;" accesskey="f">
+                        </form>
+                    </div>          
+                {else}
+                    <div class="search_menu_box"></div>
                 {/ifset}
 
             </div>

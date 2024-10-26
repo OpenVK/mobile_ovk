@@ -1,68 +1,33 @@
 {extends "../@listView.xml"}
-{var $iterator = $videos}
-{var $count    = $paginatorConf->count}
-{var $page     = $paginatorConf->page}
 
 {block title}{_videos} {$user->getCanonicalName()}{/block}
-
-
     <a href="{$user->getURL()}">{$user->getCanonicalName()}</a>
     » {_videos}
-
 {block body}
 
-            <div class="contentWraplegend">
-                <span><a href="{$user->getURL()}">{$user->getCanonicalName()}</a>
-    » {_videos}</span>
-            </div>
+    <div class="contentWraplegend">
+        <span><a href="{$user->getURL()}">{$user->getCanonicalName()}</a>
+        » {_videos}</span>
+    </div>
 
     <div class="container_gray">
-    
-    <div style="padding-bottom: 0px; padding-top: 0;" class="summaryBar">
-        <div class="summary">
-            {tr("videos", $count)}
-            <span n:if="isset($thisUser) && $thisUser->getId() == $user->getId()">
-                &nbsp;|&nbsp;
-                <a href="/videos/upload">{_upload_video}</a>
-            </span>
+        <div style="padding-bottom: 0px; padding-top: 0;" class="summaryBar">
+            <b class="summary">
+                {tr("videos", $count)}
+            </b>
+
+            <a href='/videos/upload' n:if="isset($thisUser) && $thisUser->getId() == $user->getId()">
+                <button class="button cfa sr">{_upload_video}</button>
+            </a>
+
+            <div class='listviewContent'>
+                {foreach $videos as $video}
+                    {include '../components/video.xml', video => $video}
+                {/foreach}
+            </div>
+
+            {include "../components/paginator.xml", conf => $paginatorConf}
         </div>
-    </div>
 
     </div>
-
-{block actions}
-    
 {/block}
-
-{/block}
-
-{* BEGIN ELEMENTS DESCRIPTION *}
-
-{block link|strip|stripHtml}
-    /video{$x->getPrettyId()}
-{/block}
-
-
-
-{block preview}
-    <div class="video-preview">
-        <img src="{$x->getThumbnailURL()}"
-            alt="{$x->getName()}"
-            style="max-width: 120px; max-height: 127px; margin: auto;" />
-    </div>
-{/block}
-
-{block name}
-    {$x->getName()}
-{/block}
-
-{block description}
-    <p>
-        <span class="video_desc">{$x->getDescription() ?? ""}</span>
-    </p>
-    <span style="color: grey;font-size: 10px;">{_video_uploaded} {$x->getPublicationTime()}</span><br/>
-    <p>
-        {if $x->getCommentsCount() > 0} <a href="/video{$x->getPrettyId()}#comments">{_comments} ({$x->getCommentsCount()})</a>{/if}
-    </p>
-{/block}
-

@@ -246,7 +246,7 @@
         <form action="/settings?act=privacy" method="POST" enctype="multipart/form-data">
             <table cellspacing="7" cellpadding="0" width="100%" border="0" align="center">
                 <tr>
-                    <td width="120" valign="top">
+                    <td width="300" valign="top">
                         <span class="nobold">{_privacy_setting_access_page}</span>
                     </td>
                     <td>
@@ -259,7 +259,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td width="120" valign="top">
+                    <td width="300" valign="top">
                         <span class="nobold">{_privacy_setting_read_info}</span>
                     </td>
                     <td>
@@ -272,7 +272,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td width="120" valign="top">
+                    <td width="300" valign="top">
                         <span class="nobold">{_privacy_setting_see_groups}</span>
                     </td>
                     <td>
@@ -285,7 +285,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td width="120" valign="top">
+                    <td width="300" valign="top">
                         <span class="nobold">{_privacy_setting_see_photos}</span>
                     </td>
                     <td>
@@ -298,7 +298,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td width="120" valign="top">
+                    <td width="300" valign="top">
                         <span class="nobold">{_privacy_setting_see_videos}</span>
                     </td>
                     <td>
@@ -311,7 +311,20 @@
                     </td>
                 </tr>
                 <tr>
-                    <td width="120" valign="top">
+                    <td width="300" valign="top">
+                        <span class="nobold">{_privacy_setting_view_audio}</span>
+                    </td>
+                    <td>
+                        <select name="audios.read" style="width: 164px;">
+                            <option value="3" {if $user->getPrivacySetting('audios.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
+                            <option value="2" {if $user->getPrivacySetting('audios.read') == 2}selected{/if}>{_privacy_value_users}</option>
+                            <option value="1" {if $user->getPrivacySetting('audios.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
+                            <option value="0" {if $user->getPrivacySetting('audios.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="300" valign="top">
                         <span class="nobold">{_privacy_setting_see_notes}</span>
                     </td>
                     <td>
@@ -324,7 +337,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td width="120" valign="top">
+                    <td width="300" valign="top">
                         <span class="nobold">{_privacy_setting_see_friends}</span>
                     </td>
                     <td>
@@ -337,7 +350,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td width="120" valign="top">
+                    <td width="300" valign="top">
                         <span class="nobold">{_privacy_setting_add_to_friends}</span>
                     </td>
                     <td>
@@ -348,7 +361,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td width="120" valign="top">
+                    <td width="300" valign="top">
                         <span class="nobold">{_privacy_setting_write_wall}</span>
                     </td>
                     <td>
@@ -360,7 +373,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td width="120" valign="top">
+                    <td width="300" valign="top">
                         <span class="nobold">{_privacy_setting_write_messages}</span>
                     </td>
                     <td>

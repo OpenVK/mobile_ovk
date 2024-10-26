@@ -3,37 +3,44 @@
 {block title}{_playlist}{/block}
 
 {block body}
-    {php $count = $playlist->size()}
-
     <div class="playlistBlock">
-        <div style="display: flex;">
-            <div class="playlistCover" style="float: left;">
-                <img src="{$playlist->getCoverURL('normal')}" alt="{_playlist_cover}">
-            </div>
-
-            <div style="float: left;padding-left: 13px;width:75%">
+        <div style="display: flex;gap: 13px;">
+            {if $cover}
+                <a href="{$cover->getPageURL()}" class="playlistCover" >
+                    <img src="{$cover_url}" alt="{_playlist_cover}">
+                </a>
+            {else}
+                <a class="playlistCover">
+                    <img src="{$cover_url}" alt="{_playlist_cover}">
+                </a>
+            {/if}
+            <div>
                 <div class="playlistInfo">
                     <h4 style="border-bottom:unset;margin-bottom: 0px;">{$playlist->getName()}</h4>
-                    <a style="font-size: 17px;" href="{$playlist->getOwner()->getURL()}">{$playlist->getOwner()->getCanonicalName()}</a>
+                    <a style="font-size: 16px;" href="{$playlist->getOwner()->getURL()}">{$playlist->getOwner()->getCanonicalName()}</a>
                     <div class="moreInfo">
                         {$playlist->getMetaDescription()|noescape}
 
                         <div style="margin-top: 11px;">
                             <span>{nl2br($playlist->getDescriptionHTML())|noescape}</span>
                         </div>
-
-                        <a href="/playlist{$playlist->getPrettyId()}/edit" n:if="$playlist->canBeModifiedBy($thisUser)">
-                            <input type="button" class="button cfa sr" value="{_edit_playlist}">
-                        </a>
-                        <a id="bookmarkPlaylist" data-id="{$playlist->getId()}" n:if="!$isBookmarked">
-                            <input type="button" class="button cfa sr" value="{_bookmark}">
-                        </a>
-                        <a id="unbookmarkPlaylist" data-id="{$playlist->getId()}" n:if="$isBookmarked">
-                            <input type="button" class="button cfa sr" value="{_unbookmark}">
-                        </a>
                     </div>
                 </div>
             </div>
+        </div>
+        <div>
+            <a href="/player/upload?playlist={$playlist->getId()}" n:if="$canEdit">
+                <input type="button" class="button cfa sr" value="{_upload_audio}">
+            </a>
+            <a href="/playlist{$playlist->getPrettyId()}/edit" n:if="$playlist->canBeModifiedBy($thisUser)">
+                <input type="button" class="button cfa sr" value="{_edit_playlist}">
+            </a>
+            <a id="bookmarkPlaylist" data-id="{$playlist->getId()}" n:if="!$isBookmarked">
+                <input type="button" class="button cfa sr" value="{_bookmark}">
+            </a>
+            <a id="unbookmarkPlaylist" data-id="{$playlist->getId()}" n:if="$isBookmarked">
+                <input type="button" class="button cfa sr" value="{_unbookmark}">
+            </a>
         </div>
         <div class="audiosContainer infContainer" style="margin-top: 14px;">
             {if $count < 1}

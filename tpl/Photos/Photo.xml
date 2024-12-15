@@ -44,7 +44,7 @@
                             <a href="/photo{$photo->getPrettyId()}/edit" style="display:block;width:96%;">{_"edit"}</a>
                         </div>
                         <div class="phlistlink" n:if="isset($thisUser) && $thisUser->getId() === $photo->getOwner()->getId()">
-                            <a id="_photoDelete" href="/photo{$photo->getPrettyId()}/delete" style="display:block;width:96%;">{_"delete"}</a>
+                            <a id="__delete_warn" href="/photo{$photo->getPrettyId()}/delete?hash={rawurlencode($csrfToken)}" style="display:block;width:96%;">{_"delete"}</a>
                         </div>
                         <div class="phlistlink" n:if="isset($thisUser) && $thisUser->getId() === $photo->getOwner()->getId()">
                             <a href="{$photo->getURL()}" target="_blank" style="display:block;width:96%;">{_"open_original"}</a>

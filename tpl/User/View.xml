@@ -2,52 +2,7 @@
 
 {block title}{$user->getCanonicalName()}{/block} 
 
-{block headIncludes}
-    <!-- openGraph -->
-    <meta property="og:title" content="{$user->getCanonicalName()}" />
-    <meta property="og:url" content="http://{$_SERVER['HTTP_HOST']}{$user->getURL()}" />
-    <meta property="og:image" content="{$user->getAvatarUrl()}" />
-    <meta property="og:type" content="profile" />
-    <meta property="og:first_name" content="{$user->getFirstName()}" />
-    <meta property="og:last_name" content="{$user->getLastName()}" />
-    <meta n:if="!is_null($user->getShortcode())" property="og:username" content="{$user->getShortcode()}" />
-    <meta property="og:gender" content="{($user->isFemale() ? 'fe' : '')}male" />
-    
-    <!-- json-ld -->
-    <script type="application/ld+json">
-        {
-            "@context": "http://schema.org/",
-            "type": "Person",
-            "name": {$user->getCanonicalName()},
-            "url": {('http://') . $_SERVER['HTTP_HOST'] . $user->getURL()}
-        }
-    </script>
-    
-    <style>
-        #profile_basicInfo {
-            padding-top: 7px;
-        }
-        
-        #profile_basicInfo__info {
-            padding-left: 8px;
-        }
-        
-        #profile_basicInfo__avatar img {
-            width: 50px;
-            object-fit: cover;
-            image-rendering: -webkit-optimize-contrast;
-        }
-        
-        #profile_basicInfo__info h2 {
-            font-size: 16px;
-            color: #565656;
-        }
-    </style>
-{/block}
-
 {block body}
-    {if !$user->isBanned()}
-    
     <div n:if="!is_null($alert = $user->getAlert())" class="alert fake">{strpos($alert, "@") === 0 ? tr(substr($alert, 1)) : $alert}</div>
 
 
@@ -308,6 +263,15 @@
                     <ul class="menu">
                         {if !is_null($thisUser)}
                             {if $thisUser->getId() !== $user->getId()}
+                                <li class="element">
+                                    <a n:if="!$blacklist_status" href="javascript:void(0)" id="_bl_toggler" data-name="{$user->getMorphedName('genitive', false)}" data-val="1" data-id="{$user->getRealId()}">{_bl_add}</a>
+                                    <a n:if="$blacklist_status" href="javascript:void(0)" id="_bl_toggler" data-val="0" data-id="{$user->getRealId()}">{_bl_remove}</a>
+                                </li>
+                                <li class="element" n:if="!$user->isHideFromGlobalFeedEnabled()">
+                                    <a id="__ignoreSomeone" href="javascript:void(0)" data-val='{!$ignore_status ? 1 : 0}' data-id="{$user->getId()}">
+                                        {if !$ignore_status}{_ignore_user}{else}{_unignore_user}{/if}
+                                    </a>
+                                </li>
                                 <li n:if="OPENVK_ROOT_CONF['openvk']['preferences']['commerce']" class="element">
                                     <a href="/gifts?act=pick&user={$user->getId()}">
                                         {_send_gift}
@@ -385,10 +349,7 @@
                         </li>
                     </ul>
                 </div>
-                    {presenter "openvk!Wall->wallEmbedded", $user->getId()}
+                {presenter "openvk!Wall->wallEmbedded", $user->getId()}
             </div>
         </div>
-    {else} {* isBanned() *}
-        {include "banned.xml"}
-    {/if}
 {/block}

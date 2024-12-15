@@ -17,7 +17,7 @@ u(document).on("click", ".post-like-button-natural", function(e) {
         method: 'POST'
     })
 
-    thisBtn.attr("data-liked", isLiked ? '1' : '0')
+    thisBtn.attr("data-liked", !isLiked ? '1' : '0')
 
     if(!isLiked) {
         heart.attr("id", 'liked');
@@ -62,46 +62,320 @@ u(document).on('click', '#__mobile_reset_search', (e) => {
     })
 })
 
-function escapeHtml(text) {
-    var map = {
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#039;'
-    };
+u(document).on("input", "textarea", function(e) {
+    var boost             = 5;
+    var textArea          = e.target;
+    textArea.style.height = "5px";
+    var newHeight = textArea.scrollHeight;
+    textArea.style.height = newHeight + boost + "px";
+    return;
+})
+
+u(document).on('click', '#__delete_warn', (e) => {
+    e.preventDefault()
+
+    const msg = new CMessageBox({
+        title: tr("confirm"),
+        body: tr("question_confirm"),
+        buttons: [tr('yes'), tr('no')],
+        callbacks: [() => {
+            location.assign(e.target.href)
+            msg.close()
+        }, Function.noop]
+    })
+})
+
+u(document).on('click', '.post.post-nsfw .post-content', (e) => {
+    e.preventDefault()
+    e.stopPropagation()
     
-    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
-}
+    if(window.openvk.current_id == 0) {
+        return
+    }
+    
+    u(e.target).closest('.post-nsfw').removeClass('post-nsfw')
+})
 
-// maybe сделать скрипт с подобными функциями чтобы не приходилось копипастить?
-function highlightText(searchText, container_selector, selectors = []) {
-    const container = u(container_selector)
-    const regexp = new RegExp(`(${searchText})`, 'gi')
+u(document).on('click', '#_bl_toggler', async (e) => {
+    e.preventDefault()
 
-    function highlightNode(node) {
-        if(node.nodeType == 3) {
-            let newNode = escapeHtml(node.nodeValue)
-            newNode = newNode.replace(regexp, (match, ...args) => {
-                return `<span class='highlight'>${escapeHtml(match)}</span>`
-            })
-            
-            const tempDiv = document.createElement('div')
-            tempDiv.innerHTML = newNode
+    const target = u(e.target)
+    const val = Number(target.attr('data-val'))
+    const id  = Number(target.attr('data-id'))
+    const name = target.attr('data-name')
 
-            while(tempDiv.firstChild) {
-                node.parentNode.insertBefore(tempDiv.firstChild, node)
-            }
-            node.parentNode.removeChild(node)
-        } else if(node.nodeType === 1 && node.tagName !== 'SCRIPT' && node.tagName !== 'BR' && node.tagName !== 'STYLE') {
-            Array.from(node.childNodes).forEach(highlightNode);
-        }
+    const fallback = (e) => {
+        fastError(e.message)
+        target.removeClass('lagged')
     }
 
-    selectors.forEach(selector => {
-        elements = container.find(selector)
-        if(!elements || elements.length < 1) return;
+    if(val == 1) {
+        const msg = new CMessageBox({
+            title: tr('addition_to_bl'),
+            body: `<span>${escapeHtml(tr('adding_to_bl_sure', name))}</span>`,
+            buttons: [tr('yes'), tr('no')],
+            callbacks: [async () => {
+                try {
+                    target.addClass('lagged')
+                    await window.OVKAPI.call('account.ban', {'owner_id': id})
+                    location.assign(location.href)
+                } catch(e) {
+                    fallback(e)
+                }
+            }, () => Function.noop]
+        })
+    } else {
+        try {
+            target.addClass('lagged')
+            await window.OVKAPI.call('account.unban', {'owner_id': id})
+            location.assign(location.href)
+        } catch(e) {
+            fallback(e)
+        }
+    }
+})
 
-        elements.nodes.forEach(highlightNode)
-    })
+u(document).on("click", "#__ignoreSomeone", async (e) => {
+    e.preventDefault()
+
+    const TARGET = u(e.target)
+    const ENTITY_ID = Number(e.target.dataset.id)
+    const VAL = Number(e.target.dataset.val)
+    const ACT = VAL == 1 ? 'ignore' : 'unignore'
+    const METHOD_NAME = ACT == 'ignore' ? 'addBan' : 'deleteBan'
+    const PARAM_NAME = ENTITY_ID < 0 ? 'group_ids' : 'user_ids'
+    const ENTITY_NAME = ENTITY_ID < 0 ? 'club' : 'user'
+    const URL = `/method/newsfeed.${METHOD_NAME}?auth_mechanism=roaming&${PARAM_NAME}=${Math.abs(ENTITY_ID)}`
+    
+    TARGET.addClass('lagged')
+    const REQ = await fetch(URL)
+    const RES = await REQ.json()
+    TARGET.removeClass('lagged')
+
+    if(RES.error_code) {
+        switch(RES.error_code) {
+            case -10:
+                fastError(';/')
+                break
+            case -50:
+                fastError(tr('ignored_sources_limit'))
+                break
+            default:
+                fastError(res.error_msg)
+                break
+        }
+        return
+    }
+
+    if(RES.response == 1) {
+        if(ACT == 'unignore') {
+            TARGET.attr('data-val', '1')
+            TARGET.html(tr(`ignore_${ENTITY_NAME}`))
+        } else {
+            TARGET.attr('data-val', '0')
+            TARGET.html(tr(`unignore_${ENTITY_NAME}`))
+        }
+    }
+})
+
+u(document).on('click', '#write .attach_button', (e) => {
+    const button = u(e.target).closest('a')
+    const type   = button.attr('data-type')
+    const form   = u(e.target).closest('#write')
+
+    console.log(type)
+    if(type == "photo") {
+        form.find('#_pic_attachment').nodes[0].click()
+    }
+})
+
+u(document).on('change', '#_pic_attachment', (e) => {
+    for(file of e.target.files) {
+        __uploadToTextarea(file, u(e.target).closest('#write'))
+    }
+})
+
+// TODO: Move to separate files and load at full version and in mobile. code reusing короче
+
+u(document).on('click', `.post-horizontal .upload-item .upload-delete`, (e) => {
+    e.preventDefault()
+    u(e.target).closest('.upload-item').remove()
+})
+
+u(document).on('click', `.vertical-attachment #small_remove_button`, (e) => {
+    e.preventDefault()
+    u(e.target).closest('.vertical-attachment').remove()
+})
+
+u(document).on('click', '.post-buttons .upload-item', (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+})
+
+async function __uploadToTextarea(file, textareaNode) {
+    const MAX_FILESIZE = window.openvk.max_filesize_mb*1024*1024
+    let filetype = 'photo'
+    if(file.type.startsWith('video/')) {
+        filetype = 'video'
+    }
+
+    if(!file.type.startsWith('image/') && !file.type.startsWith('video/')) {
+        fastError(tr("only_images_accepted", escapeHtml(file.name)))
+        throw new Error('Only images accepted')
+    }
+
+    if(file.size > MAX_FILESIZE) {
+        fastError(tr("max_filesize", window.openvk.max_filesize_mb))
+        throw new Error('Big file')
+    }
+
+    const horizontal_count = textareaNode.find('.post-horizontal > a').length
+    if(horizontal_count > window.openvk.max_attachments) {
+        fastError(tr("too_many_photos"))
+        throw new Error('Too many attachments')
+    }
+
+    const form_data = new FormData
+    form_data.append('photo_0', file)
+    form_data.append('count', 1)
+    form_data.append("hash", u("meta[name=csrf]").attr("value"))
+    
+    if(filetype == 'photo') {
+        const temp_url = URL.createObjectURL(file)
+        const rand = random_int(0, 1000)
+        textareaNode.find('.post-horizontal').append(`<a id='temp_filler${rand}' class="upload-item lagged"><img src='${temp_url}'></a>`)
+        
+        const res = await fetch(`/photos/upload`, {
+            method: 'POST',
+            body: form_data
+        })
+        const json_response = await res.json()
+        if(!json_response.success) {
+            u(`#temp_filler${rand}`).remove()
+            fastError((tr("error_uploading_photo") + json_response.flash.message))
+            return
+        }
+
+        json_response.photos.forEach(photo => {
+            __appendToTextarea({
+                'type': 'photo',
+                'preview': photo.url,
+                'id': photo.pretty_id,
+                'fullsize_url': photo.link,
+            }, textareaNode)
+        })
+        u(`#temp_filler${rand}`).remove()
+        URL.revokeObjectURL(temp_url)
+    } else {
+        return
+    }
 }
+
+async function __appendToTextarea(attachment_obj, textareaNode) {
+    const form = textareaNode.find('.post-buttons')
+    const indicator = textareaNode.find('.post-horizontal')
+
+    if(attachment_obj.alignment == 'vertical') {
+        textareaNode.find('.post-vertical').append(`
+            <div class="vertical-attachment upload-item" draggable="true" data-type='${attachment_obj.type}' data-id="${attachment_obj.id}">
+                <div class='vertical-attachment-content' draggable="false">
+                    ${attachment_obj.html}
+                </div>
+                <div class='${attachment_obj.undeletable ? 'lagged' : ''} vertical-attachment-remove'>
+                    <div id='small_remove_button'></div>
+                </div>
+            </div>
+        `)
+
+        return
+    }
+    
+    indicator.append(`
+        <a draggable="true" href='/${attachment_obj.type}${attachment_obj.id}' class="upload-item" data-type='${attachment_obj.type}' data-id="${attachment_obj.id}">
+            <span class="upload-delete">×</span>
+            ${attachment_obj.type == 'video' ? `<div class='play-button'><div class='play-button-ico'></div></div>` : ''}
+            <img draggable="false" src="${attachment_obj.preview}" alt='...'>
+        </a>      
+    `)
+}
+
+u(document).on('paste', '#write .small-textarea', (e) => {
+    if(e.clipboardData.files.length === 1) {
+        __uploadToTextarea(e.clipboardData.files[0], u(e.target).closest('#write'))
+        return;
+    }
+})
+
+u(document).on('dragstart', '#write .post-horizontal .upload-item, .post-vertical .upload-item, .PE_audios .vertical-attachment', (e) => {
+    //e.preventDefault()
+    //console.log(e)
+    u(e.target).closest('.upload-item').addClass('currently_dragging')
+    return
+})
+
+u(document).on('dragover', '#write .post-horizontal .upload-item, .post-vertical .upload-item, .PE_audios .vertical-attachment', (e) => {
+    e.preventDefault()
+
+    const target = u(e.target).closest('.upload-item')
+    const current = u('.upload-item.currently_dragging')
+
+    if(current.length < 1) {
+        return
+    }
+
+    if(target.nodes[0].dataset.id != current.nodes[0].dataset.id) {
+        target.addClass('dragged')
+    }
+    
+    return
+})
+
+u(document).on("dragover drop", async (e) => {
+    e.preventDefault()
+    return false;
+})
+
+u(document).on('dragleave dragend', '#write .post-horizontal .upload-item, .post-vertical .upload-item, .PE_audios .vertical-attachment', (e) => {
+    //console.log(e)
+    u(e.target).closest('.upload-item').removeClass('dragged')
+    return
+})
+
+u(document).on("drop", '#write', function(e) {
+    const current = u('.upload-item.currently_dragging')
+    //console.log(e)
+    if(e.dataTransfer.types.includes('Files')) {
+        e.preventDefault()
+
+        e.dataTransfer.dropEffect = 'move'
+        __uploadToTextarea(e.dataTransfer.files[0], u(e.target).closest('#write'))
+    } else if(e.dataTransfer.types.length < 1 || e.dataTransfer.types.includes('text/uri-list')) { 
+        e.preventDefault()
+
+        const target = u(e.target).closest('.upload-item')
+        u('.dragged').removeClass('dragged')
+        current.removeClass('currently_dragging')
+        //console.log(target)
+        if(!current.closest('.vertical-attachment').length < 1 && target.closest('.vertical-attachment').length < 1
+         || current.closest('.vertical-attachment').length < 1 && !target.closest('.vertical-attachment').length < 1) {
+            return
+        }
+
+        const first_html = target.nodes[0].outerHTML
+        const second_html = current.nodes[0].outerHTML
+
+        current.nodes[0].outerHTML = first_html
+        target.nodes[0].outerHTML = second_html
+    }
+})
+
+u(document).on('submit', 'form', async (e) => {
+    if(e.defaultPrevented) {
+        return
+    }
+
+    if(e.target.closest('#write')) {
+        const target = u(e.target)
+        collect_attachments_node(target)
+    }
+})

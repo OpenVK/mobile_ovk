@@ -46,21 +46,53 @@
             </td>
         </tr>
     </tbody> -->
-    <div class="comment">
+    <div class="comment post" data-comment-id="{$comment->getId()}" data-owner-id="{$author->getId()}" data-from-group="{$author instanceof $Club}" >
         <div class="author">
             <img class="ava" src="{$author->getAvatarURL()}">
         </div>
         <div class="comment_content">
-                    <a href="{$author->getURL()}"><b>{$author->getCanonicalName()}</b></a><br>
-                    <time class="text-gray">{$comment->getPublicationTime()}</time>
-                    <div class="comment_body" id="{$comment->getId()}">
-                        {$comment->getText()|noescape}
-                        
-                        <div n:ifcontent class="attachments_b">
-                        <div class="attachment" n:foreach="$comment->getChildren() as $attachment" data-localized-nsfw-text="{_nsfw_warning}">
-                        {include "attachment.xml", attachment => $attachment}
-                        </div>
-                        </div>
+            <div class="post-author">
+                <a href="{$author->getURL()}"><b>{$author->getCanonicalName()}</b></a>
+                <time class="text-gray">{$comment->getPublicationTime()}</time>
+            </div>
+
+            <div class="comment_body" id="{$comment->getId()}">
+                {$comment->getText()|noescape}
+                
+                {var $attachmentsLayout = $comment->getChildrenWithLayout(288)}
+                <div n:ifcontent class="attachments attachments_b" style="height: {$attachmentsLayout->height|noescape}; width: {$attachmentsLayout->width|noescape};">
+                    <div class="attachment" n:foreach="$attachmentsLayout->tiles as $attachment" style="float: {$attachment[3]|noescape}; width: {$attachment[0]|noescape}; height: {$attachment[1]|noescape};" data-localized-nsfw-text="{_nsfw_warning}">
+                        {include "attachment.xml", attachment => $attachment[2], parent => $comment, parentType => "comment", tilesCount => sizeof($attachmentsLayout->tiles)}
+                    </div>
+                </div>
+
+                <div n:ifcontent class="attachments attachments_m">
+                    <div class="attachment" n:foreach="$attachmentsLayout->extras as $attachment">
+                        {include "attachment.xml", attachment => $attachment, post => $comment}
+                    </div>
+                </div>
+            </div>
+
+            <div n:if="isset($thisUser) &&! ($compact ?? false)" class="post-menu">
+                <div class="post-submenu">
+                    {if $comment->canBeDeletedBy($thisUser)}
+                        <a id="__delete_warn" class="delete_warn" href="/comment{$comment->getId()}/delete">{_"delete"}</a>
+                    {/if}
+                    <a href='javascript:void(0)' class="comment-reply">{_"reply"}</a>
+                </div>
+                <div>
+                    {if !($forceNoLike ?? false)}
+                        {var liked = $comment->hasLikeFrom($thisUser)}
+                        <a href="/comment{$comment->getPrettyId()}/like?hash={rawurlencode($csrfToken)}"
+                            class="post-like-button post-like-button-natural"
+                            data-liked="{(int) $liked}"
+                            data-likes="{$post->getLikesCount()}">
+                            <div class="button bold like post-like-button" id="{if $liked}liked{/if}">
+                                {_mobile_like} <span class="likeCnt">{if $comment->getLikesCount() > 0}{$comment->getLikesCount()}{/if}</span>
+                            </div>
+                        </a>
+                    {/if}
+                </div>
             </div>
         </div>
     </div>

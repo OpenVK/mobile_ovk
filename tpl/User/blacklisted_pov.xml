@@ -1,0 +1,47 @@
+{extends "../@layout.xml"}
+
+{block title}{$user->getCanonicalName()}{/block} 
+
+{block body}
+    <div n:if="!is_null($alert = $user->getAlert())" class="alert fake">{strpos($alert, "@") === 0 ? tr(substr($alert, 1)) : $alert}</div>
+        <div id="profile_basicInfo" class="contentWrap">
+            <div class="content">
+                <div class="pure-g" style="padding-bottom: 12px;">
+                    <div id="profile_basicInfo__avatar">
+                        <a href="{$user->getAvatarLink()|nocheck}">
+                            <img src="{$user->getAvatarUrl()}"
+                                alt="{$user->getCanonicalName()}" />
+                        </a>
+                    </div>
+                    
+                    <div id="profile_basicInfo__info" class="pure-u-3-4">
+                        <h2 class="no-margin text_profile_center">{$user->getFullName()} <img n:if="$user->isVerified()" class="name-checkmark" src="/themepack/mobile_ovk/0.0.1.0/resource/verify_badge.png"></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contentWrap">
+            <div class="legend">
+                <span>{_mobile_menu}</span>
+            </div>
+                
+            <div class="content">
+                <ul class="menu">
+                    <li class="element">
+                        <a n:if="$blacklist_status" href="javascript:void(0)" id="_bl_toggler" data-name="{$user->getMorphedName('genitive', false)}" data-val="1" data-id="{$user->getRealId()}">{_bl_add}</a>
+                        <a n:if="!$blacklist_status" href="javascript:void(0)" id="_bl_toggler" data-val="0" data-id="{$user->getRealId()}">{_bl_remove}</a>
+                    </li>
+                    <li class="element" n:if="!$user->isHideFromGlobalFeedEnabled()">
+                        <a id="__ignoreSomeone" href="javascript:void(0)" data-val='{!$ignore_status ? 1 : 0}' data-id="{$user->getId()}">
+                            {if !$ignore_status}{_ignore_user}{else}{_unignore_user}{/if}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="alert yellow">
+            {tr("you_blacklisted", $user->getMorphedName("genitive", false))}.
+        </div>
+    </div>
+{/block}

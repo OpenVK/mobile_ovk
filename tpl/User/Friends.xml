@@ -43,8 +43,14 @@
     <div n:attr="id => ($act === 'friends' ? 'activetabs' : 'ki')" class="tab">
         <a n:attr="id => ($act === 'friends' ? 'act_tab_a' : 'ki')" href="?">{_friends}</a>
     </div>
+    <div n:attr="id => ($act === 'online' ? 'activetabs' : 'ki')" class="tab">
+        <a n:attr="id => ($act === 'online' ? 'act_tab_a' : 'ki')" href="?act=online">{_online}</a>
+    </div>
     <div n:attr="id => ($act === 'incoming' ? 'activetabs' : 'ki')" class="tab">
         <a n:attr="id => ($act === 'incoming' ? 'act_tab_a' : 'ki')" href="?act=incoming">{_incoming_req}</a>
+    </div>
+    <div n:attr="id => ($act === 'followers' ? 'activetabs' : 'ki')" class="tab">
+        <a n:attr="id => ($act === 'followers' ? 'act_tab_a' : 'ki')" href="?act=followers">{_followers}</a>
     </div>
     <div n:attr="id => ($act === 'outcoming' ? 'activetabs' : 'ki')" class="tab">
         <a n:attr="id => ($act === 'outcoming' ? 'act_tab_a' : 'ki')" href="?act=outcoming">{_outcoming_req}</a>
@@ -86,6 +92,14 @@
                 <input type="hidden" name="hash" value="{$csrfToken}" />
                 <input type="submit" class="profile_link" value="{_"friends_accept"}" />
             </form>
+            {if $act !== 'followers'}
+                <form action="/setSub/user" method="post" class="profile_link_form">
+                    <input type="hidden" name="act" value="rej" />
+                    <input type="hidden" name="id"  value="{$x->getId()}" />
+                    <input type="hidden" name="hash" value="{$csrfToken}" />
+                    <input type="submit" class="profile_link" value="{_friends_leave_in_flw}" />
+                </form>
+            {/if}
         {elseif $subStatus === 2}
             <form action="/setSub/user" method="post" class="profile_link_form">
                 <input type="hidden" name="act" value="rem" />

@@ -4,8 +4,10 @@
         <span><a href="/wall{$owner}" class="float-right">{tr("wall", $count)}</a></span>
     </div>
     <div>
+        {if $canPost}
             {include "../components/textArea.xml", route => "/wall$owner/makePost", graffiti => true, polls => true}
-        
+        {/if}
+
         <div class="content_post">
             {if sizeof($posts) > 0}
                 {foreach $posts as $post}

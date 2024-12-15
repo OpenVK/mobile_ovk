@@ -12,6 +12,7 @@
 {var isFinance    = $mode === 'finance'}
 {var isFinanceTU  = $mode === 'finance.top-up'}
 {var isInterface  = $mode === 'interface'}
+{var isBl         = $mode === 'blacklist'}
 
 <div class="contentWraplegend" onclick="hidePanel(this);">
     <span>{_mobile_settings}</span>
@@ -28,6 +29,9 @@
         </div>
         <div n:if="OPENVK_ROOT_CONF['openvk']['preferences']['commerce']" n:attr="id => (($isFinance || $isFinanceTU) ? 'activetabs' : 'ki')" class="tab">
             <a n:attr="id => (($isFinance || $isFinanceTU) ? 'act_tab_a' : 'ki')" href="/settings?act=finance">{_points}</a>
+        </div>
+        <div n:attr="id => ($isBl ? 'activetabs' : 'ki')" class="tab">
+            <a n:attr="id => ($isBl ? 'act_tab_a' : 'ki')" href="/settings?act=blacklist">{_blacklist}</a>
         </div>
         <div n:attr="id => ($isInterface ? 'activetabs' : 'ki')" class="tab">
             <a n:attr="id => ($isInterface ? 'act_tab_a' : 'ki')" href="/settings?act=interface">{_"interface"}</a>
@@ -253,8 +257,6 @@
                         <select name="page.read" style="width: 164px;">
                             <option value="3" {if $user->getPrivacySetting('page.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
                             <option value="2" {if $user->getPrivacySetting('page.read') == 2}selected{/if}>{_privacy_value_users}</option>
-                            <option value="1" {if $user->getPrivacySetting('page.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
-                            <option value="0" {if $user->getPrivacySetting('page.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
                         </select>
                     </td>
                 </tr>
@@ -385,12 +387,34 @@
                     </td>
                 </tr>
                 <tr>
+                    <td width="300" valign="top">
+                        <span class="nobold">{_privacy_setting_see_likes}</span>
+                    </td>
+                    <td>
+                        <select name="likes.read", style="width: 164px;">
+                            <option value="2" {if $user->getPrivacySetting('likes.read') == 2}selected{/if}>{_privacy_value_anybody}</option>
+                            <option value="0" {if $user->getPrivacySetting('likes.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="300" valign="top">
+                        <span class="nobold">{_profile_type}</span>
+                    </td>
+                    <td>
+                        <select name="profile_type", style="width: 164px;">
+                            <option value="0" {if $user->getProfileType() == 0}selected{/if}>{_profile_type_open}</option>
+                            <option value="1" {if $user->getProfileType() == 1}selected{/if}>{_profile_type_closed}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
                     <td>
                         
                     </td>
                     <td>
                         <input type="hidden" name="hash" value="{$csrfToken}" />
-                        <input type="submit" value="{_'save'}" class="button" />
+                        <input type="submit" value="{_save}" class="button" />
                     </td>
                 </tr>
             </table>
@@ -519,6 +543,25 @@
             <input type="hidden" name="hash" value="{$csrfToken}" />
             <input type="submit" value="{_'save'}" class="button cfa login" />
         </form>
+        {elseif $isBl}
+            {if $blSize < 1}
+                {include "../components/error.xml", description => tr("bl_count_zero_desc")}
+            {else}
+                <h4 style="margin-bottom: 10px;">{tr("bl_count", $blSize)}.</h4>
+                <div class='entity_vertical_list mini m_mini scroll_container'>
+                    <a n:foreach="$blItems as $item" href="{$item->getURL()}" class="clickable entity_vertical_list_item scroll_node">
+                        <div class="first_column">
+                            <img class="avatar" src='{$item->getAvatarURL()}'>
+                            <div class="info">
+                                <b class="noOverflow">
+                                    {$item->getCanonicalName()} 
+                                </b>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {include "../components/paginator.xml", conf => $paginatorConf}
+            {/if}
         {/if}
     </div>
 

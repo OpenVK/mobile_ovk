@@ -5,12 +5,12 @@
     
 <a href="/im">{_my_messages}</a> »
 <a href="{$correspondent->getURL()}">{$correspondent->getCanonicalName()}</a>    
-    <div n:if="($online = $correspondent->getOnline()->timestamp()) < time() + 2678400" style="float: right;">
-        {var diff = date_diff(date_create(), date_create('@' . $online))}
+    <div n:if="($online = $correspondent->getOnline()->timestamp()) + 2505600 > time()" style="float: right;">
+        {var $diff = date_diff(date_create(), date_create('@' . $online))}
         {if 5 >= $diff->i}
             <span><b>{_online}</b></span>
         {else}
-            <span>{$correspondent->getOnline()}</span>
+            <span>{$correspondent->isFemale() ? tr("was_online_f") : tr("was_online_m")} {$correspondent->getOnline()}</span>
         {/if}
     </div>
 {/block}
@@ -44,35 +44,22 @@
                 </div>
             </div>
         </div>
-
-        <div class="messenger-app--input_fixed">
-
-    <div style="float: left; padding: 10px;" n:if="($online = $correspondent->getOnline()->timestamp()) < time() + 2678400">
-        {var diff = date_diff(date_create(), date_create('@' . $online))}
-        {if 5 >= $diff->i}
-            <span><b>{_online}</b></span>
-        {else}
-            <span>{$correspondent->isFemale() ? "заходила" : "заходил"} {$correspondent->getOnline()}</span>
-        {/if}
-     </div>
-
         <div class="messenger-app--input">
             {if $correspondent->getId() === $thisUser->getId() || $correspondent->getPrivacyPermission('messages.write', $thisUser)}
                 <div class="messenger-app--input---messagebox">
                     <textarea
                             data-bind="value: messageContent, event: { keydown: onTextareaKeyPress }"
                             name="message"
-                            placeholder="Введите сообщение"></textarea><br>
-                    <button class="button" data-bind="click: sendMessage">Отправить</button>
+                            placeholder="{_enter_message}"></textarea>
+                    <button class="button" data-bind="click: sendMessage">{_send}</button>
                 </div>
             {else}
-                <div class="blocked" data-localized-text="Вы не можете писать сообщения {$correspondent->getCanonicalName()} из-за его настроек приватности."></div>
+                <div class="blocked" data-localized-text="{_messages_blocked}"></div>
             {/if}
-        </div>
         </div>
     </div>
     
-    <script src="https://knockoutjs.com/downloads/knockout-3.5.1.js"></script>
+    {script "js/node_modules/knockout/build/output/knockout-latest.js"}
     <script>
         function MessengerViewModel(initialMessages = []) {
             window.messages     = ko.observableArray(initialMessages);
@@ -90,6 +77,7 @@
             };
             
             this.onMessagesScroll   = (model, e) => {
+                console.log(e.target.scrollTop)
                 if(e.target.scrollTop < 21)
                     model.loadHistory();
             };
@@ -194,7 +182,7 @@
                     "sender": {
                         "link": {$thisUser->getURL()},
                         "avatar": {$thisUser->getAvatarUrl()},
-                        "name": {$thisUser->getFullName()}
+                        "name": {$thisUser->getFirstName()}
                     },
                     "timing": {
                         "sent": window.API.Service.getTime(),
@@ -212,7 +200,7 @@
                     "sender": {
                         "link": {$correspondent->getURL()},
                         "avatar": {$correspondent->getAvatarUrl()},
-                        "name": {$correspondent->getFullName()}
+                        "name": {$correspondent->getFirstName()}
                     },
                     "timing": {
                         "sent": window.API.Service.getTime(),
@@ -263,9 +251,9 @@
                                 avatar: "/assets/packages/static/openvk/img/oof.apng",
                                 id: -1,
                                 link: "/support/manpages/messages/not-delivered.html",
-                                name: "Сообщение не доставлено"
+                                name: tr("messages_error_1")
                             },
-                            text: "При отправке этого сообщения произошла ошибка общего характера...",
+                            text: tr("messages_error_1_description"),
                             timing: {
                                 edited: null,
                                 sent: "???"

@@ -35,7 +35,7 @@
         <input type="hidden" name="title" maxlength="128" />
         <input type="hidden" name="hash" value="{$csrfToken}" />
         <textarea style="display:none;" name="description" maxlength="2048" />
-        <input type="file" style="display:none;" name="new_cover" accept=".jpg,.png">
+        <input type="file" style="display:none;" name="cover" accept=".jpg,.png">
 
         <div style="float:right;margin-top: 8px;">
             <button class="button" type="submit">{_save}</button>

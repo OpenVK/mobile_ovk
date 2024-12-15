@@ -14,12 +14,32 @@
 {/block}
 
 {block body}
-<div class="contentWraplegend" onclick="hidePanel(this);">
+<div class="contentWraplegend">
     <span>{_"post"}</span>
+</div>
+<div class="tabs" style="padding: 0px 12px;">
+    <div class="tab">
+        <a href="/wall{$post->getTargetWall()}">{_all_posts}</a>
+    </div>
+    <div class="tab">
+        <a href="/wall{$post->getTargetWall()}?type=owners">{$wallOwner->getRealId() < 0 ? tr("clubs_posts") : tr("users_posts", ovk_proc_strtr($wallOwner->getFirstName(), 20))}</a>
+    </div>
+    <div class="tab">
+        <a href="/wall{$post->getTargetWall()}?type=others">{_others_posts}</a>
+    </div>
+    <div class="tab" id="activetabs">
+        <a href="" id="act_tab_a">{_post}</a>
+    </div>
 </div>
 <div class="content_post_comments">
     <div class="content_post_comment">
-        {include "../components/post.xml", post => $post, forceNoCommentsLink => TRUE, forceNoDeleteLink => TRUE}
+        {include "../components/post.xml", post => $post, likersCount => true, forceNoCommentsLink => TRUE, forceNoDeleteLink => TRUE}
+    </div>
+    <div class="content_actions">
+        {var $canBePinned = $post->canBePinnedBy($thisUser)}
+        <a id="__delete_warn" n:if="$post->canBeDeletedBy($thisUser)" href="/wall{$post->getPrettyId()}/delete">{_delete}</a>
+        <a n:if="$canBePinned && $post->isPinned()" href="/wall{$post->getPrettyId()}/pin?act=unpin&hash={rawurlencode($csrfToken)}">{_unpin}</a>
+        <a n:if="$canBePinned && !$post->isPinned()" href="/wall{$post->getPrettyId()}/pin?act=pin&hash={rawurlencode($csrfToken)}">{_pin}</a>
     </div>
     <div class="comment_inputs">
         {include "../components/comments.xml",

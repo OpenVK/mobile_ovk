@@ -1738,9 +1738,9 @@ input[type~="search"]{
 }
 
 .media_makima {
-    width: calc(100% - 10px);
+    /*width: calc(100% - 10px);
     height: calc(100% - 10px);
-    object-fit: cover;
+    object-fit: cover;*/
 }
 
 .post-content .attachments_m .attachment {
@@ -1757,9 +1757,9 @@ input[type~="search"]{
 }
 
 .post-content .media_makima {
-    width: calc(100% - 4px);
+    /*width: calc(100% - 4px);
     height: calc(100% - 4px);
-    object-fit: cover;
+    object-fit: cover;*/
 }
 
 .text-panel_auth{
@@ -2656,7 +2656,7 @@ select {
 
 .notifications_container .n_ava {
     object-fit: contain;
-    height: 33px;
+    height: 64px;
 }
 
 .notifications_container span {

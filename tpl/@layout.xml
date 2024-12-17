@@ -12,7 +12,7 @@
         <meta name="application-name" content="OpenVK" />
         <meta n:ifset="$csrfToken" name="csrf" value="{$csrfToken}" />
 
-        <link rel="stylesheet" href="/themepack/mobile_ovk/0.0.1.0/stylesheet/styles.css?v=50" />
+        <link rel="stylesheet" href="/themepack/mobile_ovk/0.0.1.0/stylesheet/styles.css?v=51" />
         <link rel="stylesheet" href="/themepack/mobile_ovk/0.0.1.0/resource/vendor/pure-grid.css" />
         <script src="/language/{php echo getLanguage()}.js" crossorigin="anonymous"></script>
         {script "js/l10n.js"}

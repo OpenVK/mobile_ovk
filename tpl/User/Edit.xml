@@ -89,10 +89,11 @@
                             </select>
             </div>
             <div class="formInput">
-                <label>{_gender}</label>
-                            <select name="gender" class="cocksexy">
-                                <option value="1" {if $user->isFemale() == true}selected{/if}>{_"female"}</option>
-                                <option value="0" {if $user->isFemale() == false}selected{/if}>{_"male"}</option>
+                <label>{_pronouns}</label>
+                            <select name="pronouns" class="cocksexy">
+                                <option value="0" {if $user->getPronouns() == 0}selected{/if}>{_male}</option>
+                                <option value="1" {if $user->getPronouns() == 1}selected{/if}>{_female}</option>
+                                <option value="2" {if $user->getPronouns() == 2}selected{/if}>{_neutral}</option>
                             </select>
             </div>
             <div class="formInput">

@@ -43,6 +43,11 @@
                 {_s_audios_playlists}
             </a>
         </div>
+        <div n:attr="id => $section === 'docs' ? activetabs" class="tab">
+            <a n:attr="id => $section === 'docs' ? act_tab_a" href="/search?section=docs">
+                {_s_documents}
+            </a>
+        </div>
     </div>
 
     <div class="sr_padding" style="margin-left:10px">
@@ -218,6 +223,10 @@
                 <script n:if="$count > 0 && !empty($query) && empty($_REQUEST['only_performers'])">
                     highlightText({$query}, '.container_gray', [".playlistName", ".playlistDesc"])
                 </script>
+            {elseif $section === 'docs'}
+                <div class='scroll_node search_content' n:foreach="$data as $dat">
+                    {include "../Documents/components/doc.xml", doc => $dat, copyImportance => true}
+                </div>
             {/if}
             {include "../components/paginator.xml", conf => (object) [
                 "page"     => $page,

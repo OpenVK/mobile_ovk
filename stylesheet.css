@@ -923,9 +923,9 @@ img.rounded, .real_post > .author .ava {
     max-width:200px;
     text-overflow: ellipsis;
 }
-/* Подписывайтесь на мой YouTube: youtube.com/DanielM */
+/* Подписывайтесь на мой YouTube: youtube.com/@DanielM */
 
-/*.spisochek {
+/*.spisochek { я обожаю блять транслит
     width: 100%;
 }
 .spisochek .spisok .ava {
@@ -2823,4 +2823,172 @@ select {
 
 .ovk-diag-action > .button {
     margin-left: 10px;
+}
+
+#docs_page_wrapper {
+    display: block;
+}
+
+#docs_page_wrapper .docs_page_search {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #CCCCCC;
+    background: #F0F0F0;
+    padding: 0px 10px;
+}
+
+#docs_page_wrapper .docs_page_search input[type="search"], .attachment_selector .attachment_search input {
+    width: 100%;
+    background: url('/assets/packages/static/openvk/img/search_icon.png') no-repeat 3px 5px; 
+    background-color: #fff; 
+    padding-left: 18px !important;
+}
+
+#docs_page_wrapper .container_white {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 10px;
+}
+
+#docs_page_wrapper .docs_page_content.docs_page_gallery .scroll_container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    padding: 10px 10px;
+}
+
+.docGalleryItem {
+    height: 200px;
+    cursor: pointer;
+    position: relative;
+    /*width: 200px;*/
+}
+
+.docGalleryItem img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.docGalleryItem .doc_bottom_panel {
+    position: absolute;
+    bottom: 0px;
+    background: rgba(1, 1, 1, 0.7);
+    padding: 6px 6px;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 0fr;
+}
+
+.docGalleryItem .doc_bottom_panel span {
+    color: white;
+}
+
+.docGalleryItem .doc_bottom_panel .doc_bottom_panel_size {
+    max-width: 60px;
+    width: max-content;
+}
+
+.docListViewItem {
+    min-height: 38px;
+    display: grid;
+    grid-template-columns: 0fr 1fr 0fr;
+    gap: 10px;
+    padding: 7px 7px;
+    border-bottom: 1px solid #EDEDED;
+}
+
+.docs_page_content .docListViewItem:last-of-type {
+    border-bottom: unset !important;
+}
+
+.docListViewItem:hover, .attachButton:hover {
+    background: #f7f7f7;
+}
+
+.docListViewItem .doc_icon {
+    width: 50px;
+    height: 38px;
+    background: #E6E6E6;
+    user-select: none;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+.docListViewItem .doc_content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1px;
+    /*gap: 5px;*/
+}
+
+.docListViewItem .doc_content b {
+    color: black;
+}
+
+.docListViewItem .doc_content .doc_content_info, .docListViewItem .doc_content span {
+    color: #6d6d6d;
+}
+
+.docListViewItem .doc_icon.no_image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    height: 17px;
+    padding: 2px 0px;
+}
+
+.docListViewItem .doc_icon.no_image span {
+    color: #6b6b6b;
+}
+
+.docListViewItem .doc_icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.docListViewItem .doc_volume {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    visibility: hidden;
+}
+
+.docListViewItem .doc_volume > div {
+    width: 20px;
+    height: 20px;
+    background: url('/assets/packages/static/openvk/img/docs_controls.png?v=8');
+}
+
+.media-page-wrapper .photo-page-wrapper-photo {
+    margin-bottom: 8pt;
+    text-align: center;
+}
+
+.media-page-wrapper .video-page-wrapper-video iframe {
+    width: 100%;
+}
+
+.media-page-wrapper .photo-page-wrapper-photo img {
+    max-width: 85%; 
+    max-height: 60vh;
+}
+
+.media-page-author-block {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 5px;
+    padding: 0px 14px;
+}
+
+.media-page-author-block img {
+    width: 30px;
 }

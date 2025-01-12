@@ -198,6 +198,12 @@
                                     <td><span class="text-gray">{_address}: </span></td>
                                     <td>{$user->getPhysicalAddress()}</td>
                                 </tr>
+                                {if $additionalFields}
+                                    <tr n:foreach="$additionalFields['contacts'] as $field">
+                                        <td class="label"><span class="nobold">{$field->getName()}:</span></td>
+                                        <td class="data">{$field->getContent()}</td>
+                                    </tr>
+                                {/if}
                                 <br>
                             <!--/sse-->
                             
@@ -225,6 +231,12 @@
                                 <td><span class="text-gray">{_favorite_quotes}: </span></td>
                                 <td>{$user->getFavoriteQuote()}</td>
                             </tr>
+                            {if $additionalFields}
+                                <tr n:foreach="$additionalFields['interests'] as $field">
+                                    <td class="label"><span class="nobold">{$field->getName()}:</span></td>
+                                    <td class="data">{$field->getContent()}</td>
+                                </tr>
+                            {/if}
                             <tr n:if="!is_null($user->getDescription())">
                                 <td><span class="text-gray">{_information_about}: </span></td>
                                 <td>{$user->getDescription()}</td>

@@ -925,7 +925,7 @@ img.rounded, .real_post > .author .ava {
 }
 /* Подписывайтесь на мой YouTube: youtube.com/@DanielM */
 
-/*.spisochek { я обожаю блять транслит
+/*.spisochek { я обожаю транслит
     width: 100%;
 }
 .spisochek .spisok .ava {
@@ -1565,6 +1565,10 @@ h4 {
 
 #grp{
     background-position: 0px -91px;
+}
+
+#faveicon {
+    background-position: 0px -177px;
 }
 
 #settings{

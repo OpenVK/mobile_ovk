@@ -149,7 +149,6 @@
                             <input type="checkbox" value='1' name="only_youtube" n:attr="checked => !empty($_REQUEST['only_youtube'])">{_s_only_youtube}
                         </label>
                     </div>
-                    <input type='button' id='__mobile_reset_search' class="button cfa sr" value="{_reset}">
                 </div>
             </div>
         </form>

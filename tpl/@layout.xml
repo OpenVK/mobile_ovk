@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="/themepack/mobile_ovk/0.0.1.0/resource/vendor/pure-grid.css" />
         <script src="/language/{php echo getLanguage()}.js" crossorigin="anonymous"></script>
         {script "js/l10n.js"}
+        {script "js/openvk.cls.js"}
         {script "js/al_api.js"}
         {script "js/al_polls.js"}
         {script "js/utils.js"}
@@ -129,6 +130,24 @@
                         <a href="/search"> <div class="mobile_icons" id="search">{_mobile_search} </div></a>
                     </li>
                 </ul>
+
+            {var $canAccessAdminPanel = $thisUser->getChandlerUser()->can("access")->model("admin")->whichBelongsTo(NULL)}
+            {var $canAccessHelpdesk   = $thisUser->getChandlerUser()->can("write")->model('openvk\Web\Models\Entities\TicketReply')->whichBelongsTo(0)}
+            {if $canAccessAdminPanel || $canAccessHelpdesk}
+                <div class="space_menu"></div>
+                <ul class="menu">
+                    {if $canAccessAdminPanel}
+                    <li class="element prmenu gray">
+                        <a href="/admin"><div class="mobile_icons" id="settings">{_admin}</div></a>
+                    </li>
+                    {/if}
+                    {if $canAccessHelpdesk}
+                    <li class="element prmenu gray">
+                        <a href="/support/tickets"><div class="mobile_icons" id="hlp">{_helpdesk}</div></a>
+                    </li>
+                    {/if}
+                </ul>
+            {/if}
 
             <div class="space_menu"></div>
 

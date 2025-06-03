@@ -23,24 +23,21 @@
         <a href="/support/delete/{$id}?hash={$csrfToken}">{_delete}</a>
     </div>
     <br />
-    <div>
+    <div class="new_post_text">
         <form action="/al_comments/create/support/reply/{$id}" method="post" style="margin: 0;">
             <textarea name="text" id="answer_text" style="width: 100%; resize: vertical;"></textarea>
-            <br />
             <input type="hidden" name="hash" value="{$csrfToken}" />
-            <br />
-            <div style="float: left;">
-                <input type="submit" value="{_write}" class="button" />
+            <div class="post-opts">
                 <select name="status" style="width: unset;">
                     <option value="1">{_support_status_1}</option>
                     <option value="2">{_support_status_2}</option>
                     <option value="0">{_support_status_0}</option>
                 </select>
             </div>
+            <input type="submit" value="{_write}" class="button" />
             <div n:if="!is_null($fastAnswers)" style="float: right;">
                 <a class="button" href="javascript:showSupportFastAnswerDialog(fastAnswers)">{_fast_answers}</a>
             </div>
-            <br />
         </form>
     </div>
     <br />

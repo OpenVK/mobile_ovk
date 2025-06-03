@@ -52,9 +52,9 @@
         </div>
         {if $ticket->getType() !== 2}
             <br />
-            <div>
+            <div class="new_post_text">
                 <form action="/al_comments/create/support/{$id}" method="post" style="margin:0;">
-                    <textarea name="text" style="width: 100%;resize: vertical;"></textarea><br />
+                    <textarea name="text" style="width: 100%;resize: vertical;"></textarea>
                     <input type="hidden" name="hash" value="{$csrfToken}" /><br />
                     <input type="submit" value="{_write}" class="button" />
                 </form>

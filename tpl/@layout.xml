@@ -136,16 +136,12 @@
             {if $canAccessAdminPanel || $canAccessHelpdesk}
                 <div class="space_menu"></div>
                 <ul class="menu">
-                    {if $canAccessAdminPanel}
-                    <li class="element prmenu gray">
+                    <li class="element prmenu gray" n:if="$canAccessAdminPanel">
                         <a href="/admin"><div class="mobile_icons" id="settings">{_admin}</div></a>
                     </li>
-                    {/if}
-                    {if $canAccessHelpdesk}
-                    <li class="element prmenu gray">
+                    <li class="element prmenu gray" n:if="$canAccessHelpdesk">
                         <a href="/support/tickets"><div class="mobile_icons" id="hlp">{_helpdesk}</div></a>
                     </li>
-                    {/if}
                 </ul>
             {/if}
 

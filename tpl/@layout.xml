@@ -139,7 +139,7 @@
                         <a href="/admin"><div class="mobile_icons" id="settings">{_admin}</div></a>
                     </li>
                     <li class="element prmenu gray" n:if="$canAccessHelpdesk">
-                        <a href="/support/tickets"><div class="mobile_icons" id="hlp">{_helpdesk}</div></a>
+                        <a href="/support/tickets"><div class="mobile_icons" id="hlp">{_menu_support}</div></a>
                     </li>
                 </ul>
             {/if}
@@ -151,7 +151,7 @@
                         <a href="/settings"> <div class="mobile_icons" id="settings">{_mobile_settings} </div></a>
                     </li>
                     <li class="element prmenu gray">
-                        <a href="/support"> <div class="mobile_icons" id="hlp">{_menu_support}
+                        <a href="/support"> <div class="mobile_icons" id="hlp">{_menu_help}
                         
                          {if $ticketAnsweredCount > 0}
                             <span class="counter urgent">{$ticketAnsweredCount}</span>

@@ -1,6 +1,6 @@
 {extends "../@layout.xml"}
 
-{block title}{$agent->getCanonicalName()}{/block} 
+{block title}{ifset $agent}{$agent->getCanonicalName()}{else}{_helpdesk}{/ifset}{/block}
 
 {block body}
 {var $isInfo = $mode === "info"}
@@ -85,6 +85,7 @@
                 <label for="number">{_avatar}</label>
                 <input name="avatar" type="text" placeholder="{_helpdesk_avatar_url}" />
                 <input type="hidden" value="{$csrfToken}" name="hash" />
+                <br/><br/>
                 <input type="submit" class="button" value="{_save}" />
             </form>
         </div>

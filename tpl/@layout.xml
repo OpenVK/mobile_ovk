@@ -14,7 +14,6 @@
         <link rel="stylesheet" href="/themepack/mobile_ovk/0.0.1.0/resource/vendor/pure-grid.css" />
         <script src="/language/{php echo getLanguage()}.js" crossorigin="anonymous"></script>
         {script "js/l10n.js"}
-        {script "js/openvk.cls.js"}
         {script "js/al_api.js"}
         {script "js/al_polls.js"}
         {script "js/utils.js"}

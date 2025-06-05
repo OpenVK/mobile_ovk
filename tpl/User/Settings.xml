@@ -235,15 +235,9 @@
         <form action="/logout">
             <button class="button cfa logout">{_mobile_log_out}</button>
         </form>
-        
-        <!-- dsrev: it's better if we hide it before the page deletion function appears tbh.
-             vc: i agree
-        
         <div class="settings_delete">
-            {_you_can_also} <a href="#" onclick="alert('Не реализовали ждите')">{_delete_your_page}</a>.
+            {_you_can_also} <a onClick="showProfileDeactivateDialog({$csrfToken})">{_delete_your_page}</a>.
         </div>
-        
-        -->
         
         {elseif $isPrivacy}
         

@@ -431,3 +431,39 @@ function showProfileDeactivateDialog(hash) {
         $('#deactivate_reason').val($(this).data("text"));
     });
 }
+
+
+function showCoinsTransferDialog(coinsCount, hash) {
+    MessageBox(tr("transfer_poins"), `
+        <div class="messagebox-content-header">
+            ${tr("points_transfer_dialog_header_1")}
+            ${tr("points_transfer_dialog_header_2")} <b>${tr("points_amount", coinsCount)}</b>
+        </div>
+        <form action="/coins_transfer" method="post" id="coins_transfer_form" style="margin-top: 30px">
+            <div class="formInput">
+                <label>
+                    ${tr("receiver_address")}:
+                </label>
+                <input type="text" name="receiver" style="width: 100%;" />
+            </div>
+            <div class="formInput">
+                <label>
+                    ${tr("coins_count")}:
+                </label>
+                <input type="text" name="value" style="width: 100%;" />
+            </div>
+            <div class="formInput">
+                <label>
+                    ${tr("message")}:
+                </label>
+                <textarea name="message" style="width: 100%;"></textarea>
+            </div>
+            <input type="hidden" name="hash" value="${hash}" />
+        </form>
+    `, [tr("transfer_poins_button"), tr("cancel")], [
+        () => {
+            document.querySelector("#coins_transfer_form").submit();
+        },
+        Function.noop
+    ]);
+}

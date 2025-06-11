@@ -235,15 +235,9 @@
         <form action="/logout">
             <button class="button cfa logout">{_mobile_log_out}</button>
         </form>
-        
-        <!-- dsrev: it's better if we hide it before the page deletion function appears tbh.
-             vc: i agree
-        
         <div class="settings_delete">
-            {_you_can_also} <a href="#" onclick="alert('Не реализовали ждите')">{_delete_your_page}</a>.
+            {_you_can_also} <a onClick="showProfileDeactivateDialog({$csrfToken})">{_delete_your_page}</a>.
         </div>
-        
-        -->
         
         {elseif $isPrivacy}
         
@@ -421,22 +415,28 @@
         </form>
         
         {elseif $isFinance}
-        
-        <div style="width: 75%; display: inline-block;">
-            {presenter "openvk!Support->knowledgeBaseArticle", "points"}
-            <center>{tr("also_you_can_transfer_points", $thisUser->getCoins(), rawurlencode($csrfToken))|noescape}</center>
-        </div>
-        <div style="width: 22%; float: right;">
-            <p style="margin: 0; font-size: medium; text-align: center;">
-                <b>
-                    {_on_your_account}<br/>
-                    <span style="font-size: 50px;">{$thisUser->getCoins()}</span><br/>
-                    {_points_count}<br/><br/>
-                    <small><a href="?act=finance.top-up">[{_have_voucher}?]</a></small>
+        <div style="margin: 0 -15px">
+            <div class="settings_body" style="text-align: center;">
+                {_on_your_account}<br>
+                <b style="font-size: 50px;">{$thisUser->getCoins()}</b><br>
+                {_points_count}
                 </b>
-            </p>
+            </div>
+            <ul class="menu">
+                <li id="transfer" class="element prmenu">
+                    <a href="javascript:showCoinsTransferDialog({$thisUser->getCoins()}, '{rawurlencode($csrfToken)}')">
+                        {_transfer_poins|firstUpper}
+                    </a>
+                </li>
+                <li id="topup" class="element prmenu">
+                    <a href="/settings?act=finance.top-up">
+                        {_have_voucher}?
+                    </a>
+            </ul>
+            <div class="set_block">
+                {presenter "openvk!Support->knowledgeBaseArticle", "points"}
+            </div>
         </div>
-        
         {elseif $isFinanceTU}
         
         <p>{_voucher_explanation} {_voucher_explanation_ex}</p>

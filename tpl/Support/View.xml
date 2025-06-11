@@ -32,12 +32,11 @@
     </script>
 
     <div class="contentWraplegend">
-                <span>{$ticket->getName()}</span>
-            </div>
+        <span>{$ticket->getName()}</span>
+    </div>
 
-<div class="settings_body">
-
-    {if $ticket->isDeleted() == 0}
+    <div class="settings_body">
+        {if $ticket->isDeleted() == 0}
         <div class="s_post-author">
             <a href="#" style="font-size:13px;"><b>{$ticket->getName()}</b></a>
             <br />{_status}: {$ticket->getStatus()}
@@ -50,20 +49,20 @@
             {$ticket->getTime()}&nbsp;|&nbsp;
             <a href="/support/delete/{$id}?hash={$csrfToken}">{_delete}</a>
         </div>
-        {if $ticket->getType() !== 2}
-            <br />
-            <div>
-                <form action="/al_comments/create/support/{$id}" method="post" style="margin:0;">
-                    <textarea name="text" style="width: 100%;resize: vertical;"></textarea><br />
-                    <input type="hidden" name="hash" value="{$csrfToken}" /><br />
-                    <input type="submit" value="{_write}" class="button" />
-                </form>
-            </div>
-        {/if}
-        <br />
-        <p n:if="!$comments">{_no_comments}</p>
-        {var $printedSupportGreeting = false}
-        <table n:foreach="$comments as $comment" border="0" style="font-size: 11px;" class="post">
+    </div>
+    {if $ticket->getType() !== 2}
+        <div class="new_post_text">
+            <form action="/al_comments/create/support/{$id}" method="post" style="margin:0;">
+                <textarea name="text" style="width: 100%;resize: vertical;"></textarea>
+                <input type="hidden" name="hash" value="{$csrfToken}" /><br />
+                <input type="submit" value="{_write}" class="button" />
+            </form>
+        </div>
+    {/if}
+    <div class="content_post" n:if="!$comments"><p>{_no_comments}</p></div>
+    {var $printedSupportGreeting = false}
+    <div class="content_post">
+        <table n:foreach="$comments as $comment" border="0" style="font-size: 11px;" class="post real_post">
             <tbody>
                 <tr>
                     {if $comment->getUType() === 0}
@@ -141,6 +140,6 @@
                 </tr>
             </tbody>
         </table>
-        </div>
+    </div>
     {/if}
 {/block}

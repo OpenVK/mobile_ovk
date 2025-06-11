@@ -380,6 +380,30 @@ u(document).on('submit', 'form', async (e) => {
     }
 })
 
+function showSupportFastAnswerDialog(answers) {
+    let html = "";
+    for(const [index, answer] of Object.entries(answers)) {
+        html += `
+            <div class="hover-box" onclick="supportFastAnswerDialogOnClick(fastAnswers[${index}])">
+                ${answer.replace(/\n/g, "<br />")}
+            </div>
+        `;
+    }
+
+    MessageBox(tr("fast_answers"), html, [tr("close")], [
+        Function.noop
+    ]);
+}
+
+function supportFastAnswerDialogOnClick(answer) {
+    u("body").removeClass("dimmed");
+    u(".ovk-diag-cont").remove();
+
+    const answerInput = document.querySelector("#answer_text");
+    answerInput.value = answer;
+    answerInput.focus();
+}
+
 function showProfileDeactivateDialog(hash) {
     MessageBox(tr("profile_deactivate"), `
         <div class="messagebox-content-header">

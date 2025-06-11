@@ -123,7 +123,7 @@
                         <a n:if="$thisUser->getLeftMenuItemStatus('groups')" href="/groups{$thisUser->getId()}"> <div class="mobile_icons" id="grp">{_mobile_groups} </div></a>
                     </li>
                     <li class="element prmenu">
-                        <a href="/groups{$thisUser->getId()}"> <div class="mobile_icons" id="faveicon">{_bookmarks_tab} </div></a>
+                        <a href="/fave"> <div class="mobile_icons" id="faveicon">{_bookmarks_tab} </div></a>
                     </li>
                     <li class="element prmenu">
                         <a href="/search"> <div class="mobile_icons" id="search">{_mobile_search} </div></a>

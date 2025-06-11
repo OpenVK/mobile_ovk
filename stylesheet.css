@@ -1214,6 +1214,13 @@ img.rounded, .real_post > .author .ava {
     padding: 10px;
     /* padding-top: 0; */ /* зачем..? */
 }
+
+.settings_delete {
+    border-top: 1px solid #efefef;
+    padding-top: 10px;
+    text-align: center;
+}
+
 h4 {
     color: #505050;
     margin-top: 5px;
@@ -2784,19 +2791,26 @@ select {
     z-index: 1024;
     position: fixed;
     width: 100%;
-    height: calc(100vh - 7%);
+    height: calc(100vh - 48px);
     top: 48px;
-    /*
-    left: 50%;
-    transform: translate(-50%, -50%);*/
+    background: rgba(0, 0, 0, .5);
 }
 
 .ovk-diag {
     background-color: #fff;
     border: 1px solid #505050;
-    display: grid;
-    grid-template-rows: 0fr 1fr 0fr;
     height: 100%;
+}
+@media only screen and (min-width: 360px) {
+    .ovk-diag {
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        max-width: 500px;
+    }
 }
 
 .ovk-diag-head, .ovk-diag-body, .ovk-diag-action {
@@ -2816,17 +2830,23 @@ select {
 
 .ovk-diag-body {
     padding: 20px;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 .ovk-diag-action {
     padding: 10px;
-    height: 40px;
     background-color: #d4d4d4;
-    text-align: right;
 }
 
-.ovk-diag-action > .button {
-    margin-left: 10px;
+.ovk-diag-action .button {
+    float: none;
+    width: 100%;
+    margin: 0;
+    padding: 10px
+}
+.ovk-diag-action .button + .button {
+    margin-top: 10px;
 }
 
 #docs_page_wrapper {

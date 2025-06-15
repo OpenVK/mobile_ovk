@@ -24,7 +24,7 @@
 
         {ifset headIncludes}{include headIncludes}{/ifset}
         <script defer src="/themepack/mobile_ovk/0.0.1.0/resource/menu.js"></script>
-        <script src="/themepack/mobile_ovk/0.0.1.0/resource/mobile.js?v=50"></script>
+        <script src="/themepack/mobile_ovk/0.0.1.0/resource/mobile.js?v=51"></script>
     </head>
 
 

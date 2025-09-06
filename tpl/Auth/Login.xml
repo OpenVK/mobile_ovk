@@ -22,8 +22,8 @@
                     </div>
                     
                     <input type="hidden" name="hash" value="{$csrfToken}" />
-                    <input type="submit" class="button primary big" value="{_log_in}" />
-                    <a href="/reg" class="button primary big">{_registration}</a>
+                    <input type="submit" class="button big" value="{_log_in}" />
+                    <a href="/reg" class="button big">{_registration}</a>
                     <br><br>
                     <a href="/restore">Забыли пароль?</a>
 

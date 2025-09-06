@@ -57,7 +57,7 @@
             </div>
             
             {if isset($thisUser) && $club->canBeModifiedBy($thisUser)}
-                <a href="/club{$club->getId()}/edit"><input type="submit" class="button primary big max" value="{_edit_group}" /></a>
+                <a href="/club{$club->getId()}/edit"><input type="submit" class="button big max" value="{_edit_group}" /></a>
             {/if}
 
             {ifset $thisUser}
@@ -66,14 +66,14 @@
                 <input type="hidden" name="act" value="add" />
                 <input type="hidden" name="id"  value="{$club->getId()}" />
                 <input type="hidden" name="hash" value="{$csrfToken}" />
-                <input type="submit" class="button primary big max" value="{_"join_community"}" />
+                <input type="submit" class="button big max" value="{_"join_community"}" />
                 </form>
             {else}
                 <form action="/setSub/club" method="post" class="form_gr">
                     <input type="hidden" name="act" value="rem" />
                     <input type="hidden" name="id"  value="{$club->getId()}" />
                     <input type="hidden" name="hash" value="{$csrfToken}" />
-                    <input type="submit" class="button primary big max" value="{_"leave_community"}" />
+                    <input type="submit" class="button secondary big max" value="{_"leave_community"}" />
                     </form>
                     {/if}
 

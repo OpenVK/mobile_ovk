@@ -20,12 +20,15 @@
 {block body}
     {var $is_gallery = $current_tab == 3 || $current_tab == 4}
     <div id="docs_page_wrapper">
+        <div class="contentWrapLegend">
+            <b class="summary">{tr($locale_string, $count)}.</b>
+        </div>
         <div class="docs_page_search">
-            <form action="/search" method="get" style="margin: 11px 0px;">
+            <form action="/search" method="get" style="margin: 11px 0px; width: 100%">
                 <input type="hidden" name="section" value="docs">
                 <input type="search" name="q" class="input_with_search_icon" placeholder="{_search_by_documents}">
             </form>
-            <a n:if="$canUpload" href="/docs/upload{if isset($group)}?gid={$group->getId()}{/if}"><input id="upload_entry_point" class="button" type="button" value="{_upload_button}"></a>
+            <a n:if="$canUpload" href="/docs/upload{if isset($group)}?gid={$group->getId()}{/if}"><input id="upload_entry_point" class="button big" type="button" value="{_upload_button}"></a>
         </div>
         <div n:if="sizeof($tabs) > 1" class="docs_page_tabs" style="padding: 15px 10px;">
             <div class="mb_tabs">
@@ -40,10 +43,7 @@
                 </div>
             </div>
         </div>
-        <div n:class="docs_page_content, $is_gallery ? docs_page_gallery">
-            <div class="summaryBar display_flex_row display_flex_space_between" style="padding: 7px 11px;">
-                <b class="summary">{tr($locale_string, $count)}.</b>
-            </div>
+        <div n:class="container_gray, set, docs_page_content, $is_gallery ? docs_page_gallery">
             <div n:attr="id => !$is_gallery && sizeof($tags) > 0 ? search_page">
                 <div n:class="container_white, scroll_container, !$is_gallery && sizeof($tags) > 0 ? page_wrap_content_main">
                     {if $count > 0}

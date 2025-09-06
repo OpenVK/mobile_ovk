@@ -30,16 +30,16 @@
         </div>
         <div>
             <a href="/player/upload?playlist={$playlist->getId()}" n:if="$canEdit">
-                <input type="button" class="button cfa sr" value="{_upload_audio}">
+                <input type="button" class="button secondary big max" value="{_upload_audio}">
             </a>
             <a href="/playlist{$playlist->getPrettyId()}/edit" n:if="$playlist->canBeModifiedBy($thisUser)">
-                <input type="button" class="button cfa sr" value="{_edit_playlist}">
+                <input type="button" class="button secondary big max" value="{_edit_playlist}">
             </a>
             <a id="bookmarkPlaylist" data-id="{$playlist->getId()}" n:if="!$isBookmarked">
-                <input type="button" class="button cfa sr" value="{_bookmark}">
+                <input type="button" class="button secondary big max" value="{_bookmark}">
             </a>
             <a id="unbookmarkPlaylist" data-id="{$playlist->getId()}" n:if="$isBookmarked">
-                <input type="button" class="button cfa sr" value="{_unbookmark}">
+                <input type="button" class="button secondary big max" value="{_unbookmark}">
             </a>
         </div>
         <div class="audiosContainer infContainer" style="margin-top: 14px;">

@@ -61,7 +61,7 @@
             </div>
             <div class="formInput">
                 <label>{_relationship}</label>
-                            <select name="marialstatus" class="cocksexy">
+                            <select name="marialstatus">
                                 <option value="0" {if $user->getMaritalStatus() == 0}selected{/if}>{_"relationship_0"}</option>
                                 <option value="1" {if $user->getMaritalStatus() == 1}selected{/if}>{_"relationship_1"}</option>
                                 <option value="2" {if $user->getMaritalStatus() == 2}selected{/if}>{_"relationship_2"}</option>
@@ -75,7 +75,7 @@
             </div>
             <div class="formInput">
                 <label>{_politViews}</label>
-                            <select name="politViews" class="cocksexy">
+                            <select name="politViews">
                                 <option value="0" {if $user->getPoliticalViews() == 0}selected{/if}>{_"politViews_0"}</option>
                                 <option value="1" {if $user->getPoliticalViews() == 1}selected{/if}>{_"politViews_1"}</option>
                                 <option value="2" {if $user->getPoliticalViews() == 2}selected{/if}>{_"politViews_2"}</option>
@@ -90,7 +90,7 @@
             </div>
             <div class="formInput">
                 <label>{_pronouns}</label>
-                            <select name="pronouns" class="cocksexy">
+                            <select name="pronouns">
                                 <option value="0" {if $user->getPronouns() == 0}selected{/if}>{_male}</option>
                                 <option value="1" {if $user->getPronouns() == 1}selected{/if}>{_female}</option>
                                 <option value="2" {if $user->getPronouns() == 2}selected{/if}>{_neutral}</option>
@@ -98,11 +98,11 @@
             </div>
             <div class="formInput">
                 <label>{_birth_date}</label>
-                <input max={date('Y-m-d')} name="birthday" class="cocksexy" value={!is_null($user->getBirthday()) ? $user->getBirthday()->format('%Y-%m-%d') : "01-01-1970"} type="date"/>
+                <input max={date('Y-m-d')} name="birthday" value={!is_null($user->getBirthday()) ? $user->getBirthday()->format('%Y-%m-%d') : "01-01-1970"} type="date"/>
 
             </div>
             <div class="formInput">
-                            <select name="birthday_privacy" class="cocksexy">
+                            <select name="birthday_privacy">
                     <option value="0" {if $user->getBirthdayPrivacy() == 0}selected{/if}>{_show_my_birthday}</option>
                     <option value="1" {if $user->getBirthdayPrivacy() == 1}selected{/if}>{_show_only_month_and_day}</option>
                 </select>
@@ -116,7 +116,7 @@
             {/if}
 
             <input type="hidden" name="hash" value="{$csrfToken}" />
-            <input type="submit" value="{_'save'}" class="button cfa login" />
+            <input type="submit" value="{_'save'}" class="button big max" />
         </form>
         
         {elseif $isContacts}
@@ -197,7 +197,7 @@
                 <input type="text" name="address" value="{$user->getPhysicalAddress()}">
             </div>
             <input type="hidden" name="hash" value="{$csrfToken}" />
-            <input type="submit" value="{_'save'}" class="button cfa login" />
+            <input type="submit" value="{_'save'}" class="button big max" />
         </form>
         
         {elseif $isInterests}
@@ -302,7 +302,7 @@
                 <textarea type="text" name="about">{$user->getDescription()}</textarea>
             </div>
             <input type="hidden" name="hash" value="{$csrfToken}" />
-            <input type="submit" value="{_'save'}" class="button cfa login" />
+            <input type="submit" value="{_'save'}" class="button big max" />
         </form>
         
         {elseif $isAvatar}
@@ -335,7 +335,7 @@
                 <input type="file" name="blob" accept="image/*" />
             </div>
             <input type="hidden" name="hash" value="{$csrfToken}" />
-           <input type="submit" value="{_'save'}" class="button cfa login" />
+           <input type="submit" value="{_'save'}" class="button big max" />
         </form>
         
         {/if}

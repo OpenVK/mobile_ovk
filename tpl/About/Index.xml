@@ -21,8 +21,8 @@
                     <b>{$stats->active}</b> активных сейчас в сети.
                 </p>
                 
-                <a href="/reg" class="button primary big">Зарегистрироваться</a>
-                <a href="/login" class="button primary big">Войти</a>
+                <a href="/reg" class="button big">Зарегистрироваться</a>
+                <a href="/login" class="button big">Войти</a>
 
 
             </div>

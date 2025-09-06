@@ -17,49 +17,35 @@
 {/block}
 
 {block body}
-    <form method="post" enctype="multipart/form-data">
-        <table width="500">
-            <tbody>
-                <tr>
-                    <td><span class="nobold">{_name}:</span></td>
-                    <td><input type="text" name="name" /></td>
-                </tr>
-                <tr>
-                    <td><span class="nobold">{_tags}:</span></td>
-                    <td><textarea name="tags"></textarea></td>
-                </tr>
-                <tr>
-                    <td><span class="nobold">{_accessbility}:</span></td>
-                    <td>
-                        <select name="folder">
-                            <option value="0">Private file</option>
-                            <option value="4">Public file</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <label>
-                            <input type="checkbox" name="owner_hidden" checked>
-                            Owner is hidden
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td><span class="nobold">{_file}:</span></td>
-                    <td>
-                        <input type="file" id="blob" name="blob" value="{_browse}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <input type="hidden" name="hash" value="{$csrfToken}" />
-                        <input type="submit" class="button" name="submit" value="{_upload_button}" />
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </form>
+    <div class="container_gray set">
+        <form method="post" enctype="multipart/form-data">
+            <div class="formInput">
+                <label>{_name}:</label>
+                <input type="text" name="name" />
+            </div>
+            <div class="formInput">
+                <label>{_tags}:</label>
+                <textarea name="tags"></textarea>
+            </div>
+            <div class="formInput">
+                <label>{_accessbility}:</label>
+                <select name="folder">
+                    <option value="0">{_private_document}</option>
+                    <option value="4">{_public_document}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>
+                    <input type="checkbox" name="owner_hidden" checked>
+                    {_owner_is_hidden}
+                </label>
+            </div>
+            <div class="formInput">
+                <label>{_file}:</label>
+                <input type="file" id="blob" name="blob" value="{_browse}" />
+            </div>
+            <input type="hidden" name="hash" value="{$csrfToken}" />
+            <input type="submit" class="button big max" name="submit" value="{_upload_button}" />
+        </form>
+    </div>
 {/block}

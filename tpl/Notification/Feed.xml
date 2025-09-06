@@ -11,7 +11,7 @@
 {/block}
 
 {block body}
-<div n:ifcontent class="tabs">
+<div n:ifcontent class="coolTabs">
     <div n:attr="id => ($mode === 'new' ? 'activetabs' : 'ki')" class="tab">
         <a n:attr="id => ($mode === 'new' ? 'act_tab_a' : 'ki')" href="?act=new">{_unread}</a>
     </div>
@@ -21,7 +21,7 @@
 </div>
 {var $data = is_array($iterator) ? $iterator : iterator_to_array($iterator)}
 {if sizeof($data) > 0}
-<div n:class="notifications_container, $mode !== 'new' ? scroll_container">
+<div n:class="container_gray, set, notifications_container, $mode !== 'new' ? scroll_container">
     <table class="scroll_node post post-divider" border="0" style="font-size: 11px;" n:foreach="$data as $dat">
         <tbody>
             <tr>
@@ -54,10 +54,12 @@
             "atBottom" => true,
         ]}
 {else}
-    {ifset customErrorMessage}
-        {include customErrorMessage}
-    {else}
-        {include "../components/nothing.xml"}
-    {/ifset}
+    <div class="container_gray set">
+        {ifset customErrorMessage}
+            {include customErrorMessage}
+        {else}
+            {include "../components/nothing.xml"}
+        {/ifset}
+    </div>
 {/if}
 {/block}

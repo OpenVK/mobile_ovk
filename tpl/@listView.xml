@@ -19,14 +19,13 @@
                                         {include preview, x => $dat}
                                     </a>
                                 </td>
-                                <td valign="top" style="width: 100%">
+                                <td valign="middle" style="width: 100%" class="list_info">
                                     {ifset name}
                                         <a href="{include link, x => $dat}">
                                             <div class="bold_name_top">
                                                 {include name, x => $dat}
                                             </div>
                                         </a>
-                                        <br/>
                                     {/ifset}
                                     
                                     {include description, x => $dat}

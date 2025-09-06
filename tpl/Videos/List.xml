@@ -17,7 +17,7 @@
             </b>
 
             <a href='/videos/upload' n:if="isset($thisUser) && $thisUser->getId() == $user->getId()">
-                <button class="button cfa sr">{_upload_video}</button>
+                <button class="button secondary big max">{_upload_video}</button>
             </a>
 
             <div class='listviewContent'>

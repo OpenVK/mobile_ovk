@@ -1,24 +1,16 @@
 <a class='video-list-view' href="/video{$video->getPrettyId()}">
-    <table>
-        <tbody>
-            <tr>
-                <td valign="top">
-                    <div class="video-preview">
-                        <img src="{$video->getThumbnailURL()}">
-                    </div>
-                </td>
-                <td valign="top" style="width: 100%">
-                    <b class='video_name'>
-                    {$video->getName()}
-                    </b>
-                    <br/>
-                    <p class='video_description'>
-                        <span>{$video->getDescription() ?? ""}</span>
-                    </p>
-
-                    <span style="color: grey;">{_video_uploaded} {$video->getPublicationTime()}</span><br/>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="video-preview">
+        <img src="{$video->getThumbnailURL()}">
+    </div>
+    <div class="video-info">
+        <div class="video_name">
+            {$video->getName()}
+        </div>
+        <div class="video_description">
+            <span>{$video->getDescription() ?? ""}</span>
+        </div>
+        <div class="video_meta">
+            {_video_uploaded} {$video->getPublicationTime()}
+        </div>
+    </div>
 </a>

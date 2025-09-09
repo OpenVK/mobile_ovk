@@ -80,7 +80,7 @@
 
 
                     {if $user->getId() == $thisUser->getId()}
-                        <a href="/edit" class="button primary big max">{_edit_page}</a>
+                        <a href="/edit" class="button big max">{_edit_page}</a>
                     {else}
                         {var subStatus = $user->getSubscriptionStatus($thisUser)}
                         {if $subStatus === 0}
@@ -88,29 +88,29 @@
                                 <input type="hidden" name="act" value="add" />
                                 <input type="hidden" name="id"  value="{$user->getId()}" />
                                 <input type="hidden" name="hash" value="{$csrfToken}" />
-                                <input type="submit" class="button primary big max" value="{_friends_add}" />
+                                <input type="submit" class="button big max" value="{_friends_add}" />
                             </form>
                         {elseif $subStatus === 1}
                             <form action="/setSub/user" method="post" class="form_gr">
                                 <input type="hidden" name="act" value="add" />
                                 <input type="hidden" name="id"  value="{$user->getId()}" />
                                 <input type="hidden" name="hash" value="{$csrfToken}" />
-                                <input type="submit" class="button primary big max" value="{_friends_accept}" />
+                                <input type="submit" class="button big max" value="{_friends_accept}" />
                             </form>
                         {elseif $subStatus === 2}
                             <form action="/setSub/user" method="post" class="form_gr">
                                 <input type="hidden" name="act" value="rem" />
                                 <input type="hidden" name="id"  value="{$user->getId()}" />
                                 <input type="hidden" name="hash" value="{$csrfToken}" />
-                                <input type="submit" class="button primary big max" value="{_friends_reject}" />
+                                <input type="submit" class="button big max" value="{_friends_reject}" />
                             </form>
                         {elseif $subStatus === 3}
-                            <a href="/im?sel={$user->getId()}" class="button primary big max">{_"send_message"}</a>
+                            <a href="/im?sel={$user->getId()}" class="button big max">{_"send_message"}</a>
                             <form action="/setSub/user" method="post"  class="form_gr">
                                 <input type="hidden" name="act" value="rem" />
                                 <input type="hidden" name="id"  value="{$user->getId()}" />
                                 <input type="hidden" name="hash" value="{$csrfToken}" />
-                                <input type="submit" class="button primary big max" value="{_friends_delete}" />
+                                <input type="submit" class="button big max" value="{_friends_delete}" />
                             </form>
                         {/if}
                     {/if}
@@ -167,7 +167,7 @@
                     </table>
 
 
-                            <div class="show_more_info_profile_link podrobnee">
+                            <div class="button secondary-alt big max show_more_info_profile_link" role="button">
                                 {_mobile_user_info_show_details}
                             </div>
                             <div class="show_more_info_profile_content podrobnee_content">
@@ -200,11 +200,10 @@
                                 </tr>
                                 {if $additionalFields}
                                     <tr n:foreach="$additionalFields['contacts'] as $field">
-                                        <td class="label"><span class="nobold">{$field->getName()}:</span></td>
-                                        <td class="data">{$field->getContent()}</td>
+                                        <td><span class="text-gray">{$field->getName()}:</span></td>
+                                        <td>{$field->getContent()}</td>
                                     </tr>
                                 {/if}
-                                <br>
                             <!--/sse-->
                             
                             <tr n:if="!is_null($user->getInterests())">

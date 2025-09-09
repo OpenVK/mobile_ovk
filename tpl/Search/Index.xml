@@ -54,7 +54,7 @@
         <form class="header_search_inputbt">
             <input name="section" type="hidden" value="{$section ?? 'users'}" />
             <input name="q" class="sr_input" placeholder="{_header_search}" value="{$_GET['q'] ?? ''}" />
-            <button class="button cfa sr">{_search_button}</button>
+            <button class="button secondary big max">{_search_button}</button>
 
             <div class='search_options_wrapper'>
                 <div id='search_options_toggler'>

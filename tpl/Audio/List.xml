@@ -73,7 +73,7 @@
             <input type="text" name="q" placeholder="{_enter_a_name_or_artist}">
             <input type="hidden" name="section" value="audios">
 
-            <input type="submit" class="button cfa sr" value="{_header_search}">
+            <input type="submit" class="button secondary big max" value="{_header_search}">
         </form>
     </div>
 
@@ -102,7 +102,7 @@
 
         <div n:if="$mode == 'playlists'">
             <a href="/audios/newPlaylist">
-                <input type="button" class="button cfa sr" value="{_new_playlist}">
+                <input type="button" class="button secondary big max" value="{_new_playlist}">
             </a>
 
             {if $playlistsCount > 0}

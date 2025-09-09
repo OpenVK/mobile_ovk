@@ -21,7 +21,7 @@
                         </div>
 
                          <input type="hidden" name="hash" value="{$csrfToken}" />
-                        <input type="submit" value="{_create}" class="button" />
+                        <input type="submit" value="{_create}" class="button big max" />
 
     </form>
 </div>

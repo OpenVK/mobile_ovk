@@ -70,13 +70,13 @@
     </div>
                             
     <div class="actions">
-        <!-- <a class="button bold commentbtn" href="">54</a> -->
-        <!--  <a class="button bold like" href="">1321</a> -->
+        <!-- <a class="button secondary commentbtn" href="">54</a> -->
+        <!--  <a class="button secondary like" href="">1321</a> -->
 
         <div class="actions_left">
 
             {if !($forceNoCommentsLink ?? false)}
-                <a href="/wall{$post->getPrettyId()}#comments" class="button bold commentbtn">
+                <a href="/wall{$post->getPrettyId()}#comments" class="button secondary commentbtn">
                     {if $post->getCommentsCount() > 0}
                         {$post->getCommentsCount()}
                     {else}
@@ -86,7 +86,7 @@
             {/if}
 
             {if true}
-                <a class="button bold sharebtn">
+                <a class="button secondary sharebtn">
                     {$post->getRepostCount()}
                 </a>
 
@@ -120,7 +120,7 @@
                             class="post-like-button post-like-button-natural"
                             data-liked="{(int) $liked}"
                             data-likes="{$likesCount}">
-                            <div class="button bold like post-like-button" id="{if $liked}liked{/if}">
+                            <div class="button secondary like post-like-button" id="{if $liked}liked{/if}">
                                 {_mobile_like} <span class="likeCnt">{if $likesCount > 0}{$likesCount}{/if}</span>
                             
                             </div>

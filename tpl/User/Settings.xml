@@ -101,7 +101,7 @@
                     <input type="password" name="repeat_pass">
                 </div>
                 <input type="hidden" name="hash" value="{$csrfToken}" />
-                <input type="submit" value="{_"change_password"}" class="button cfa login" />
+                <input type="submit" value="{_"change_password"}" class="button big max" />
             <br/>
             <h4 class="h4_set">{_two_factor_authentication}</h4>
             <table cellspacing="7" cellpadding="0" width="100%" border="0" align="center">
@@ -116,8 +116,8 @@
                         </tr>
                         <tr>
                             <td style="text-align: center;">
-                                <a class="button primary big" href="javascript:viewBackupCodes()">{_view_backup_codes}</a>
-                                <a class="button primary big" href="javascript:disableTwoFactorAuth()">{_disable}</a>
+                                <a class="button big" href="javascript:viewBackupCodes()">{_view_backup_codes}</a>
+                                <a class="button big" href="javascript:disableTwoFactorAuth()">{_disable}</a>
                             </td>
                         </tr>
 
@@ -160,7 +160,7 @@
                         </tr>
                         <tr>
                             <td style="text-align: center;">
-                                <a class="button primary big" href="/settings/2fa">{_connect}</a>
+                                <a class="button big" href="/settings/2fa">{_connect}</a>
                             </td>
                         </tr>
                     {/if}
@@ -230,10 +230,10 @@
                 <input type="text" name="sc" value="{$user->getShortCode()}"/>
             </div>
             <input type="hidden" name="hash" value="{$csrfToken}" />
-            <input type="submit" value="{_'save'}" class="button cfa login" />
+            <input type="submit" value="{_'save'}" class="button big max" />
         </form>
         <form action="/logout">
-            <button class="button cfa logout">{_mobile_log_out}</button>
+            <button class="button dangerous big max">{_mobile_log_out}</button>
         </form>
         <div class="settings_delete">
             {_you_can_also} <a onClick="showProfileDeactivateDialog({$csrfToken})">{_delete_your_page}</a>.
@@ -242,176 +242,115 @@
         {elseif $isPrivacy}
         
         <form action="/settings?act=privacy" method="POST" enctype="multipart/form-data">
-            <table cellspacing="7" cellpadding="0" width="100%" border="0" align="center">
-                <tr>
-                    <td width="300" valign="top">
-                        <span class="nobold">{_privacy_setting_access_page}</span>
-                    </td>
-                    <td>
-                        <select name="page.read" style="width: 164px;">
-                            <option value="3" {if $user->getPrivacySetting('page.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
-                            <option value="2" {if $user->getPrivacySetting('page.read') == 2}selected{/if}>{_privacy_value_users}</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="300" valign="top">
-                        <span class="nobold">{_privacy_setting_read_info}</span>
-                    </td>
-                    <td>
-                        <select name="page.info.read" style="width: 164px;">
-                            <option value="3" {if $user->getPrivacySetting('page.info.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
-                            <option value="2" {if $user->getPrivacySetting('page.info.read') == 2}selected{/if}>{_privacy_value_users}</option>
-                            <option value="1" {if $user->getPrivacySetting('page.info.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
-                            <option value="0" {if $user->getPrivacySetting('page.info.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="300" valign="top">
-                        <span class="nobold">{_privacy_setting_see_groups}</span>
-                    </td>
-                    <td>
-                        <select name="groups.read" style="width: 164px;">
-                            <option value="3" {if $user->getPrivacySetting('groups.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
-                            <option value="2" {if $user->getPrivacySetting('groups.read') == 2}selected{/if}>{_privacy_value_users}</option>
-                            <option value="1" {if $user->getPrivacySetting('groups.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
-                            <option value="0" {if $user->getPrivacySetting('groups.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="300" valign="top">
-                        <span class="nobold">{_privacy_setting_see_photos}</span>
-                    </td>
-                    <td>
-                        <select name="photos.read" style="width: 164px;">
-                            <option value="3" {if $user->getPrivacySetting('photos.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
-                            <option value="2" {if $user->getPrivacySetting('photos.read') == 2}selected{/if}>{_privacy_value_users}</option>
-                            <option value="1" {if $user->getPrivacySetting('photos.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
-                            <option value="0" {if $user->getPrivacySetting('photos.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="300" valign="top">
-                        <span class="nobold">{_privacy_setting_see_videos}</span>
-                    </td>
-                    <td>
-                        <select name="videos.read" style="width: 164px;">
-                            <option value="3" {if $user->getPrivacySetting('videos.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
-                            <option value="2" {if $user->getPrivacySetting('videos.read') == 2}selected{/if}>{_privacy_value_users}</option>
-                            <option value="1" {if $user->getPrivacySetting('videos.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
-                            <option value="0" {if $user->getPrivacySetting('videos.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="300" valign="top">
-                        <span class="nobold">{_privacy_setting_view_audio}</span>
-                    </td>
-                    <td>
-                        <select name="audios.read" style="width: 164px;">
-                            <option value="3" {if $user->getPrivacySetting('audios.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
-                            <option value="2" {if $user->getPrivacySetting('audios.read') == 2}selected{/if}>{_privacy_value_users}</option>
-                            <option value="1" {if $user->getPrivacySetting('audios.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
-                            <option value="0" {if $user->getPrivacySetting('audios.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="300" valign="top">
-                        <span class="nobold">{_privacy_setting_see_notes}</span>
-                    </td>
-                    <td>
-                        <select name="notes.read" style="width: 164px;">
-                            <option value="3" {if $user->getPrivacySetting('notes.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
-                            <option value="2" {if $user->getPrivacySetting('notes.read') == 2}selected{/if}>{_privacy_value_users}</option>
-                            <option value="1" {if $user->getPrivacySetting('notes.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
-                            <option value="0" {if $user->getPrivacySetting('notes.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="300" valign="top">
-                        <span class="nobold">{_privacy_setting_see_friends}</span>
-                    </td>
-                    <td>
-                        <select name="friends.read" style="width: 164px;">
-                            <option value="3" {if $user->getPrivacySetting('friends.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
-                            <option value="2" {if $user->getPrivacySetting('friends.read') == 2}selected{/if}>{_privacy_value_users}</option>
-                            <option value="1" {if $user->getPrivacySetting('friends.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
-                            <option value="0" {if $user->getPrivacySetting('friends.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="300" valign="top">
-                        <span class="nobold">{_privacy_setting_add_to_friends}</span>
-                    </td>
-                    <td>
-                        <select name="friends.add" style="width: 164px;">
-                            <option value="3" {if $user->getPrivacySetting('friends.add') == 2}selected{/if}>{_privacy_value_anybody}</option>
-                            <option value="0" {if $user->getPrivacySetting('friends.add') == 0}selected{/if}>{_privacy_value_nobody}</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="300" valign="top">
-                        <span class="nobold">{_privacy_setting_write_wall}</span>
-                    </td>
-                    <td>
-                        <select name="wall.write" style="width: 164px;">
-                            <option value="2" {if $user->getPrivacySetting('wall.write') == 2}selected{/if}>{_privacy_value_anybody}</option>
-                            <option value="1" {if $user->getPrivacySetting('wall.write') == 1}selected{/if}>{_privacy_value_friends}</option>
-                            <option value="0" {if $user->getPrivacySetting('wall.write') == 0}selected{/if}>{_privacy_value_only_me}</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="300" valign="top">
-                        <span class="nobold">{_privacy_setting_write_messages}</span>
-                    </td>
-                    <td>
-                        <select name="messages.write", style="width: 164px;">
-                            <option value="2" {if $user->getPrivacySetting('messages.write') == 2}selected{/if}>{_privacy_value_anybody}</option>
-                            <option value="1" {if $user->getPrivacySetting('messages.write') == 1}selected{/if}>{_privacy_value_friends}</option>
-                            <option value="0" {if $user->getPrivacySetting('messages.write') == 0}selected{/if}>{_privacy_value_nobody}</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="300" valign="top">
-                        <span class="nobold">{_privacy_setting_see_likes}</span>
-                    </td>
-                    <td>
-                        <select name="likes.read", style="width: 164px;">
-                            <option value="2" {if $user->getPrivacySetting('likes.read') == 2}selected{/if}>{_privacy_value_anybody}</option>
-                            <option value="0" {if $user->getPrivacySetting('likes.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="300" valign="top">
-                        <span class="nobold">{_profile_type}</span>
-                    </td>
-                    <td>
-                        <select name="profile_type", style="width: 164px;">
-                            <option value="0" {if $user->getProfileType() == 0}selected{/if}>{_profile_type_open}</option>
-                            <option value="1" {if $user->getProfileType() == 1}selected{/if}>{_profile_type_closed}</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        
-                    </td>
-                    <td>
-                        <input type="hidden" name="hash" value="{$csrfToken}" />
-                        <input type="submit" value="{_save}" class="button" />
-                    </td>
-                </tr>
-            </table>
+            <div class="formInput">
+                <label>{_privacy_setting_access_page}</label>
+                <select name="page.read">
+                    <option value="3" {if $user->getPrivacySetting('page.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
+                    <option value="2" {if $user->getPrivacySetting('page.read') == 2}selected{/if}>{_privacy_value_users}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_read_info}</label>
+                <select name="page.info.read">
+                    <option value="3" {if $user->getPrivacySetting('page.info.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
+                    <option value="2" {if $user->getPrivacySetting('page.info.read') == 2}selected{/if}>{_privacy_value_users}</option>
+                    <option value="1" {if $user->getPrivacySetting('page.info.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
+                    <option value="0" {if $user->getPrivacySetting('page.info.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_see_groups}</label>
+                <select name="groups.read">
+                    <option value="3" {if $user->getPrivacySetting('groups.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
+                    <option value="2" {if $user->getPrivacySetting('groups.read') == 2}selected{/if}>{_privacy_value_users}</option>
+                    <option value="1" {if $user->getPrivacySetting('groups.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
+                    <option value="0" {if $user->getPrivacySetting('groups.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_see_photos}</label>
+                <select name="photos.read">
+                    <option value="3" {if $user->getPrivacySetting('photos.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
+                    <option value="2" {if $user->getPrivacySetting('photos.read') == 2}selected{/if}>{_privacy_value_users}</option>
+                    <option value="1" {if $user->getPrivacySetting('photos.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
+                    <option value="0" {if $user->getPrivacySetting('photos.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_see_videos}</label>
+                <select name="videos.read">
+                    <option value="3" {if $user->getPrivacySetting('videos.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
+                    <option value="2" {if $user->getPrivacySetting('videos.read') == 2}selected{/if}>{_privacy_value_users}</option>
+                    <option value="1" {if $user->getPrivacySetting('videos.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
+                    <option value="0" {if $user->getPrivacySetting('videos.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_view_audio}</label>
+                <select name="audios.read">
+                    <option value="3" {if $user->getPrivacySetting('audios.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
+                    <option value="2" {if $user->getPrivacySetting('audios.read') == 2}selected{/if}>{_privacy_value_users}</option>
+                    <option value="1" {if $user->getPrivacySetting('audios.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
+                    <option value="0" {if $user->getPrivacySetting('audios.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_see_notes}</label>
+                <select name="notes.read">
+                    <option value="3" {if $user->getPrivacySetting('notes.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
+                    <option value="2" {if $user->getPrivacySetting('notes.read') == 2}selected{/if}>{_privacy_value_users}</option>
+                    <option value="1" {if $user->getPrivacySetting('notes.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
+                    <option value="0" {if $user->getPrivacySetting('notes.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_see_friends}</label>
+                <select name="friends.read">
+                    <option value="3" {if $user->getPrivacySetting('friends.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
+                    <option value="2" {if $user->getPrivacySetting('friends.read') == 2}selected{/if}>{_privacy_value_users}</option>
+                    <option value="1" {if $user->getPrivacySetting('friends.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
+                    <option value="0" {if $user->getPrivacySetting('friends.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_add_to_friends}</label>
+                <select name="friends.add">
+                    <option value="3" {if $user->getPrivacySetting('friends.add') == 2}selected{/if}>{_privacy_value_anybody}</option>
+                    <option value="0" {if $user->getPrivacySetting('friends.add') == 0}selected{/if}>{_privacy_value_nobody}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_write_wall}</label>
+                <select name="wall.write">
+                    <option value="2" {if $user->getPrivacySetting('wall.write') == 2}selected{/if}>{_privacy_value_anybody}</option>
+                    <option value="1" {if $user->getPrivacySetting('wall.write') == 1}selected{/if}>{_privacy_value_friends}</option>
+                    <option value="0" {if $user->getPrivacySetting('wall.write') == 0}selected{/if}>{_privacy_value_only_me}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_write_messages}</label>
+                <select name="messages.write">
+                    <option value="2" {if $user->getPrivacySetting('messages.write') == 2}selected{/if}>{_privacy_value_anybody}</option>
+                    <option value="1" {if $user->getPrivacySetting('messages.write') == 1}selected{/if}>{_privacy_value_friends}</option>
+                    <option value="0" {if $user->getPrivacySetting('messages.write') == 0}selected{/if}>{_privacy_value_nobody}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_see_likes}</label>
+                <select name="likes.read">
+                    <option value="2" {if $user->getPrivacySetting('likes.read') == 2}selected{/if}>{_privacy_value_anybody}</option>
+                    <option value="0" {if $user->getPrivacySetting('likes.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_profile_type}</label>
+                <select name="profile_type">
+                    <option value="0" {if $user->getProfileType() == 0}selected{/if}>{_profile_type_open}</option>
+                    <option value="1" {if $user->getProfileType() == 1}selected{/if}>{_profile_type_closed}</option>
+                </select>
+            </div>
+            <input type="hidden" name="hash" value="{$csrfToken}" />
+            <input type="submit" value="{_save}" class="button big max" />
         </form>
         
         {elseif $isFinance}
@@ -482,7 +421,7 @@
             
             <div class="formInput">
                 <label>{_"style"}:</label>
-                                        <select name="style" class="cocksexy">
+                                        <select name="style">
                                 <option value="ovk" {if $user->getStyle() == 'ovk'}selected{/if}>OpenVK ({_"default"})</option>
                                 <option n:foreach="$themes as $id => $theme"
                                         n:attr="selected => $user->getStyle() === $id"
@@ -495,7 +434,7 @@
             <div class="formInput">
                 <label>{_ui_settings_nsfw_content}:</label>
 
-                            <select name="nsfw" class="cocksexy">
+                            <select name="nsfw">
                                 <option value="0" {if $user->getNsfwTolerance() === 0}selected{/if}>{_ui_settings_nsfw_content_dont_show}</option>
                                 <option value="1" {if $user->getNsfwTolerance() === 1}selected{/if}>{_ui_settings_nsfw_content_blur}</option>
                                 <option value="2" {if $user->getNsfwTolerance() === 2}selected{/if}>{_ui_settings_nsfw_content_show}</option>
@@ -505,7 +444,7 @@
 
             <div class="formInput">
                 <label>{_ui_settings_rating}:</label>
-                            <select name="rating" class="cocksexy">
+                            <select name="rating">
                                 <option value="1" {if !$user->prefersNotToSeeRating()}selected{/if}>{_ui_settings_rating_show}</option>
                                 <option value="0" {if $user->prefersNotToSeeRating()}selected{/if}>{_ui_settings_rating_hide}</option>
                             </select>
@@ -513,7 +452,7 @@
 
             <div class="formInput">
                 <label>{_ui_settings_view_of_posts}:</label>
-                            <select name="microblog" class="cocksexy">
+                            <select name="microblog">
                                 <option value="0" {if !$user->hasMicroblogEnabled()}selected{/if}>{_ui_settings_view_of_posts_old}</option>
                                 <option value="1" {if $user->hasMicroblogEnabled()}selected{/if}>{_ui_settings_view_of_posts_microblog}</option>
                             </select>
@@ -522,7 +461,7 @@
 
             <div class="formInput">
                 <label>{_avatars_style}:</label>
-                    <select name="style_avatar" class="cocksexy">
+                    <select name="style_avatar">
                                 <option value="0" {if $user->getStyleAvatar() == 0}selected{/if}>{_arbitrary_avatars} ({_default})</option>
                                 <option value="1" {if $user->getStyleAvatar() == 1}selected{/if}>{_cut}</option>
                                 <option value="2" {if $user->getStyleAvatar() == 2}selected{/if}>{_round_avatars}</option>
@@ -532,7 +471,7 @@
  
             <div class="formInput">
                 <label>{_ui_settings_main_page}:</label>
-                    <select name="main_page" class="cocksexy">
+                    <select name="main_page">
                                 <option value="0" {if !$user->getMainPage()}selected{/if}>{_my_page}</option>
                                 <option value="1" {if $user->getMainPage()}selected{/if}>{_my_feed}</option>
                             </select>
@@ -541,7 +480,7 @@
 
 
             <input type="hidden" name="hash" value="{$csrfToken}" />
-            <input type="submit" value="{_'save'}" class="button cfa login" />
+            <input type="submit" value="{_'save'}" class="button big max" />
         </form>
         {elseif $isBl}
             {if $blSize < 1}

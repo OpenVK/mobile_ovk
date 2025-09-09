@@ -5,7 +5,7 @@ input[type=radio] {
     outline: none;
     cursor: pointer;
     vertical-align: middle;
-    margin: 4px 3px 3px;
+    margin: 0 3px 3px;
 }
 
 input[type=checkbox] {
@@ -187,11 +187,11 @@ input, button { -webkit-appearance: button;}
     margin: 0.5em -12px;
 }
 
-.button, .fileInput, input[type=submit], input[type=button], input[type=reset] {
+.button, .fileInput, input[type=submit], input[type=button], input[type=reset],.button:visited {
     display: inline-block;
     border: none;
     border-radius: 3px;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
     padding: 6px 12px;
     font-size: .8rem;
     cursor: pointer;
@@ -199,6 +199,7 @@ input, button { -webkit-appearance: button;}
     white-space: nowrap;
     color: #fff;
     -webkit-appearance: none;
+    text-align: center;
 }
 .button:hover {
     background-color: #484747;
@@ -207,6 +208,7 @@ input, button { -webkit-appearance: button;}
 .button:active {
     background-color: #3b3b3b;
     color: #fff;
+    font-size: .8rem;
 }
 
 .button.primary, .fileInput, input[type=submit], input[type=color] {
@@ -233,91 +235,46 @@ input, button { -webkit-appearance: button;}
     cursor: not-allowed;
 }
 
-.button.bold, .button.bolder {
+.button.secondary, .button.secondary-alt,.ovk-diag-action .button:not(:first-of-type) {
     font-weight: 700;
     background-color: #e6e6e6;
     color: #7d8084;
 }
-.button.bold:hover {
+.button.secondary:hover,.ovk-diag-action .button:not(:first-of-type):hover {
     font-weight: 700;
     background-color: #d4d4d4;
     color: #7d8084;
 }
-/*ОК*/
-.button.bold:active {
+.button.secondary:active,.ovk-diag-action .button:not(:first-of-type):active {
     font-weight: 700;
     background-color: #cccccc;
     color: #7d8084;
 }
-.button.bolder:hover {
+.button.secondary-alt:hover {
     background-color: #d4d4d4;
 }
-.button.bolder:active {
+.button.secondary-alt:active {
     background-color: #cccccc;
 }
-.button.cfa, .button.bolder {
-    display: block;
-    width: 100%;
-    text-align: center;
-    padding: 10px;
-}
 
-.button.cfa.login {
-    background-color: #595959;
-    color: #fff;
-}
-
-.button.cfa.login:hover {
-    background-color: #484747;
-    color: #fff;
-}
-
-/*ОК*/
-
-.button.cfa.login:active {
-    background-color: #3b3b3b;
-    color: #fff;
-}
-
-.button.cfa.logout {
+.button.dangerous {
     background-color: #a65d5d;
     color: #fff;
 }
 
-.button.cfa.logout:hover {
+.button.dangerous:hover {
     background-color: #945353;
     color: #fff;
 }
-
-/*ОК*/
-
-.button.cfa.logout:active {
+.button.dangerous:active {
     background-color: #7f4949;
     color: #fff;
 }
 
-.button.cfa {
-    background-color: #E9EDF1;
-    color: #4C6B8F;
-}
-.button.cfa:hover {
-    background-color: #dbe1e6;
-    color: #4C6B8F;
-}
-/*ОК*/
-.button.cfa:active {
-    background-color: #cfd6dc;
-    color: #4C6B8F;
-}
-.button.bold.commentbtn {
+.button.secondary.like {
     font-weight: 700;
-    background-color: #e6e6e6;
-    color: #7d8084;
-}
-.button.bold.like {
-    font-weight: 700;
-    color: #7d8084;
-    background: #e6e6e6 url(/themepack/mobile_ovk/0.0.1.0/resource/like2.png) no-repeat;
+    background-image: url(/themepack/mobile_ovk/0.0.1.0/resource/like2.png);
+    background-repeat: no-repeat;
     background-position: 6px 8px;
     padding-left: 22px;
     padding-right: 5px;
@@ -327,58 +284,45 @@ input, button { -webkit-appearance: button;}
 /*.likeCnt {
     padding-right: 4px;
 }*/
-.button.bold.like:hover {
-    background-color: #d4d4d4;
-}
-/*ОК*/
-.button.bold.like:active {
-    background-color: #d0d0d0;
-}
-#liked.button.bold.like {
+
+#liked.button.secondary.like {
     color: #fff;
     background: #595959 url(/themepack/mobile_ovk/0.0.1.0/resource/like2_liked2.png) no-repeat;
     background-position: 6px 8px;
 }
-.button.bold.commentbtn {
+.button.secondary.commentbtn {
     font-weight: 700;
-    color: #7d8084;
-    background: #e6e6e6 url(/themepack/mobile_ovk/0.0.1.0/resource/comment.png) no-repeat;
+    background-image: url(/themepack/mobile_ovk/0.0.1.0/resource/comment.png);
+    background-repeat: no-repeat;
     background-position: 6px 8px;
     padding-left: 23px;
 }
-.button.bold.commentbtn:hover {
-    background-color: #d4d4d4;
-}
-/*ОК*/
-.button.bold.commentbtn:active {
-    background-color: #d0d0d0;
-}
-.button.bold.sharebtn {
-    font-weight: 700;
-    color: #7d8084;
-    background: #e6e6e6 url(/themepack/mobile_ovk/0.0.1.0/resource/repost.png) no-repeat;
+
+.button.secondary.sharebtn {
+    background-image: url(/themepack/mobile_ovk/0.0.1.0/resource/repost.png);
+    background-repeat: no-repeat;
     background-position: 6px 7px;
     padding-left: 23px;
     padding-right: 6px;
 }
-.button.bold.sharebtn:hover {
-    background-color: #d4d4d4;
+
+.button.big {
+    padding: 8px 14px;
 }
-/*ОК*/
-.button.bold.sharebtn:active {
-    background-color: #d0d0d0;
+.button.max {
+    width: 100%;
+    display: block;
 }
+
+input + .button {
+    margin-top: 10px;
+}
+
 .formInput {
     margin-bottom: 8px;
 }
 
-.button.primary.big.max {
-    width: 100%;
-    text-align: center;
-    padding: 8px;
-}
-
-.formInput > label, .formInput > input {
+.formInput > label, .formInput > input, select, input[type='text'] {
     font-size: 1rem;
     width: 100%;
 }
@@ -387,11 +331,14 @@ input, button { -webkit-appearance: button;}
     display: inline;
 }
 
-.formInput > input, textarea {
+.formInput > input, textarea, select, input[type='text'] {
     padding: 4px;
+    background-color: #fff;
     border: 1px solid #B9C4D1;
     border-radius: 2px;
     outline-color: #5d80a6;
+}
+.formInput > input, .formInput textarea, .formInput > select {
     -webkit-appearance: button;
     margin-top: 8px;
 }
@@ -505,7 +452,7 @@ input, button { -webkit-appearance: button;}
 }
 
 .tabs {
-    margin-top: 11px;
+    margin-top: 0;
     padding-bottom: 11px;
     overflow-x: auto;
     white-space: nowrap;
@@ -800,75 +747,6 @@ img.rounded, .real_post > .author .ava {
     }
 } */
 
-/* Wide Screen */
-
-@media screen and (min-width:1024px) {
-    .main {
-        max-width: 580px;
-        position: absolute;
-        width: 576px;
-        top: 47px !important;
-        border: 1px solid #dee5eb;
-        margin-left: 288px;
-    }
-    
-    /* папапепе гемабоди) */
-    
-    .navigation {
-        pointer-events:none !important;
-        position: fixed;
-        width: 866px;
-    }
-    .app,
-    h2 {
-        min-width:864px;
-        max-width:45%;
-        border-right:none;
-        border-bottom:0px solid #dee5eb
-    }
-    .menuovk {
-        background:#fff;
-        width:288px !important;
-        display:block !important;
-        top: 48px;
-        position: absolute;
-    }
-
-    .profile_menu_arrow{
-       position: inherit;
-        float: right;
-        
-    }
-    
-    .search_menu_box {
-     display:block;
-    position:absolute;
-    padding:8px;
-    font-weight:600;
-    font-size:16px;
-    z-index:1337;
-    right: 0;
-    top: 0;
-    pointer-events: all !important;
-    }
-    
-    .head_now{
-        display: none;
-    }
-    
-    .ovk_mobile_mail_icon {
-    display: none !important;
-    }
-
-    .search_menu_box{
-        display: block !important;
-    }
-
-    .head_now{
-        display: none !important;
-    }
-}
-
 /*ПРОФИЛЬ*/
 .prnameava {
     padding: 12px;
@@ -960,15 +838,6 @@ img.rounded, .real_post > .author .ava {
 .login {
     padding: 12px;
     background: #fff;
-}
-.cocksexy {
-    padding: 4px;
-    border: 1px solid #B9C4D1;
-    border-radius: 2px;
-    outline-color: #5d80a6;
-    -webkit-appearance: button;
-    margin-top: 8px;
-    width: 100%;
 }
 .splist {
     width: 100%;
@@ -1076,24 +945,14 @@ img.rounded, .real_post > .author .ava {
     margin-top: 7px;
 }
 
+.show_more_info_profile_link {
+    margin-top: 10px;
+}
 .podrobnee_content {
     display: none;
 }
 .podrobnee_content.active {
     display: block;
-    margin-top: 3px;
-}
-.podrobnee {
-    color: #4C6B8F;
-    padding: 10px;
-    width: 100%;
-    text-align: center;
-    margin-top: 3px;
-    cursor: pointer;
-    user-select: none;
-}
-.podrobnee:hover {
-    background: #e4eaef;
 }
 .float-right {
     float: right;
@@ -1158,7 +1017,6 @@ img.rounded, .real_post > .author .ava {
 .page_wrap {
     background: #fff;
     padding-top: 0;
-    margin-top: -11px;
 }
 
 
@@ -1182,14 +1040,14 @@ img.rounded, .real_post > .author .ava {
     padding-top: 11px;
 }
 
+.list_info {
+    padding-left: 5px;
+}
 .bold_name_top {
-    margin-top: 19px;
-    font-weight: bold;
-    margin-left: 5px;
-    text-overflow:ellipsis;
     white-space:nowrap;
+    font-weight: bold;
     overflow:hidden;
-    max-width: 55%;
+    text-overflow:ellipsis;
 }
 
 .video_desc{
@@ -1270,9 +1128,6 @@ h4 {
     outline-color: #5d80a6;
     -webkit-appearance: button;
     width: 100%;
-}
-.button.cfa.sr {
-    margin-top: 10px;
 }
 .header_search_inputbt {
     padding-bottom: 0;
@@ -1379,30 +1234,18 @@ h4 {
     background-color: #484747;
     color: #fff;
 }
-.button.bold:hover {
+.button.secondary:hover {
     font-weight: 700;
     background-color: #d4d4d4;
     color: #7d8084;
 }
-.button.cfa.login:hover {
-    background-color: #484747;
-    color: #fff;
-}
-.button.cfa.logout:hover {
-    background-color: #a65d5d;
-    color: #fff;
-}
-.button.cfa:hover {
-    background-color: #E9EDF1;
-    color: #4C6B8F;
-}
-.button.bold.like:hover {
+.button.secondary.like:hover {
     background-color: #e6e6e6;
 }
-.button.bold.commentbtn:hover {
+.button.secondary.commentbtn:hover {
     background-color: #e6e6e6;
 }
-.button.bold.sharebtn:hover {
+.button.secondary.sharebtn:hover {
     background-color: #e6e6e6;
 }
 .element:hover {
@@ -1654,9 +1497,10 @@ input[type~="search"]{
     box-shadow: none;
     vertical-align: top;
     min-width: 30px;
-    box-sizing: content-box;
+    box-sizing: border-box;
     border-radius: 6px 6px 6px 6px;
     background-color: #fff;
+    background: url('/assets/packages/static/openvk/img/search_icon.png') no-repeat 3px 8px, #fff;
     margin: 0px;
     padding: 7px 24px 6px 28px;
     border: 2px solid #3b3b3b; 
@@ -1922,8 +1766,9 @@ input[type~="search"]{
 }
 
 .ovk-video>.preview, .video-preview {
-    width: 170px;
-    height: 127px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
     align-content: center;
     display: flex;
     padding: 2px;
@@ -1933,8 +1778,20 @@ input[type~="search"]{
 
 .ovk-video>.preview img , .video-preview img {
     width: 100%;
-    max-height: 127px; 
+    max-height: 127px;
     margin: auto;
+    object-fit: contain;
+}
+
+.video-list-view {
+    display: block;
+    margin-bottom: 10px;
+}
+.video-info {
+    margin-top: 5px;
+}
+.video_description, .video_meta {
+    opacity: .7;
 }
 
 .gift_grid {
@@ -2088,23 +1945,22 @@ a.poll-retract-vote {
     float: right;
 }
 
-label, .poll > input[type=checkbox]{
+.poll > input[type=checkbox], label {
+    color: black;
+    font-size: 17px;
+    vertical-align: middle;
+    cursor: pointer;
+    outline: none;
     background-color: transparent;
     border: none;
     border-radius: 0;
+    margin: 0;
+}
+.poll > input[type=checkbox] {
     -moz-appearance: none;
     -ms-appearance: none;
     height: 14px;
     width: 14px;
-    outline: none;
-    cursor: pointer;
-    vertical-align: middle;
-    margin-top: 0%;
-    font-size: 17px;
-}
-
-label {
-    color: black;
 }
 
 .poll-option{
@@ -2240,34 +2096,6 @@ label {
 .searchPanel {
     margin-top: 12px;
     width: 100%;
-}
-
-.searchPanel input[type='text'] {
-    width: 87%;
-    height: 25px;
-    outline: none;
-    border-radius: 3px;
-    border: 1px solid gray;
-}
-
-input[type='text'] {
-    outline: none;
-    border-radius: 3px;
-    border: 1px solid gray;
-    width: 100%;
-    height: 26px;
-}
-
-select {
-    width: 100%;
-    background: white;
-    border: 1px solid gray;
-    padding: 3px 5px;
-}
-
-.searchPanel input[type='text'] {
-    width: 100%;
-    height: 25px;
 }
 
 /* Audios */
@@ -2581,7 +2409,7 @@ select {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin: 10px 0px;
+    margin: 0 0 10px;
 }
 
 .post-opts label {
@@ -2788,12 +2616,13 @@ select {
 /* messagebox */
 
 .ovk-diag-cont {
-    z-index: 1024;
-    position: fixed;
-    width: 100%;
-    height: calc(100vh - 48px);
-    top: 48px;
-    background: rgba(0, 0, 0, .5);
+	z-index: 1024;
+	position: fixed;
+	width: 100%;
+	height: 100vh;
+	top: 0;
+	background: rgba(0,0,0,.5);
+	padding-top: 40px;
 }
 
 .ovk-diag {
@@ -2836,7 +2665,7 @@ select {
 
 .ovk-diag-action {
     padding: 10px;
-    background-color: #d4d4d4;
+    background-color: #D6D6D6;
 }
 
 .ovk-diag-action .button {
@@ -2864,9 +2693,12 @@ select {
     padding: 0px 10px;
 }
 
+.docs_page_search .button {
+    margin: 0;
+}
+
 #docs_page_wrapper .docs_page_search input[type="search"], .attachment_selector .attachment_search input {
     width: 100%;
-    background: url('/assets/packages/static/openvk/img/search_icon.png') no-repeat 3px 5px; 
     background-color: #fff; 
     padding-left: 18px !important;
 }
@@ -3015,4 +2847,81 @@ select {
 
 .media-page-author-block img {
     width: 30px;
+}
+
+
+/* Wide Screen */
+
+@media screen and (min-width:1024px) {
+    .main {
+        max-width: 580px;
+        position: absolute;
+        width: 576px;
+        top: 47px !important;
+        border: 1px solid #dee5eb;
+        margin-left: 288px;
+    }
+    
+    /* папапепе гемабоди) */
+    
+    .navigation {
+        pointer-events:none !important;
+        position: fixed;
+        width: 866px;
+    }
+    .app,
+    h2 {
+        min-width:864px;
+        max-width:45%;
+        border-right:none;
+        border-bottom:0px solid #dee5eb
+    }
+    .menuovk {
+        background:#fff;
+        width:288px !important;
+        display:block !important;
+        top: 48px;
+        position: absolute;
+    }
+
+    .profile_menu_arrow{
+       position: inherit;
+        float: right;
+        
+    }
+    
+    .search_menu_box {
+     display:block;
+    position:absolute;
+    padding:8px;
+    font-weight:600;
+    font-size:16px;
+    z-index:1337;
+    right: 0;
+    top: 0;
+    pointer-events: all !important;
+    }
+    
+    .head_now{
+        display: none;
+    }
+    
+    .ovk_mobile_mail_icon {
+    display: none !important;
+    }
+
+    .search_menu_box{
+        display: block !important;
+    }
+
+    .head_now{
+        display: none !important;
+    }
+    .video-list-view {
+        display: flex;
+    }
+    .ovk-video > .preview, .video-preview {
+        width: 240px;
+        margin-right: 10px;
+    }
 }

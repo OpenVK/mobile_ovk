@@ -87,7 +87,7 @@
                             class="post-like-button post-like-button-natural"
                             data-liked="{(int) $liked}"
                             data-likes="{$post->getLikesCount()}">
-                            <div class="button bold like post-like-button" id="{if $liked}liked{/if}">
+                            <div class="button secondary like post-like-button" id="{if $liked}liked{/if}">
                                 {_mobile_like} <span class="likeCnt">{if $comment->getLikesCount() > 0}{$comment->getLikesCount()}{/if}</span>
                             </div>
                         </a>

@@ -27,7 +27,7 @@
         <form action="/al_comments/create/support/reply/{$id}" method="post" style="margin: 0;">
             <textarea name="text" id="answer_text" style="width: 100%; resize: vertical;"></textarea>
             <input type="hidden" name="hash" value="{$csrfToken}" />
-            <div class="post-opts">
+            <div class="post-opts" style="margin-top: 10px;">
                 <select name="status" style="width: unset;">
                     <option value="1">{_support_status_1}</option>
                     <option value="2">{_support_status_2}</option>

@@ -1,0 +1,67 @@
+{extends "../@layout.latte"}
+
+{block title}{_video}{/block}
+
+{block header}
+    <a href="{$user->getURL()}">{$user->getCanonicalName()}</a>
+    »
+    <a href="/videos{$user->getId()}">{_videos}</a>
+    »
+    {_video}
+{/block}
+
+{block body}
+
+<div class="contentWraplegend">
+    <span>{$video->getName()}</span>
+</div>
+
+<div class="photobody">
+    <div style="margin-bottom: 8pt;">
+        {if $video->getType() === 0}
+            <video width="100%" src="{$video->getURL()}" controls></video>
+        {else}
+            {var $driver = $video->getVideoDriver()}
+            {if !$driver}
+                Эта видеозапись не поддерживается в вашей версии OpenVK.
+            {else}
+                {$driver->getEmbed()|noescape}
+            {/if}
+        {/if}
+    </div>
+    
+    <div class="photolist">
+        <div class="phlistlink">
+            <span class="text-gray">{_"info_description"}: </span><a style="width: 580px;" href="#">{$video->getDescription() ?? "(" . tr("none") . ")"}</a>
+        </div>
+        <div class="phlistlink">
+            <span class="text-gray">{_"info_uploaded_by"}: </span><a href="{$user->getURL()}">{$user->getFullName()}</a>
+        </div>
+        <div class="phlistlink">
+            <span class="text-gray">{_"info_upload_date"}: {$video->getPublicationTime()}</span>
+        </div>
+
+        <div class="phlistlink" n:if="isset($thisUser) && $thisUser->getId() === $user->getId()">
+            <a href="/video{$video->getPrettyId()}/edit" class="profile_link">
+                {_edit}
+            </a>
+            <a href="/video{$video->getPrettyId()}/remove" class="profile_link">
+                {_delete}
+            </a>
+        </div>
+    </div>
+
+    <div style="width: 100%; min-height: 100px;">
+        <div style=" min-height: 100px; width: 100%;">
+           {include "../components/comments.latte",
+                comments => $comments,
+                count => $cCount,
+                page => $cPage,
+                model => "videos",
+                parent => $video}
+        </div>
+    </div>
+</div>
+
+
+{/block}

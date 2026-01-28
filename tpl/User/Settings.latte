@@ -1,0 +1,509 @@
+{extends "../@layout.latte"}
+{block title}{_"my_settings"}{/block}
+
+{block header}
+    {_"my_settings"}
+{/block}
+
+{block body}
+
+{var $isMain       = $mode === 'main'}
+{var $isPrivacy    = $mode === 'privacy'}
+{var $isFinance    = $mode === 'finance'}
+{var $isFinanceTU  = $mode === 'finance.top-up'}
+{var $isInterface  = $mode === 'interface'}
+{var $isBl         = $mode === 'blacklist'}
+
+<div class="contentWraplegend" onclick="hidePanel(this);">
+    <span>{_mobile_settings}</span>
+</div>
+
+<div class="settings_body">
+
+       <div class="tabs">
+        <div n:attr="id => ($isMain ? 'activetabs' : 'ki')" class="tab">
+            <a n:attr="id => ($isMain ? 'act_tab_a' : 'ki')" href="/settings">{_"main"}</a>
+        </div>
+        <div n:attr="id => ($isPrivacy ? 'activetabs' : 'ki')" class="tab">
+            <a n:attr="id => ($isPrivacy ? 'act_tab_a' : 'ki')" href="/settings?act=privacy">{_privacy}</a>
+        </div>
+        <div n:if="\OPENVK_ROOT_CONF['openvk']['preferences']['commerce']" n:attr="id => (($isFinance || $isFinanceTU) ? 'activetabs' : 'ki')" class="tab">
+            <a n:attr="id => (($isFinance || $isFinanceTU) ? 'act_tab_a' : 'ki')" href="/settings?act=finance">{_points}</a>
+        </div>
+        <div n:attr="id => ($isBl ? 'activetabs' : 'ki')" class="tab">
+            <a n:attr="id => ($isBl ? 'act_tab_a' : 'ki')" href="/settings?act=blacklist">{_blacklist}</a>
+        </div>
+        <div n:attr="id => ($isInterface ? 'activetabs' : 'ki')" class="tab">
+            <a n:attr="id => ($isInterface ? 'act_tab_a' : 'ki')" href="/settings?act=interface">{_"interface"}</a>
+        </div>
+    </div>
+    
+    <div class="container_gray set">
+        {if $isMain}
+        
+        <form action="/settings?act=main" method="POST" enctype="multipart/form-data">
+            <h4>{_"change_password"}</h4>
+            <!-- <table cellspacing="7" cellpadding="0" width="100%" border="0" align="center">
+                <tbody>
+                    <tr>
+                        <td width="120" valign="top">
+                            <span class="nobold">{_"old_password"}</span>
+                        </td>
+                        <td>
+                            <input type="password" name="old_pass" style="width: 100%;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="120" valign="top">
+                            <span class="nobold">{_"new_password"}</span>
+                        </td>
+                        <td>
+                            <input type="password" name="new_pass" style="width: 100%;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="120" valign="top">
+                            <span class="nobold">{_"repeat_password"}</span>
+                        </td>
+                        <td>
+                            <input type="password" name="repeat_pass" style="width: 100%;" />
+                        </td>
+                    </tr>
+                    <tr n:if="$user->is2faEnabled()">
+                        <td width="120" valign="top">
+                            <span class="nobold">{_"2fa_code"}</span>
+                        </td>
+                        <td>
+                            <input type="text" name="code" style="width: 100%;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            
+                        </td>
+                        <td>
+                            <input type="hidden" name="hash" value="{$csrfToken}" />
+                            <input type="submit" value="{_"change_password"}" class="button" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table> -->
+                <div class="formInput">
+                    <label>{_old_password}</label>
+                    <input type="password" name="old_pass">
+                </div>
+                <div class="formInput">
+                    <label>{_new_password}</label>
+                    <input type="password" name="new_pass">
+                </div>
+                <div class="formInput">
+                    <label>{_repeat_password}</label>
+                    <input type="password" name="repeat_pass">
+                </div>
+                <input type="hidden" name="hash" value="{$csrfToken}" />
+                <input type="submit" value="{_"change_password"}" class="button big max" />
+            <br/>
+            <h4 class="h4_set">{_two_factor_authentication}</h4>
+            <table cellspacing="7" cellpadding="0" width="100%" border="0" align="center">
+                <tbody>
+                    {if $user->is2faEnabled()}
+                        <tr>
+                            <td>
+                                <div class="accent-box">
+                                    {_two_factor_authentication_enabled}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">
+                                <a class="button big" href="javascript:viewBackupCodes()">{_view_backup_codes}</a>
+                                <a class="button big" href="javascript:disableTwoFactorAuth()">{_disable}</a>
+                            </td>
+                        </tr>
+
+                        <script>
+                            function viewBackupCodes() {
+                                MessageBox("Просмотр резервных кодов", `
+                                    <form id="back-codes-view-form" method="post" action="/settings/2fa">
+                                        <label for="password">{_password}</label>
+                                        <input type="password" id="password" name="password" required />
+                                        <input type="hidden" name="hash" value={$csrfToken} />
+                                    </form>
+                                `, ["Просмотреть", "Отменить"], [
+                                    () => {
+                                        document.querySelector("#back-codes-view-form").submit();
+                                    }, Function.noop
+                                ]);
+                            }
+
+                            function disableTwoFactorAuth() {
+                                MessageBox("Отключить 2FA", `
+                                    <form id="two-factor-auth-disable-form" method="post" action="/settings/2fa/disable">
+                                        <label for="password">{_password}</label>
+                                        <input type="password" id="password" name="password" required />
+                                        <input type="hidden" name="hash" value={$csrfToken} />
+                                    </form>
+                                `, ["Отключить", "Отменить"], [
+                                    () => {
+                                        document.querySelector("#two-factor-auth-disable-form").submit();
+                                    }, Function.noop
+                                ]);
+                            }
+                        </script>
+                    {else}
+                        <tr>
+                            <td>
+                                <div class="accent-box">
+                                    {_two_factor_authentication_disabled}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">
+                                <a class="button big" href="/settings/2fa">{_connect}</a>
+                            </td>
+                        </tr>
+                    {/if}
+                </tbody>
+            </table>
+            <br/>
+            <h4 class="h4_set">{_your_email_address}</h4>
+            <div class="set_block">
+                <label>{_current_email_address}:</label>
+                <div class="set_block_str">
+                    {$user->getEmail()}
+                </div>
+            </div>
+            <!-- <table cellspacing="7" cellpadding="0" width="100%" border="0" align="center">
+                <tbody>
+                    <tr>
+                        <td width="120" valign="top">
+                            <span class="nobold ser">{_current_email_address}</span>
+                        </td>
+                        <td>
+                            {$user->getEmail()}
+                        </td>
+                    </tr>
+                </tbody>
+            </table> -->
+
+            <br/>
+            
+            <!-- <table cellspacing="7" cellpadding="0" width="100%" border="0" align="center">
+                <tbody>
+                    <tr>
+                        <td width="120" valign="top">
+                            <span class="nobold ser">{_page_id}</span>
+                        </td>
+                        <td>
+                            {$user->getId()}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="120" valign="top">
+                            <span class="nobold">{_page_address}</span>
+                        </td>
+                        <td>
+                            <input type="text" name="sc" value="{$user->getShortCode()}" style="width: 100%;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            
+                        </td>
+                        <td>
+                            <input type="hidden" name="hash" value="{$csrfToken}" />
+                            <input type="submit" value="{_'save'}" class="button" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table> -->
+            <h4 class="h4_set">{_your_page_address}</h4>
+            <div class="set_block">
+                <label>{_page_id}:</label>
+                <div class="set_block_str">
+                    {$user->getId()}
+                </div>
+            </div>
+            <div class="formInput pdtop">
+                <label>{_page_address}:</label>
+                <input type="text" name="sc" value="{$user->getShortCode()}"/>
+            </div>
+            <input type="hidden" name="hash" value="{$csrfToken}" />
+            <input type="submit" value="{_'save'}" class="button big max" />
+        </form>
+        <form action="/logout">
+            <button class="button dangerous big max">{_mobile_log_out}</button>
+        </form>
+        <div class="settings_delete">
+            {_you_can_also} <a onClick="showProfileDeactivateDialog({$csrfToken})">{_delete_your_page}</a>.
+        </div>
+        
+        {elseif $isPrivacy}
+        
+        <form action="/settings?act=privacy" method="POST" enctype="multipart/form-data">
+            <div class="formInput">
+                <label>{_privacy_setting_access_page}</label>
+                <select name="page.read">
+                    <option value="3" {if $user->getPrivacySetting('page.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
+                    <option value="2" {if $user->getPrivacySetting('page.read') == 2}selected{/if}>{_privacy_value_users}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_read_info}</label>
+                <select name="page.info.read">
+                    <option value="3" {if $user->getPrivacySetting('page.info.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
+                    <option value="2" {if $user->getPrivacySetting('page.info.read') == 2}selected{/if}>{_privacy_value_users}</option>
+                    <option value="1" {if $user->getPrivacySetting('page.info.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
+                    <option value="0" {if $user->getPrivacySetting('page.info.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_see_groups}</label>
+                <select name="groups.read">
+                    <option value="3" {if $user->getPrivacySetting('groups.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
+                    <option value="2" {if $user->getPrivacySetting('groups.read') == 2}selected{/if}>{_privacy_value_users}</option>
+                    <option value="1" {if $user->getPrivacySetting('groups.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
+                    <option value="0" {if $user->getPrivacySetting('groups.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_see_photos}</label>
+                <select name="photos.read">
+                    <option value="3" {if $user->getPrivacySetting('photos.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
+                    <option value="2" {if $user->getPrivacySetting('photos.read') == 2}selected{/if}>{_privacy_value_users}</option>
+                    <option value="1" {if $user->getPrivacySetting('photos.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
+                    <option value="0" {if $user->getPrivacySetting('photos.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_see_videos}</label>
+                <select name="videos.read">
+                    <option value="3" {if $user->getPrivacySetting('videos.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
+                    <option value="2" {if $user->getPrivacySetting('videos.read') == 2}selected{/if}>{_privacy_value_users}</option>
+                    <option value="1" {if $user->getPrivacySetting('videos.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
+                    <option value="0" {if $user->getPrivacySetting('videos.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_view_audio}</label>
+                <select name="audios.read">
+                    <option value="3" {if $user->getPrivacySetting('audios.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
+                    <option value="2" {if $user->getPrivacySetting('audios.read') == 2}selected{/if}>{_privacy_value_users}</option>
+                    <option value="1" {if $user->getPrivacySetting('audios.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
+                    <option value="0" {if $user->getPrivacySetting('audios.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_see_notes}</label>
+                <select name="notes.read">
+                    <option value="3" {if $user->getPrivacySetting('notes.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
+                    <option value="2" {if $user->getPrivacySetting('notes.read') == 2}selected{/if}>{_privacy_value_users}</option>
+                    <option value="1" {if $user->getPrivacySetting('notes.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
+                    <option value="0" {if $user->getPrivacySetting('notes.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_see_friends}</label>
+                <select name="friends.read">
+                    <option value="3" {if $user->getPrivacySetting('friends.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
+                    <option value="2" {if $user->getPrivacySetting('friends.read') == 2}selected{/if}>{_privacy_value_users}</option>
+                    <option value="1" {if $user->getPrivacySetting('friends.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
+                    <option value="0" {if $user->getPrivacySetting('friends.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_add_to_friends}</label>
+                <select name="friends.add">
+                    <option value="3" {if $user->getPrivacySetting('friends.add') == 2}selected{/if}>{_privacy_value_anybody}</option>
+                    <option value="0" {if $user->getPrivacySetting('friends.add') == 0}selected{/if}>{_privacy_value_nobody}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_write_wall}</label>
+                <select name="wall.write">
+                    <option value="2" {if $user->getPrivacySetting('wall.write') == 2}selected{/if}>{_privacy_value_anybody}</option>
+                    <option value="1" {if $user->getPrivacySetting('wall.write') == 1}selected{/if}>{_privacy_value_friends}</option>
+                    <option value="0" {if $user->getPrivacySetting('wall.write') == 0}selected{/if}>{_privacy_value_only_me}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_write_messages}</label>
+                <select name="messages.write">
+                    <option value="2" {if $user->getPrivacySetting('messages.write') == 2}selected{/if}>{_privacy_value_anybody}</option>
+                    <option value="1" {if $user->getPrivacySetting('messages.write') == 1}selected{/if}>{_privacy_value_friends}</option>
+                    <option value="0" {if $user->getPrivacySetting('messages.write') == 0}selected{/if}>{_privacy_value_nobody}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_privacy_setting_see_likes}</label>
+                <select name="likes.read">
+                    <option value="2" {if $user->getPrivacySetting('likes.read') == 2}selected{/if}>{_privacy_value_anybody}</option>
+                    <option value="0" {if $user->getPrivacySetting('likes.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>{_profile_type}</label>
+                <select name="profile_type">
+                    <option value="0" {if $user->getProfileType() == 0}selected{/if}>{_profile_type_open}</option>
+                    <option value="1" {if $user->getProfileType() == 1}selected{/if}>{_profile_type_closed}</option>
+                </select>
+            </div>
+            <input type="hidden" name="hash" value="{$csrfToken}" />
+            <input type="submit" value="{_save}" class="button big max" />
+        </form>
+        
+        {elseif $isFinance}
+        <div style="margin: 0 -15px">
+            <div class="settings_body" style="text-align: center;">
+                {_on_your_account}<br>
+                <b style="font-size: 50px;">{$thisUser->getCoins()}</b><br>
+                {_points_count}
+            </div>
+            <ul class="menu">
+                <li id="transfer" class="element prmenu">
+                    <a href="javascript:showCoinsTransferDialog({$thisUser->getCoins()}, '{rawurlencode($csrfToken)}')">
+                        {_transfer_poins|firstUpper}
+                    </a>
+                </li>
+                <li id="topup" class="element prmenu">
+                    <a href="/settings?act=finance.top-up">
+                        {_have_voucher}?
+                    </a>
+                </li>
+            </ul>
+            <div class="set_block">
+                {presenter "openvk!Support->knowledgeBaseArticle", "points"}
+            </div>
+        </div>
+        {elseif $isFinanceTU}
+        
+        <p>{_voucher_explanation} {_voucher_explanation_ex}</p>
+        <form name="vouncher_form" action="/settings?act=finance.top-up" method="POST" enctype="multipart/form-data">
+            <input type="text" name="key0" class="vouncher_input" size="6" maxlength="6" placeholder="123456" required="required" oninput="autoTab(this, document.vouncher_form.key1, undefined)" style="display: inline-block; width: 50px; text-align: center;" /> -
+            <input type="text" name="key1" class="vouncher_input" size="6" maxlength="6" placeholder="789012" required="required" oninput="autoTab(this, document.vouncher_form.key2, document.vouncher_form.key0)" style="display: inline-block; width: 50px; text-align: center;" /> -
+            <input type="text" name="key2" class="vouncher_input" size="6" maxlength="6" placeholder="345678" required="required" oninput="autoTab(this, document.vouncher_form.key3, document.vouncher_form.key1)" style="display: inline-block; width: 50px; text-align: center;" /> -
+            <input type="text" name="key3" class="vouncher_input" size="6" maxlength="6" placeholder="90ABCD" required="required" oninput="autoTab(this, undefined, document.vouncher_form.key2)" style="display: inline-block; width: 50px; text-align: center;" />
+            <br/><br/>
+            
+            <input type="hidden" name="hash" value="{$csrfToken}" />
+            <input type="submit" value="{_redeem}" class="button" />
+        </form>
+        <script>
+            u(".vouncher_input").on("paste", function(event) {
+                const vouncher = event.clipboardData.getData("text");
+
+                let segments;
+                if(vouncher.length === 27) {
+                    segments = vouncher.split("-");
+                    if(segments.length !== 4)
+                        segments = undefined;
+                } else if(vouncher.length === 24) {
+                    segments = chunkSubstr(vouncher, 6);
+                }
+
+                if(segments !== undefined) {
+                    document.vouncher_form.key0.value = segments[0];
+                    document.vouncher_form.key1.value = segments[1];
+                    document.vouncher_form.key2.value = segments[2];
+                    document.vouncher_form.key3.value = segments[3];
+                    document.vouncher_form.key3.focus();
+                }
+
+                event.preventDefault();
+            });
+        </script>
+        
+        {elseif $isInterface}
+        
+        <h4>{_ui_settings_interface}</h4>
+        <form action="/settings?act=interface" method="POST" enctype="multipart/form-data">
+            
+            <div class="formInput">
+                <label>{_"style"}:</label>
+                                        <select name="style">
+                                <option value="ovk" {if $user->getStyle() == 'ovk'}selected{/if}>OpenVK ({_"default"})</option>
+                                <option n:foreach="$themes as $id => $theme"
+                                        n:attr="selected => $user->getStyle() === $id"
+                                        value="{$id}">
+                                            {$theme}
+                                </option>
+                            </select>
+            </div>
+
+            <div class="formInput">
+                <label>{_ui_settings_nsfw_content}:</label>
+
+                            <select name="nsfw">
+                                <option value="0" {if $user->getNsfwTolerance() === 0}selected{/if}>{_ui_settings_nsfw_content_dont_show}</option>
+                                <option value="1" {if $user->getNsfwTolerance() === 1}selected{/if}>{_ui_settings_nsfw_content_blur}</option>
+                                <option value="2" {if $user->getNsfwTolerance() === 2}selected{/if}>{_ui_settings_nsfw_content_show}</option>
+                            </select>
+
+            </div>
+
+            <div class="formInput">
+                <label>{_ui_settings_rating}:</label>
+                            <select name="rating">
+                                <option value="1" {if !$user->prefersNotToSeeRating()}selected{/if}>{_ui_settings_rating_show}</option>
+                                <option value="0" {if $user->prefersNotToSeeRating()}selected{/if}>{_ui_settings_rating_hide}</option>
+                            </select>
+            </div>
+
+            <div class="formInput">
+                <label>{_ui_settings_view_of_posts}:</label>
+                            <select name="microblog">
+                                <option value="0" {if !$user->hasMicroblogEnabled()}selected{/if}>{_ui_settings_view_of_posts_old}</option>
+                                <option value="1" {if $user->hasMicroblogEnabled()}selected{/if}>{_ui_settings_view_of_posts_microblog}</option>
+                            </select>
+            </div>
+
+
+            <div class="formInput">
+                <label>{_avatars_style}:</label>
+                    <select name="style_avatar">
+                                <option value="0" {if $user->getStyleAvatar() == 0}selected{/if}>{_arbitrary_avatars} ({_default})</option>
+                                <option value="1" {if $user->getStyleAvatar() == 1}selected{/if}>{_cut}</option>
+                                <option value="2" {if $user->getStyleAvatar() == 2}selected{/if}>{_round_avatars}</option>
+                            </select>
+            </div>
+
+ 
+            <div class="formInput">
+                <label>{_ui_settings_main_page}:</label>
+                    <select name="main_page">
+                                <option value="0" {if !$user->getMainPage()}selected{/if}>{_my_page}</option>
+                                <option value="1" {if $user->getMainPage()}selected{/if}>{_my_feed}</option>
+                            </select>
+            </div>
+
+
+
+            <input type="hidden" name="hash" value="{$csrfToken}" />
+            <input type="submit" value="{_'save'}" class="button big max" />
+        </form>
+        {elseif $isBl}
+            {if $blSize < 1}
+                {include "../components/error.latte", description => tr("bl_count_zero_desc")}
+            {else}
+                <h4 style="margin-bottom: 10px;">{tr("bl_count", $blSize)}.</h4>
+                <div class='entity_vertical_list mini m_mini scroll_container'>
+                    <a n:foreach="$blItems as $item" href="{$item->getURL()}" class="clickable entity_vertical_list_item scroll_node">
+                        <div class="first_column">
+                            <img class="avatar" src='{$item->getAvatarURL()}'>
+                            <div class="info">
+                                <b class="noOverflow">
+                                    {$item->getCanonicalName()} 
+                                </b>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {include "../components/paginator.latte", conf => $paginatorConf}
+            {/if}
+        {/if}
+    </div>
+
+</div>
+    
+{/block}

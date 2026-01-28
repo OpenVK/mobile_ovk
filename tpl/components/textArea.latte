@@ -1,0 +1,103 @@
+{var $textAreaId = $post === null ? rand(1,300) : $post->getId()}
+
+<div id="write" class="new_post_text">
+    <input type="file" style="display:none" id="_pic_attachment" accept="image/*" multiple>
+    <form action="{$route}" method="post" enctype="multipart/form-data" style="margin:0;margin-top: 4px;">
+        <textarea id="wall-post-input{$textAreaId}" placeholder="{_write}" name="text" style="width: 100%;resize: none;" class="small-textarea"></textarea>
+        <div>
+            <!-- padding to fix <br/> bug -->
+            <div id="post-buttons{$textAreaId}" class="post-buttons">
+                <div class="post-horizontal"></div>
+                <div n:if="$postOpts ?? true" class="post-opts">
+                    {var $anonEnabled = \OPENVK_ROOT_CONF['openvk']['preferences']['wall']['anonymousPosting']['enable']}
+
+                    {if !is_null($thisUser) && !is_null($club ?? NULL) && $owner < 0}
+                        {if $club->canBeModifiedBy($thisUser)}
+                            <script>
+                                function onWallAsGroupClick(el) {
+                                    document.querySelector("#forceSignOpt").style.display = el.checked ? "block" : "none";
+                                    
+                                    {if $anonEnabled}
+                                        document.querySelector("#octoberAnonOpt").style.display = el.checked ? "none" : "block";
+                                    {/if}
+                                }
+                            </script>
+                            
+                            <label>
+                                <input type="checkbox" name="as_group" onchange="onWallAsGroupClick(this)" /> {_post_as_group}
+                            </label>
+                            <label id="forceSignOpt" style="display: none;">
+                                <input type="checkbox" name="force_sign" /> {_add_signature}
+                            </label>
+                        {/if}
+                    {/if}
+                    
+                    <label n:if="$anonEnabled" id="octoberAnonOpt">
+                        <input type="checkbox" name="anon" /> {_as_anonymous}
+                    </label>
+                    
+                    <label>
+                        <input type="checkbox" name="nsfw" /> {_contains_nsfw}
+                    </label>
+                </div>
+
+                <div n:if="!($postOpts ?? true) && !is_null($thisUser) && !is_null($club ?? NULL) && $club->canBeModifiedBy($thisUser)" class="post-opts">
+                    <label>
+                        <input type="checkbox" name="as_group" /> {_comment_as_group}
+                    </label>
+                </div>
+
+                <input type="hidden" name="horizontal_attachments" value="" autocomplete="off" />
+                <input type="hidden" name="vertical_attachments" value="" autocomplete="off" />
+                <input type="hidden" name="poll" value="none" autocomplete="off" />
+                <input type="hidden" id="source" name="source" value="none" autocomplete="off" />
+                <input type="hidden" name="geo" value="" autocomplete="off" />
+            </div>
+
+            <input type="hidden" name="type" value="1" />
+            <input type="hidden" name="hash" value="{$csrfToken}" />
+            <br/>
+            <input type="submit" value="{_'write'}" class="button new_post" />
+            <a class="attach_button" href="javascript:void(0)" data-type="photo">
+                <div class="attach_menu_ph"></div>
+            </a>
+        </div>
+
+
+    </form>
+</div>
+
+<!-- {var $textAreaId = $post === null ? rand(1,300) : $post->getId()}
+
+<div class="contentWrap">
+    <div class="legend">
+        <span>Стена</span>
+    </div>
+                    
+    <div class="content dark">
+        <form>
+            <textarea placeholder="Что произошло нового?"></textarea>
+            <input type="submit" value="Написать" />
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(() => {
+        u("#post-buttons{$textAreaId} .postFileSel").on("change", function() {
+            handleUpload.bind(this, {$textAreaId})();
+        });
+
+        setupWallPostInputHandlers({$textAreaId});
+    });
+</script>
+
+{if $graffiti}
+    {script "js/node_modules/react/dist/react-with-addons.min.js"}
+    {script "js/node_modules/react-dom/dist/react-dom.min.js"}
+    {script "js/vnd_literallycanvas.js"}
+    {css "js/node_modules/literallycanvas/lib/css/literallycanvas.css"}
+{/if} -->
+
+
+

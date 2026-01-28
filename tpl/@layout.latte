@@ -1,0 +1,274 @@
+<html n:if="!isset($parentModule) || substr($parentModule, 0, 21) === 'libchandler:absolute.'">
+    
+    <head>
+        <title>
+            {ifset title}{include title} - {/ifset}OpenVK
+        </title>
+        <meta http-equiv="Content-Type" content="application/vnd.wap.xhtml+xml;charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="shortcut icon" href="/assets/packages/static/openvk/img/icon.ico" />
+        <meta name="application-name" content="OpenVK" />
+        <meta n:ifset="$csrfToken" name="csrf" value="{$csrfToken}" />
+
+        <link rel="stylesheet" href="/themepack/mobile_ovk/0.0.1.0/stylesheet/styles.css?v=53" />
+        <link rel="stylesheet" href="/themepack/mobile_ovk/0.0.1.0/resource/vendor/pure-grid.css" />
+        <script src="/language/{php echo getLanguage()}.js" crossorigin="anonymous"></script>
+        {script "js/l10n.js"}
+        {script "js/al_api.js"}
+        {script "js/al_polls.js"}
+        {script "js/utils.js"}
+        {script "js/node_modules/msgpack-lite/dist/msgpack.min.js"}
+        {script "js/node_modules/jquery/dist/jquery.min.js"}
+        {script "js/node_modules/umbrellajs/umbrella.min.js"}
+        {script "js/node_modules/dashjs/dist/dash.all.min.js"}
+
+        {ifset headIncludes}{include headIncludes}{/ifset}
+        <script defer src="/themepack/mobile_ovk/0.0.1.0/resource/menu.js"></script>
+        <script src="/themepack/mobile_ovk/0.0.1.0/resource/mobile.js?v=51"></script>
+    </head>
+
+
+    <body class="app_layer"> 
+    <div class="bluebar"></div>
+    <div class="app">
+        <div class="navigation">
+            <div class="headername">
+                <div class="ovk_mobile_logo"></div>
+                <div class="head_now">{include title}</div>
+
+                {ifset $thisUser}
+                    <a href="/im" class="ovk_mobile_mail_icon" onClick="event.stopPropagation();">{if $thisUser->getUnreadMessagesCount() > 0}<b>{$thisUser->getUnreadMessagesCount()}</b>{/if}</a>
+                    
+                    <div class="search_menu_box" style="" onClick="event.stopPropagation();">
+                        <form action="/search" method="get">
+                            <input type="search" name="q" placeholder="{_header_search}" style="padding-left: 18px;" accesskey="f">
+                        </form>
+                    </div>          
+                {else}
+                    <div class="search_menu_box"></div>
+                {/ifset}
+
+            </div>
+        </div>
+
+       
+
+        <div class="menuovk">
+            {ifset $thisUser}
+
+                       
+            <a href="{$thisUser->getURL()}" class="menuprlink">
+                <div class="menunameava">
+                 <div class="profile_menu_arrow"></div>
+                    <table class="pr_ovk_page">
+                        <tr>
+                            <td rowspan="2">
+                                <img class="ava" src="{$thisUser->getAvatarURL()}" />
+                            </td> <!-- Ава -->
+
+                            <td rowspan="2">
+                                <div class="name">{$thisUser->getFullName()}</div>
+                                <div class="status">{$thisUser->getStatus()}</div>
+                            </td> <!-- Имя -->
+                        </tr>
+                    </table>
+                </div>
+            </a>
+
+
+
+            <div class="content">
+                <ul class="menu">
+                    <li class="element prmenu">
+                        <a href="/friends{$thisUser->getId()}">
+                            <div class="mobile_icons" id="fr">{_mobile_friends}
+                            {var $followers = $thisUser->getRequestsCount()}
+                                {if $followers > 0}
+                            <span class="counter urgent">{$followers}</span>
+                            {/if}</div>
+                        </a>
+                    </li>
+                    <li class="element prmenu">
+                        <a n:if="$thisUser->getLeftMenuItemStatus('photos')" href="/albums{$thisUser->getId()}"><div class="mobile_icons" id="ph">{_mobile_photos} </div></a>
+                    </li>
+                    <li class="element prmenu">
+                        <a n:if="$thisUser->getLeftMenuItemStatus('audios')" href="/audios{$thisUser->getId()}"><div class="mobile_icons" id="audeeo">{_mobile_audios} </div></a>
+                    </li>
+                    <li class="element prmenu">
+                        <a n:if="$thisUser->getLeftMenuItemStatus('videos')" href="/videos{$thisUser->getId()}"><div class="mobile_icons" id="video">{_mobile_videos} </div></a>
+                    </li>
+                    <li class="element prmenu">
+                        <a n:if="$thisUser->getLeftMenuItemStatus('docs')" href="/docs"><div class="mobile_icons" id="notfg">{_documents} </div></a>
+                    </li>
+                    <li class="element prmenu">
+                        <a n:if="$thisUser->getLeftMenuItemStatus('messages')" href="/im">
+                            <div class="mobile_icons" id="mail">{_mobile_messages}
+                                {if $thisUser->getUnreadMessagesCount() > 0}
+                            <span class="counter urgent">{$thisUser->getUnreadMessagesCount()}</span>
+                            {/if}</div>
+                        </a>
+                    </li>
+                    <li class="element prmenu">
+                        <a n:if="$thisUser->getLeftMenuItemStatus('news')" href="/feed"><div class="mobile_icons" id="news">{_feed} </div></a>
+                    </li>
+                    <li class="element prmenu">
+                        <a href="/notifications">
+                            <div class="mobile_icons" id="feedback">{_feedback}
+                                {if $thisUser->getNotificationsCount() > 0}
+                            <span class="counter urgent">{$thisUser->getNotificationsCount()}</span>
+                            {/if}</div>
+                        </a>
+                    </li>
+                    <li class="element prmenu">
+                        <a n:if="$thisUser->getLeftMenuItemStatus('groups')" href="/groups{$thisUser->getId()}"> <div class="mobile_icons" id="grp">{_mobile_groups} </div></a>
+                    </li>
+                    <li class="element prmenu">
+                        <a href="/fave"> <div class="mobile_icons" id="faveicon">{_bookmarks_tab} </div></a>
+                    </li>
+                    <li class="element prmenu">
+                        <a href="/search"> <div class="mobile_icons" id="search">{_mobile_search} </div></a>
+                    </li>
+                </ul>
+
+            {var $canAccessAdminPanel = $thisUser->getChandlerUser()->can("access")->model("admin")->whichBelongsTo(NULL)}
+            {var $canAccessHelpdesk   = $thisUser->getChandlerUser()->can("write")->model('openvk\Web\Models\Entities\TicketReply')->whichBelongsTo(0)}
+            {if $canAccessAdminPanel || $canAccessHelpdesk}
+                <div class="space_menu"></div>
+                <ul class="menu">
+                    <li class="element prmenu gray" n:if="$canAccessAdminPanel">
+                        <a href="/admin"><div class="mobile_icons" id="settings">{_admin}</div></a>
+                    </li>
+                    <li class="element prmenu gray" n:if="$canAccessHelpdesk">
+                        <a href="/support/tickets"><div class="mobile_icons" id="hlp">{_menu_support}
+                        {if $helpdeskTicketNotAnsweredCount > 0}
+                            <span class="counter urgent">{$helpdeskTicketNotAnsweredCount}</span>
+                            {/if}
+
+                        </div></a>
+                    </li>
+                </ul>
+            {/if}
+
+            <div class="space_menu"></div>
+
+                <ul class="menu">
+                    <li class="element prmenu gray">
+                        <a href="/settings"> <div class="mobile_icons" id="settings">{_mobile_settings} </div></a>
+                    </li>
+                    <li class="element prmenu gray">
+                        <a href="/support"> <div class="mobile_icons" id="hlp">{_menu_help}
+                        
+                         {if $ticketAnsweredCount > 0}
+                            <span class="counter urgent">{$ticketAnsweredCount}</span>
+                            {/if}
+
+                        </div></a>
+                    </li>
+                    <li class="element prmenu gray">
+                        <a href="/settings/reset_theme?hash={urlencode($csrfToken)}"><div class="mobile_icons" id="full">{_mobile_desktop_version}</div></a>
+                    </li>
+                    <li class="element prmenu gray">
+                        <a href="/logout?hash={urlencode($csrfToken)}"> <div class="mobile_icons" id="exit">{_mobile_log_out}</div></a>
+                    </li>
+                </ul>
+                {if $thisUser->getPinnedClubCount() > 0}
+                    <div class="space_menu"></div>
+                    <ul class="menu">
+                        <li n:foreach="$thisUser->getPinnedClubs() as $club" class="element prmenu gray">
+                            <a href="{$club->getURL()}"><div class="mobile_icons" id="fr">{ovk_proc_strtr($club->getName(), 14)}</div></a>
+                        </li>
+                    </ul>
+                {/if}
+            </div>
+
+
+            {else}
+            <div class="content">
+                <ul class="menu">
+                    <li class="element prmenu">
+                        <a href="/">{_home}</a>
+                    </li>
+                    <li class="element prmenu">
+                        <a href="/login">{_log_in}</a>
+                    </li>
+                    <li class="element prmenu">
+                        <a href="/reg">{_registration}</a>
+                    </li>
+                </ul>
+            </div>
+            {/ifset}
+        <div class="space_menu"></div>
+            <div id="page_footer">
+                {var $dbVersion = \Chandler\Database\DatabaseConnection::i()->getConnection()->getPdo()->getAttribute(\PDO::ATTR_SERVER_VERSION)}
+                
+                <p>OpenVK <a href="/about:openvk2">{php echo OPENVK_VERSION}</a> | PHP: {phpversion()} | DB: {$dbVersion}</p>
+                <p n:ifcontent>
+                    {php echo OPENVK_ROOT_CONF["openvk"]["appearance"]["motd"]}
+                </p>
+
+                <div class="navigation_footer">
+                <a href="/about" class="link">{_footer_about_instance}</a>
+                <a href="/blog" class="link">{_footer_blog}</a>
+                <a href="/support" class="link">{_footer_help}</a>
+                <a href="/dev" target="_blank" class="link">{_footer_developers}</a>
+                <a href="/privacy" class="link">{_footer_privacy}</a>
+                <a href="/terms" class="link">{_footer_rules}</a>
+                <a href="/language" class="link">change language</a>
+            </div>
+            </div>
+
+        </div>
+
+        <div class="main">
+            <div n:if="isset($thisUser) && $userTainted" class="alert warn">
+                <b class="head">Подмена пользователя активна</b>
+                Вы вошли как
+                <b>{$thisUser->getCanonicalName()}</b>
+                . Пожалуйста, уважайте
+                право на тайну переписки других людей и не злоупотребляйте подменой пользователя.
+                Нажмите
+                <a href="/setSID/unset?hash={rawurlencode($csrfToken)}">здесь</a>
+                , чтобы выйти.
+            </div>
+            {ifset $flashMessage}
+            <div class="alert {$flashMessage->type}">
+                <b class="head">{$flashMessage->title}</b>
+                {$flashMessage->msg|noescape}
+            </div>
+            {/ifset}
+
+            {ifset titleHeader}
+            <div class="contentWraplegend">
+                <span>{include titleHeader}</span>
+            </div>
+            {/ifset}
+
+            {ifset titleHeaderphoto}
+            <div class="contentWraplegend photo">
+                <span>{include titleHeaderphoto}</span>
+            </div>
+            {/ifset}
+            
+            {include body}
+
+        </div></div>
+        <script defer src="/themepack/mobile_ovk/0.0.1.0/resource/mobile_audios.js?rnd=50"></script>
+        {script "js/messagebox.js"}
+        {script "js/al_comments.js"}
+        
+        <script id='_js_ep_script'>
+            window.openvk = {
+                "audio_genres": {\openvk\Web\Models\Entities\Audio::genres},
+                "at_search": {$atSearch ?? false},
+                "max_attachments": {\OPENVK_ROOT_CONF["openvk"]["preferences"]["wall"]["postSizes"]["maxAttachments"] ?? 10},
+                "max_filesize_mb": 5,
+                "current_id": {$thisUser ? $thisUser->getId() : 0},
+                "disable_ajax": {$disable_ajax ? $disable_ajax : 0},
+            }
+        </script>
+    </body>
+</html>{if isset($parentModule) && substr($parentModule, 0, 21) !== 'libchandler:absolute.'}<!-- INCLUDING TEMPLATE FROM PARENTMODULE: {$parentModule} -->
+
+    
+    {include body}
+{/if}

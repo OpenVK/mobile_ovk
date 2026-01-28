@@ -1,0 +1,56 @@
+{extends "../@layout.latte"}
+
+{block title}
+    {_document} "{ovk_proc_strtr($doc->getName(), 20)}"
+{/block}
+
+{block header}
+    {$doc->getName()}
+{/block}
+
+{block body}
+    <div class='media-page-wrapper photo-page-wrapper'>
+        <div class='photo-page-wrapper-photo'>
+            {if $is_image}
+                <img alt="doc image" src="{$doc->getURL()}" />
+            {else}
+                <a href="{$doc->getURL()}" download="{downloadable_name($doc->getName())}">
+                    <input class="button" type="button" value="{_download_file}">
+                </a>
+            {/if}
+        </div>
+
+        <div class='ovk-photo-details'>
+            <div class='media-page-wrapper-description' style="padding: 10px 20px;">
+                <p n:if='sizeof($tags) > 0'>
+                    {foreach $tags as $tag}
+                        <a href="/search?section=docs&tags={urlencode($tag)}">
+                            {$tag}{if $tag != $tags[sizeof($tags) - 1]},{/if}
+                        </a>
+                    {/foreach}
+                </p>
+                <div class='upload_time'>
+                    {_info_upload_date}: {$doc->getPublicationTime()}
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="media-page-wrapper-details">
+                <div class='media-page-wrapper-comments'></div>
+                <div class='media-page-wrapper-actions docMainItem' data-context="page" data-id="{$doc->getPrettiestId()}">
+                    {if !$doc->isOwnerHidden()}
+                        {var $owner = $doc->getOwner()}
+                        <a href="{$owner->getURL()}" class='media-page-author-block'>
+                            <img class='cCompactAvatars' src="{$owner->getAvatarURL('miniscule')}">
+
+                            <div class='media-page-author-block-name'>
+                                <b>{$owner->getCanonicalName()}</b>
+                            </div>
+                        </a>
+                    {/if}
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}

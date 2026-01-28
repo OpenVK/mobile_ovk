@@ -1,0 +1,33 @@
+{extends "../@listView.latte"}
+
+{block title}{_videos} {$user->getCanonicalName()}{/block}
+    <a href="{$user->getURL()}">{$user->getCanonicalName()}</a>
+    » {_videos}
+{block body}
+
+    <div class="contentWraplegend">
+        <span><a href="{$user->getURL()}">{$user->getCanonicalName()}</a>
+        » {_videos}</span>
+    </div>
+
+    <div class="container_gray">
+        <div style="padding-bottom: 0px; padding-top: 0;" class="summaryBar">
+            <b class="summary">
+                {tr("videos", $count)}
+            </b>
+
+            <a href='/videos/upload' n:if="isset($thisUser) && $thisUser->getId() == $user->getId()">
+                <button class="button secondary big max">{_upload_video}</button>
+            </a>
+
+            <div class='listviewContent'>
+                {foreach $videos as $video}
+                    {include '../components/video.latte', video => $video}
+                {/foreach}
+            </div>
+
+            {include "../components/paginator.latte", conf => $paginatorConf}
+        </div>
+
+    </div>
+{/block}

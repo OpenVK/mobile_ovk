@@ -1,7 +1,7 @@
 {extends "../@listView.latte"}
-{var perPage = 6} {* Why 6? Check User::_abstractRelationGenerator *}
+{var $perPage = 6} {* Why 6? Check User::_abstractRelationGenerator *}
 
-{var act = $_GET["act"] ?? "friends"}
+{var $act = $_GET["act"] ?? "friends"}
 
 {if $act == "incoming"}
     {var $iterator = iterator_to_array($user->getRequests($page))}
@@ -83,7 +83,7 @@
 
 {block actions}
     {if $x->getId() !== $thisUser->getId()}
-        {var subStatus = $x->getSubscriptionStatus($thisUser)}
+        {var $subStatus = $x->getSubscriptionStatus($thisUser)}
         {if $subStatus === 0}
             <form action="/setSub/user" method="post" class="profile_link_form">
                 <input type="hidden" name="act" value="add" />

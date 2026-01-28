@@ -94,7 +94,7 @@
             <div class="content">
                 <div class="picCarousel">
                     {foreach $albums as $album}
-                        {var cover = $album->getCoverPhoto()}
+                        {var $cover = $album->getCoverPhoto()}
             
                         <a href="/album{$album->getPrettyId()}">
                             <img src="{is_null($cover)?'/assets/packages/static/openvk/img/camera_200.png':$cover->getURL()}" />

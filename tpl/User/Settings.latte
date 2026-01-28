@@ -7,12 +7,12 @@
 
 {block body}
 
-{var isMain       = $mode === 'main'}
-{var isPrivacy    = $mode === 'privacy'}
-{var isFinance    = $mode === 'finance'}
-{var isFinanceTU  = $mode === 'finance.top-up'}
-{var isInterface  = $mode === 'interface'}
-{var isBl         = $mode === 'blacklist'}
+{var $isMain       = $mode === 'main'}
+{var $isPrivacy    = $mode === 'privacy'}
+{var $isFinance    = $mode === 'finance'}
+{var $isFinanceTU  = $mode === 'finance.top-up'}
+{var $isInterface  = $mode === 'interface'}
+{var $isBl         = $mode === 'blacklist'}
 
 <div class="contentWraplegend" onclick="hidePanel(this);">
     <span>{_mobile_settings}</span>
@@ -27,7 +27,7 @@
         <div n:attr="id => ($isPrivacy ? 'activetabs' : 'ki')" class="tab">
             <a n:attr="id => ($isPrivacy ? 'act_tab_a' : 'ki')" href="/settings?act=privacy">{_privacy}</a>
         </div>
-        <div n:if="OPENVK_ROOT_CONF['openvk']['preferences']['commerce']" n:attr="id => (($isFinance || $isFinanceTU) ? 'activetabs' : 'ki')" class="tab">
+        <div n:if="\OPENVK_ROOT_CONF['openvk']['preferences']['commerce']" n:attr="id => (($isFinance || $isFinanceTU) ? 'activetabs' : 'ki')" class="tab">
             <a n:attr="id => (($isFinance || $isFinanceTU) ? 'act_tab_a' : 'ki')" href="/settings?act=finance">{_points}</a>
         </div>
         <div n:attr="id => ($isBl ? 'activetabs' : 'ki')" class="tab">
@@ -359,7 +359,6 @@
                 {_on_your_account}<br>
                 <b style="font-size: 50px;">{$thisUser->getCoins()}</b><br>
                 {_points_count}
-                </b>
             </div>
             <ul class="menu">
                 <li id="transfer" class="element prmenu">
@@ -371,6 +370,7 @@
                     <a href="/settings?act=finance.top-up">
                         {_have_voucher}?
                     </a>
+                </li>
             </ul>
             <div class="set_block">
                 {presenter "openvk!Support->knowledgeBaseArticle", "points"}

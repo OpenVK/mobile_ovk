@@ -47,7 +47,7 @@
                             <input max={date('Y-m-d')} name="birthday" type="date" required="required"/>
                         </div>
                         
-                        {var femalePreferred = OPENVK_ROOT_CONF["openvk"]["preferences"]["femaleGenderPriority"]}
+                        {var $femalePreferred = \OPENVK_ROOT_CONF["openvk"]["preferences"]["femaleGenderPriority"]}
                         <div class="formInput"><label>Кто Вы?</label></div>
                         <div class="formInput">
                             <input n:attr="checked => !$femalePreferred" type="radio" name="sex" value="male" />
@@ -88,8 +88,8 @@
                         <img src="/assets/packages/static/openvk/img/oof.apng" alt="Регистрация закрыта." style="width: 50vw;" />
                         <p>
                             Регистрация отключена системным администратором. При возможности попросите приглашение у вашего знакомого, если он зарегистрирован на этом сайте.
-                            {if OPENVK_ROOT_CONF['openvk']['preferences']['registration']['reason']}
-                                <br/><br/><b>{php echo OPENVK_ROOT_CONF['openvk']['preferences']['registration']['reason']}</b>
+                            {if \OPENVK_ROOT_CONF['openvk']['preferences']['registration']['reason']}
+                                <br/><br/><b>{php echo \OPENVK_ROOT_CONF['openvk']['preferences']['registration']['reason']}</b>
                             {/if}
                         </p>
                     </center>

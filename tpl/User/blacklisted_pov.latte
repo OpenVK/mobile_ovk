@@ -3,7 +3,7 @@
 {block title}{$user->getCanonicalName()}{/block} 
 
 {block body}
-    <div n:if="!is_null($alert = $user->getAlert())" class="alert fake">{strpos($alert, "@") === 0 ? tr(substr($alert, 1)) : $alert}</div>
+    <div n:if="!is_null($alert = $user->getAlert())" class="alert fake">{strpos($alert, "@") === 0 ? tr(substr($alert, 1)) : $alert}
         <div id="profile_basicInfo" class="contentWrap">
             <div class="content">
                 <div class="pure-g" style="padding-bottom: 12px;">

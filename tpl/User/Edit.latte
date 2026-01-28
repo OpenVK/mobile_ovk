@@ -7,10 +7,10 @@
 
 {block body}
 
-{var isMain      = $mode === 'main'}
-{var isContacts  = $mode === 'contacts'}
-{var isInterests = $mode === 'interests'}
-{var isAvatar    = $mode === 'avatar'}
+{var $isMain      = $mode === 'main'}
+{var $isContacts  = $mode === 'contacts'}
+{var $isInterests = $mode === 'interests'}
+{var $isAvatar    = $mode === 'avatar'}
 
 <div class="contentWraplegend" onclick="hidePanel(this);">
     <span>Редактировать страницу</span>
@@ -108,7 +108,7 @@
                 </select>
                 </div>
 
-{if OPENVK_ROOT_CONF['openvk']['credentials']['zadarma']['enable']}
+{if \OPENVK_ROOT_CONF['openvk']['credentials']['zadarma']['enable']}
                    <div class="formInput">
                          <label>{_"phone"}:</label>
                         <input type="phone" name="phone" value="{$user->getPhone()}" />

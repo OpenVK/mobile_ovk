@@ -71,9 +71,8 @@
                     <a n:if="in_array('status', $completeness->unfilled)" href="/edit">
                        <div class="mobile_icons_rating" id="st">{_status}</div>
                     </a>
-                </il>
+                </li>
             </ul>
-            </br>
             {/if}
                 
                 {ifset $thisUser}
@@ -82,7 +81,7 @@
                     {if $user->getId() == $thisUser->getId()}
                         <a href="/edit" class="button big max">{_edit_page}</a>
                     {else}
-                        {var subStatus = $user->getSubscriptionStatus($thisUser)}
+                        {var $subStatus = $user->getSubscriptionStatus($thisUser)}
                         {if $subStatus === 0}
                             <form action="/setSub/user" method="post" class="form_gr">
                                 <input type="hidden" name="act" value="add" />
@@ -255,7 +254,7 @@
                 <div class="content">
                     <div class="picCarousel">
                         {foreach $albums as $album}
-                            {var cover = $album->getCoverPhoto()}
+                            {var $cover = $album->getCoverPhoto()}
                             <div class="album-photo">
                             <a href="/album{$album->getPrettyId()}">
                                 <img class="album-photo--image" src="{is_null($cover)?'/assets/packages/static/openvk/img/camera_200.png':$cover->getURL()}" />
@@ -283,7 +282,7 @@
                                         {if !$ignore_status}{_ignore_user}{else}{_unignore_user}{/if}
                                     </a>
                                 </li>
-                                <li n:if="OPENVK_ROOT_CONF['openvk']['preferences']['commerce']" class="element">
+                                <li n:if="\OPENVK_ROOT_CONF['openvk']['preferences']['commerce']" class="element">
                                     <a href="/gifts?act=pick&user={$user->getId()}">
                                         {_send_gift}
                                     </a>
@@ -352,7 +351,7 @@
                                 <span class="counter">{$notesCount}</span>
                             </a>
                         </li>
-                        <li n:if="OPENVK_ROOT_CONF['openvk']['preferences']['commerce'] && ($giftCount = $user->getGiftCount()) > 0" class="element">
+                        <li n:if="\OPENVK_ROOT_CONF['openvk']['preferences']['commerce'] && ($giftCount = $user->getGiftCount()) > 0" class="element">
                             <a href="/gifts{$user->getId()}">
                                 {_gifts}
                                 <span class="counter">{$giftCount}</span>

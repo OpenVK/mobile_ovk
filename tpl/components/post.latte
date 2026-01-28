@@ -1,6 +1,6 @@
-{var author = $post->getOwner()}
-{var wallOwner = $post->getWallOwner()}
-{var likesCount = $post->getLikesCount()}
+{var $author = $post->getOwner()}
+{var $wallOwner = $post->getWallOwner()}
+{var $likesCount = $post->getLikesCount()}
 
 <div n:class="post, real_post, $post->isExplicit() ? post-nsfw">
     <div n:class="author, $author->getRealId() > 0 && $author->isOnline() ? author_online">
@@ -115,7 +115,7 @@
                 <div class="actions_right">
 
                     {if !($forceNoLike ?? false)}
-                        {var liked = $post->hasLikeFrom($thisUser)}
+                        {var $liked = $post->hasLikeFrom($thisUser)}
                         <a href="/wall{$post->getPrettyId()}/like?hash={rawurlencode($csrfToken)}"
                             class="post-like-button post-like-button-natural"
                             data-liked="{(int) $liked}"

@@ -1,0 +1,32 @@
+{extends "../@layout.latte"}
+{block title}{_my_settings}{/block}
+
+{block header}
+    {_two_factor_authentication}
+{/block}
+
+{block body}
+<div class="contentWraplegend">{_two_factor_authentication}</div>
+<div class="settings_body">
+    {_two_factor_authentication_settings_1|noescape}
+    <p>{_two_factor_authentication_settings_2}</p>
+    <div style="text-align: center;">
+        <img width="225" height="225" src="data:{$qrCodeType};base64,{$qrCodeData}">
+    </div>
+    <p>{tr("two_factor_authentication_settings_3", $secret)|noescape}</p>
+    <p>{_two_factor_authentication_settings_4}</p>
+    <form method="POST">
+        <div class="formInput">
+            <label>{_code}:</label>
+            <input type="text" name="code" required />
+        </div>
+        <div class="formInput">
+            <label>{_password}:</label>
+            <input type="password" name="password" required />
+        </div>
+        <input type="hidden" name="secret" value="{$secret}" />
+        <input type="hidden" name="hash" value="{$csrfToken}" />
+        <input type="submit" value="{_enable}" class="button big max" />
+    </form>
+    </div>
+{/block}

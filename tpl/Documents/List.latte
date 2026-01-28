@@ -1,0 +1,65 @@
+{extends "../@layout.latte"}
+
+{block title}
+    {if !isset($group)}
+        {_my_documents_objectively}
+    {else}
+        {_documents_of_group}
+    {/if}
+{/block}
+
+{block header}
+    {if !isset($group)}
+        {_my_documents}
+    {else}
+        <a href="{$group->getURL()}">{$group->getCanonicalName()}</a> »
+        {_my_documents}
+    {/if}
+{/block}
+
+{block body}
+    {var $is_gallery = $current_tab == 3 || $current_tab == 4}
+    <div id="docs_page_wrapper">
+        <div class="contentWrapLegend">
+            <b class="summary">{tr($locale_string, $count)}.</b>
+        </div>
+        <div class="docs_page_search">
+            <form action="/search" method="get" style="margin: 11px 0px; width: 100%">
+                <input type="hidden" name="section" value="docs">
+                <input type="search" name="q" class="input_with_search_icon" placeholder="{_search_by_documents}">
+            </form>
+            <a n:if="$canUpload" href="/docs/upload{if isset($group)}?gid={$group->getId()}{/if}"><input id="upload_entry_point" class="button big" type="button" value="{_upload_button}"></a>
+        </div>
+        <div n:if="sizeof($tabs) > 1" class="docs_page_tabs" style="padding: 15px 10px;">
+            <div class="mb_tabs">
+                <div class="tab" n:attr="id => $current_tab == 0 ? activetabs">
+                    <a href="?tab=0">{_document_type_0}</a>
+                </div>
+                <div n:foreach="$tabs as $tab" class="tab" n:attr="id => $tab['type'] == $current_tab ? activetabs">
+                    <a href="?tab={$tab['type']}" n:attr="id => $tab['type'] == $current_tab ? act_tab_a">
+                        {$tab["name"]}
+                        <span n:if="$tab['count'] > 1" class="special_counter">{$tab["count"]}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div n:class="container_gray, set, docs_page_content, $is_gallery ? docs_page_gallery">
+            <div n:attr="id => !$is_gallery && sizeof($tags) > 0 ? search_page">
+                <div n:class="container_white, scroll_container, !$is_gallery && sizeof($tags) > 0 ? page_wrap_content_main">
+                    {if $count > 0}
+                        {foreach $docs as $doc}
+                            {if $is_gallery}
+                                {include "components/image.latte", doc => $doc, scroll_context => true, club => isset($group) ? $group : NULL}
+                            {else}
+                                {include "components/doc.latte", doc => $doc, scroll_context => true, club => isset($group) ? $group : NULL}
+                            {/if}
+                        {/foreach}
+                    {else}
+                        {include "../components/error.latte", description => tr("there_is_no_documents_alright")}
+                    {/if}
+                </div>
+            </div>
+            {include "../components/paginator.latte", conf => $paginatorConf}
+        </div>
+    </div>
+{/block}

@@ -1,0 +1,19 @@
+{extends "../@layout.latte"}
+
+{block title}{$heading}{/block}
+
+{block header}
+    {$heading}
+{/block}
+
+{block body}
+<div class="contentWraplegend">
+                <span>{$heading}</span>
+</div>
+
+<div class="container_gray">
+	<div class="knowledgeBaseArticle">
+		{$content|noescape}
+	</div>
+</div>
+{/block}

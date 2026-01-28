@@ -1,0 +1,45 @@
+{extends "../@layout.latte"}
+{block title}{_log_in}{/block}
+
+{block header}
+    {_log_in}
+{/block}
+
+{block body}
+    <div class="text-panel_auth">
+        {_two_factor_authentication_login}
+    </div>
+     <div class="container">
+        <div class="contentWrap">
+            <div class="content">
+	<h4 style="margin-left: 50px; margin-right: 50px;">{_two_factor_authentication}</h4>
+
+    <form method="POST" enctype="multipart/form-data">
+        <table cellspacing="7" cellpadding="0" width="40%" border="0" align="center">
+            <tbody>
+                <tr style="text-align: right;">
+                    <td>
+                        <span class="nobold">{_code}: </span>
+                    </td>
+                    <td>
+                        <input type="text" name="code" autocomplete="off" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <center>
+            <input type="hidden" name="login" value="{$login}" />
+            <input type="hidden" name="password" value="{$password}" />
+            <input type="hidden" name="hash" value="{$csrfToken}" />
+            <input type="submit" value="{_log_in}" class="button" />
+        </center>
+    </form>
+    </div>
+    </div>
+    </div>
+{/block}

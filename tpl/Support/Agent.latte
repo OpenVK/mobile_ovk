@@ -1,0 +1,100 @@
+{extends "../@layout.latte"}
+
+{block title}{ifset $agent}{$agent->getCanonicalName()}{else}{_helpdesk}{/ifset}{/block}
+
+{block body}
+{var $isInfo = $mode === "info"}
+{var $isEdit = $mode === "edit"}
+
+{if $agent != NULL}
+    <div id="agent_basicInfo" class="contentWrap">
+        <div class="content">
+            <div class="pure-g" style="padding-bottom: 12px;">
+                <div id="profile_basicInfo__avatar">
+                    <img src="{$agent->getAvatarURL()}"/>
+                </div>
+                <div id="profile_basicInfo__info" class="pure-u-3-4">
+                    <h2 class="no-margin text_profile_center">
+                        {$agent->getCanonicalName()}
+                        <a href="/id{$agent->getAgentId()}" class="span_status"> ({$agent->getRealName()})</a>
+                    </h2>
+                </div>
+            </div>
+            <a n:if="$agent_id == $thisUser->getId()" href="?act=edit" class="button big max">{_edit_page}</a>
+        </div>
+    </div>
+    <div id="agent_stats" class="contentWrap">
+        <div class="content" style="display: flex; justify-content: space-between">
+            <div style="text-align: center; width: 33%">
+                <div>
+                    <b style="color: green;">{$counters["good"]}</b>
+                </div>
+                <div>{_helpdesk_positive_answers}</div>
+            </div>
+            <div style="text-align: center; width: 33%">
+                <div>
+                    <b style="color: red;">{$counters["bad"]}</b>
+                </div>
+                <div>{_helpdesk_negative_answers}</div>
+            </div>
+            <div style="text-align: center; width: 33%">
+                <div>
+                    <b>{$counters["all"]}</b>
+                </div>
+                <div>{_helpdesk_all_answers}</div>
+            </div>
+        </div>
+    </div>
+    {if $isEdit}
+        <div id="agent_edit" class="page_wrap contentWrap">
+            <div class="content">
+                <h4>{_edit}</h4>
+                <form method="post" action="/support/agent{$agent_id}/edit">
+                    <div class="formInput">
+                        <label for="name">{_helpdesk_showing_name}</label>
+                        <input name="name" type="text" value="{$agent->getCanonicalName()}" placeholder="{_helpdesk_agent} #777" />
+                    </div>
+                    <div class="formInput">
+                        <label for="number">{_helpdesk_show_number}?</label>
+                        <select name="number">
+                            <option value="1" n:attr="selected => $agent->isShowNumber() === 1 ? true : false">{_yes}</option>
+                            <option value="0" n:attr="selected => $agent->isShowNumber() === 0 ? true : false">{_no}</option>
+                        </select>
+                    </div>
+                    <div class="formInput">
+                        <label for="number">{_avatar}</label>
+                        <input name="avatar" type="text" value="{$agent->getAvatarURL()}" placeholder="{_helpdesk_avatar_url}" />
+                    </div>
+                    <input type="hidden" value="{$csrfToken}" name="hash" />
+                    <input type="submit" class="button big max" value="{_save}" />
+                </form>
+            </div>
+        </div>
+    {/if}
+{else}
+    <div id="agent_create" class="page_wrap contentWrap">
+        <div class="contentWraplegend">{_create}</div>
+        <div class="content">
+            <form method="post" action="/support/agent{$agent_id}/edit">
+                <div class="formInput">
+                    <label for="name">{_helpdesk_showing_name}</label>
+                    <input name="name" type="text" placeholder="{_helpdesk_agent} #777" />
+                </div>
+                <div class="formInput">
+                    <label for="number">{_helpdesk_show_number}?</span></label>
+                    <select name="number">
+                        <option value="1">{_yes}</option>
+                        <option value="0">{_no}</option>
+                    </select>
+                </div>
+                <div class="formInput">
+                    <label for="number">{_avatar}</label>
+                    <input name="avatar" type="text" placeholder="{_helpdesk_avatar_url}" />
+                    <input type="hidden" value="{$csrfToken}" name="hash" />
+                </div>
+                <input type="submit" class="button big max" value="{_save}" />
+            </form>
+        </div>
+    </div>
+{/if}
+{/block}

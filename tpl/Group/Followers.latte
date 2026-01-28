@@ -1,0 +1,53 @@
+{extends "../@listView.latte"}
+{var $Manager = openvk\Web\Models\Entities\Manager::class}
+{var $iterator = $onlyShowManagers ? $managers : $followers}
+{var $count    = $paginatorConf->count}
+{var $page     = $paginatorConf->page}
+{var $perPage  = 6}
+
+{block title}{_followers} {$club->getCanonicalName()}{/block}
+
+{block titleHeader}
+    <a href="{$club->getURL()}">{$club->getCanonicalName()}</a>
+    » {_followers}
+    <a n:if="!$onlyShowManagers" href="/club{$club->getId()}/followers?onlyAdmins=1" style="float: right;">{_all_followers}</a>
+    <a n:if="$onlyShowManagers" href="/club{$club->getId()}/followers" style="float: right;">{_only_administrators}</a>
+{/block}
+
+{* BEGIN ELEMENTS DESCRIPTION *}
+
+{block tabs}
+    {if $club->canBeModifiedBy($thisUser)}
+        <div class="tab">
+            <a href="/club{$club->getId()}/edit">
+                {_main}
+            </a>
+        </div>
+        <div class="tab">
+            <a href="/club{$club->getId()}/backdrop">
+                {_backdrop_short}
+            </a>
+        </div>
+        <div id="activetabs" class="tab">
+            <a id="act_tab_a" href="/club{$club->getId()}/followers">
+                {_followers}
+            </a>
+        </div>
+    {/if}
+{/block}
+
+{block link|strip|stripHtml}
+    /id{$x instanceof $Manager ? $x->getUserId() : $x->getId()}
+{/block}
+
+{block preview}
+    <img src="{$x instanceof $Manager ? $x->getUser()->getAvatarURL() : $x->getAvatarURL('miniscule')}" alt="{$x instanceof $Manager ? $x->getUser()->getCanonicalName() : $x->getCanonicalName()}" width=75 />
+{/block}
+
+{block name}
+    {$x instanceof $Manager ? $x->getUser()->getCanonicalName() : $x->getCanonicalName()}
+{/block}
+
+{block description}
+    
+{/block}

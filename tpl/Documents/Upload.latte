@@ -1,0 +1,51 @@
+{extends "../@layout.latte"}
+
+{block title}{_document_uploading_in_general}{/block}
+
+{block header}
+    {if !is_null($group)}
+        <a href="{$group->getURL()}">{$group->getCanonicalName()}</a>
+        »
+        <a href="/docs-{$group->getId()}">{_documents}</a>
+    {else}
+        <a href="{$thisUser->getURL()}">{$thisUser->getCanonicalName()}</a>
+        »
+        <a href="/docs">{_documents}</a>
+    {/if}
+    »
+    Загрузка документа
+{/block}
+
+{block body}
+    <div class="container_gray set">
+        <form method="post" enctype="multipart/form-data">
+            <div class="formInput">
+                <label>{_name}:</label>
+                <input type="text" name="name" />
+            </div>
+            <div class="formInput">
+                <label>{_tags}:</label>
+                <textarea name="tags"></textarea>
+            </div>
+            <div class="formInput">
+                <label>{_accessbility}:</label>
+                <select name="folder">
+                    <option value="0">{_private_document}</option>
+                    <option value="4">{_public_document}</option>
+                </select>
+            </div>
+            <div class="formInput">
+                <label>
+                    <input type="checkbox" name="owner_hidden" checked>
+                    {_owner_is_hidden}
+                </label>
+            </div>
+            <div class="formInput">
+                <label>{_file}:</label>
+                <input type="file" id="blob" name="blob" value="{_browse}" />
+            </div>
+            <input type="hidden" name="hash" value="{$csrfToken}" />
+            <input type="submit" class="button big max" name="submit" value="{_upload_button}" />
+        </form>
+    </div>
+{/block}

@@ -1,0 +1,56 @@
+{extends "../@listView.latte"}
+{var iterator = $user->getClubs($page, $admin)}
+{var count    = $user->getClubCount($admin)}
+
+{block title}{_"groups"}{/block} 
+
+{block titleHeader}
+    {_mobile_groups}
+    <div style="float: right"><a href="/groups_create">{_create_group}</a></div>
+{/block}
+
+{block header}
+    
+{/block}
+
+
+{* BEGIN ELEMENTS DESCRIPTION *}
+<div class="contentWraplegend" onclick="hidePanel(this);">
+    <span>{_mobile_groups}</span>
+    <span><a href="/groups_create" class="float-right">{_"create_group"}</a></span>
+</div>
+
+{block tabs}
+	{if !is_null($thisUser) && $user->getId() === $thisUser->getId()}
+		<div {if !$admin}id="activetabs"{/if} class="tab">
+			<a {if !$admin}id="act_tab_a"{/if} href="/groups{$user->getId()}">
+				{_groups}
+			</a>
+		</div>
+		<div {if $admin}id="activetabs"{/if} class="tab">
+			<a {if $admin}id="act_tab_a"{/if} href="/groups{$user->getId()}?act=managed">
+				{_managed}
+			</a>
+		</div>
+	{/if}
+{/block}
+
+{block link|strip|stripHtml}
+    {$x->getURL()}
+{/block}
+
+{block preview}
+    <img src="{$x->getAvatarUrl()}" class="listView_img" />
+{/block}
+
+{block name}
+    {$x->getName()}
+{/block}
+
+{block description}
+    
+{/block}
+
+{block actions}
+    
+{/block}

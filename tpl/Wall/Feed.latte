@@ -1,0 +1,35 @@
+{extends "../@layout.latte"}
+{block title}{_feed}{/block}
+
+{block body}
+    {if $paginatorConf->page < 2}
+        {if !isset($globalFeed)}
+            <div class="contentWraplegend">
+                <span>{_feed}</span>
+            </div>
+            <a href='/feed/all' class='feedTransition'>
+                {_all_news}
+            </a>
+        {else}
+            <div class="contentWraplegend">
+                <span>{_all_news}</span>
+            </div>
+            <a href='/feed' class='feedTransition'>
+                {_feed}
+            </a>
+        {/if}
+    {/if}
+
+    <div class="content_subtitle">
+        {include "../components/textArea.latte", route => "/wall" . $thisUser->getId() . "/makePost"}
+    </div>
+
+    <div class="content_post">
+        {foreach $posts as $post}
+            <a name="postGarter={$post->getId()}"></a>
+
+            {include "../components/post.latte", post => $post, onWallOf => true, commentSection => true}
+        {/foreach}
+        {include "../components/paginator.latte", conf => $paginatorConf}
+    </div>
+{/block}

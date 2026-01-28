@@ -1,0 +1,45 @@
+{extends "../@layout.latte"}
+{block title}{_upload_video}{/block}
+
+
+
+{block body}
+
+  <div class="contentWraplegend" onclick="hidePanel(this);">
+        <span><a href="{$thisUser->getURL()}">{$thisUser->getCanonicalName()}</a> »  <a href="/videos{$thisUser->getId()}">{_videos}</a> » 
+    {_upload_video}</span> 
+    </div>
+
+<div class="container_gray">
+
+<form method="post" enctype="multipart/form-data">
+    <div class="formInput">
+                <label>{_name}:</label>
+                <input type="text" name="name" />
+    </div>
+
+     <div class="formInput">
+                <label>{_description}:</label>
+                <textarea name="desc"></textarea>
+    </div>
+
+    <div class="formInput">
+                <label>{_video}:</label>
+                <input type="file" name="blob" accept="video/*" />
+    </div>
+
+    <h4>или</h4>
+
+    <div class="formInput">
+                <label>{_video_link_to_yt}:</label>
+                <input type="text" name="link" placeholder="https://www.youtube.com/watch?v=9FWSRQEqhKE" />
+    </div>
+
+    
+    <input type="hidden" name="hash" value="{$csrfToken}" />
+                <input type="submit" class="button" name="submit" value="{_upload_button}" />
+    </form>
+
+  
+</div>
+{/block}

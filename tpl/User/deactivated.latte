@@ -1,0 +1,21 @@
+{extends "../@layout.latte"}
+{block title}{$user->getCanonicalName()}{/block}
+
+{block header}
+    {$user->getCanonicalName()}
+{/block}
+
+{block body}
+<div class="contentWraplegend">{_information}</div>
+
+
+     <div class="container_gray">
+
+     <center style="background: white;border: #DEDEDE solid 1px;">
+        <span style="color: #707070;margin: 60px 0;display: block;">
+                    {_profile_deactivated_info|noescape}<br/>
+        </span>
+    </center>
+        </div>
+
+{/block}

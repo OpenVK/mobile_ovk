@@ -26,7 +26,7 @@
             </div>
             
             <div class="content">
-                {if OPENVK_ROOT_CONF['openvk']['preferences']['registration']['enable'] || $referer}
+                {if \OPENVK_ROOT_CONF['openvk']['preferences']['registration']['enable'] || $referer}
                     <p n:if="!is_null($referer)" align="center">
                         <strong>{$referer->getFullName()}</strong> приглашает вас в OpenVK!
                     </p>

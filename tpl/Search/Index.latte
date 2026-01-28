@@ -68,7 +68,7 @@
                             {if $section == "users"}
                                 <option value="id" n:attr="selected => $order == 'id'">{_s_order_by_reg_date}</option>
                                 
-                                {if OPENVK_ROOT_CONF["openvk"]["preferences"]["commerce"]}
+                                {if \OPENVK_ROOT_CONF["openvk"]["preferences"]["commerce"]}
                                     <option value="rating" n:attr="selected => $order == 'rating'">{_s_order_by_rating}</option>
                                 {/if}
                             {elseif $section == "posts"}
@@ -231,7 +231,7 @@
                 "page"     => $page,
                 "count"    => $count,
                 "amount"   => sizeof($data),
-                "perPage"  => $perPage ?? OPENVK_DEFAULT_PER_PAGE,
+                "perPage"  => $perPage ?? \OPENVK_DEFAULT_PER_PAGE,
                 "atBottom" => false,
                 "space"    => 5
             ]}

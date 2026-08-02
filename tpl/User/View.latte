@@ -321,10 +321,10 @@
                                 <span class="counter">{$user->getClubCount()}</span>
                             </a>
                         </li>
-                        <li n:if="$user->getMeetingCount() > 0 && $user->getPrivacyPermission('groups.read', $thisUser ?? NULL)" class="element">
+                        <li n:if="$user->getMeetingsCount() > 0 && $user->getPrivacyPermission('groups.read', $thisUser ?? NULL)" class="element">
                             <a href="/groups{$user->getId()}?act=meetings">
                                 {_meetings}
-                                <span class="counter">{$user->getMeetingCount()}</span>
+                                <span class="counter">{$user->getMeetingsCount()}</span>
                             </a>
                         </li>
                         <li n:if="$albumsCount > 0 && $user->getPrivacyPermission('photos.read', $thisUser ?? NULL)" class="element">
